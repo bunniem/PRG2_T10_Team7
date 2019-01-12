@@ -24,5 +24,3 @@ namespace PRG2_ASSIGNMENT
         public DeluxeRoom()
     }
 }
-
-sdasddsadad
