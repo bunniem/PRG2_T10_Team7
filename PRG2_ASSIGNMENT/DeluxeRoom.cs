@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRG2_ASSIGNMENT
 {
-    class DeluxeRoom:HotelRoom
+    class DeluxeRoom : HotelRoom
     {
         /* Attributes */
         private bool additionalBed;
@@ -21,6 +21,6 @@ namespace PRG2_ASSIGNMENT
         /* Constructors */
         public DeluxeRoom() : base() { }
 
-        public DeluxeRoom()
+        public DeluxeRoom();
     }
 }
