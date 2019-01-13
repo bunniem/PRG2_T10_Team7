@@ -24,8 +24,8 @@
         <CheckBox x:Name="breakfastCb" FontSize="17" Content="Add Breakfast" HorizontalAlignment="Left" Margin="543,488,0,0" VerticalAlignment="Top" Width="164"/>
         <CheckBox x:Name="wifiCb" FontSize="17" Content="Add Wifi" HorizontalAlignment="Left" Margin="543,543,0,0" VerticalAlignment="Top" Width="164"/>
         <CheckBox x:Name="bedCb" FontSize="17" Content="Add Bed" HorizontalAlignment="Left" Margin="543,599,0,0" VerticalAlignment="Top" Width="164"/>
-        <Button x:Name="addrmBtn" FontSize="20" Content="Add Room" HorizontalAlignment="Left" Margin="543,677,0,0" VerticalAlignment="Top" Height="60" Width="160"/>
-        <Button x:Name="removermBtn" FontSize="20" Content="Remove Room" HorizontalAlignment="Left" Margin="543,759,0,0" VerticalAlignment="Top" Height="60" Width="160"/>
+        <Button x:Name="addrmBtn" FontSize="20" Content="Add Room" HorizontalAlignment="Left" Margin="543,657,0,0" VerticalAlignment="Top" Height="60" Width="160"/>
+        <Button x:Name="removermBtn" FontSize="20" Content="Remove Room" HorizontalAlignment="Left" Margin="543,733,0,0" VerticalAlignment="Top" Height="60" Width="160"/>
         <CalendarDatePicker HorizontalAlignment="Left" Margin="628,207,0,0" VerticalAlignment="Top" Width="239"/>
         <TextBlock x:Name="chkinBlk" HorizontalAlignment="Left" Margin="628,166,0,0" TextWrapping="Wrap" FontSize="25" Text="Check In:" VerticalAlignment="Top" Width="239" Height="36"/>
         <CalendarDatePicker HorizontalAlignment="Left" Margin="905,207,0,0" VerticalAlignment="Top" Width="239"/>
@@ -41,6 +41,7 @@
         <TextBox x:Name="pointsTxt" HorizontalAlignment="Left" Margin="1282,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Height="75"/>
         <Button x:Name="redeemBtn" FontSize="20" Content="Redeem points" HorizontalAlignment="Left" Margin="1443,264,0,0" VerticalAlignment="Top" Height="75" Width="175"/>
         <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="1282,378,0,0" TextWrapping="Wrap" FontSize="25" Text="Invoice:" VerticalAlignment="Top" Width="102" Height="36"/>
+        <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="525,800,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="30" Width="178"/>
 
     </Grid>
 </Page>
