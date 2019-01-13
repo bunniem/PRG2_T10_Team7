@@ -18,7 +18,6 @@ using Windows.UI.Xaml.Navigation;
 namespace PRG2_ASSIGNMENT
 {
     /* Creating Standard Rooms */
-    public HotelRoom s1 = new StandardRoom()
     public sealed partial class MainPage : Page
     {
         public MainPage()

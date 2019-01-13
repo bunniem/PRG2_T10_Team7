@@ -36,7 +36,7 @@ namespace PRG2_ASSIGNMENT
         /* Methods */
         public void EarnPoints(double p)
         {
-            Points += p; //earn points is double?
+            Points += Convert.ToInt32(p); //earn points is double?
         }
 
         public bool RedeemPoints(int p)

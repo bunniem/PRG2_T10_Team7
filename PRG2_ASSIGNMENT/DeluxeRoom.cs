@@ -21,6 +21,10 @@ namespace PRG2_ASSIGNMENT
         /* Constructors */
         public DeluxeRoom() : base() { }
 
-        public DeluxeRoom()
+        /* Methods */
+        public override double CalculateCharges()
+        {
+            return 1.0;
+        }
     }
 }
