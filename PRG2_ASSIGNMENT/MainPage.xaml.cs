@@ -17,9 +17,8 @@ using Windows.UI.Xaml.Navigation;
 
 namespace PRG2_ASSIGNMENT
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+    /* Creating Standard Rooms */
+    public HotelRoom s1 = new StandardRoom()
     public sealed partial class MainPage : Page
     {
         public MainPage()
