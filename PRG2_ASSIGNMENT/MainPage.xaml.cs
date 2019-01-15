@@ -20,13 +20,10 @@ namespace PRG2_ASSIGNMENT
     /* Creating Standard Rooms */
     public sealed partial class MainPage : Page
     {
+        /* List of HotelRoom and Guest */
         List<HotelRoom> hotelRoomList = new List<HotelRoom>();
         List<Guest> guestList = new List<Guest>();
-        public MainPage()
-        {
-            this.InitializeComponent();
-            InitData();
-        }
+
         public void InitData()
         {
             /* Initialising Rooms */
@@ -83,7 +80,12 @@ namespace PRG2_ASSIGNMENT
             // add guests to guestList
             Guest[] guests = { g1, g2, g3, g4 };
             guestList.AddRange(guests);
+        }
 
+        public MainPage()
+        {
+            this.InitializeComponent();
+            InitData(); // initialise all hotel rooms and existing guests
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
@@ -105,21 +107,21 @@ namespace PRG2_ASSIGNMENT
 
             if(!guestmatch)
             {
-
+                // create the guest (advanced requirement?)
             }
         }
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<HotelRoom> availRooms = new List<HotelRoom>();
+            List<HotelRoom> availRms = new List<HotelRoom>();
             foreach(HotelRoom r in hotelRoomList)
             {
                 if(r.IsAvail)
                 {
-                    availRooms.Add(r);
+                    availRms.Add(r);
                 }
             }
-            availrmLv.ItemsSource = availRooms;
+            availrmLv.ItemsSource = availRms;
         }
     }
 }
