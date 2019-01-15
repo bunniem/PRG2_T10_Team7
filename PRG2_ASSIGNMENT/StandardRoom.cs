@@ -27,31 +27,12 @@ namespace PRG2_ASSIGNMENT
         /* Constructors */
         public StandardRoom() : base() { }
 
-        public StandardRoom(string rn, string bc, int r, bool a, bool w, bool b):base("StandardRoom", rn, bc, r, a)
-        {
-            RequireWifi = w;
-            RequireBreakfast = b;
-        }
+        public StandardRoom(string rn, string bc, double r, bool a) : base("Standard", rn, bc, r, a) { }
 
         /* Methods */
         public override double CalculateCharges()
         {
-            double rate;
-
-            /* Daily rate */
-            if(BedConfiguration == "Single")
-            {
-                rate = 90;
-            }
-            else if(BedConfiguration == "Twin")
-            {
-                rate = 110;
-            }
-            else
-            {
-                rate = 120;
-            }
-
+            double rate = DailyRate;
             /* Addons */
             if(RequireWifi)
             {

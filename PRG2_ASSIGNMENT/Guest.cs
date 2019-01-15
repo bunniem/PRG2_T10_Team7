@@ -45,12 +45,13 @@ namespace PRG2_ASSIGNMENT
         /* Constructors */
         public Guest() { }
 
-        public Guest(string n, string p, Stay s, MemberShip m)
+        public Guest(string n, string p, Stay s, MemberShip m, bool i)
         {
             Name = n;
             PpNumber = p;
             HotelStay = s;
             Membership = m;
+            IsCheckedIn = i;
         }
 
         /* Methods */
