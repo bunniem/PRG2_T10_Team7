@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRG2_ASSIGNMENT
 {
-    class StandardRoom:HotelRoom
+    class StandardRoom : HotelRoom
     {
         /* Attributes */
         private bool requireWifi;
