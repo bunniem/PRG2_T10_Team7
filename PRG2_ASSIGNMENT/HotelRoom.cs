@@ -51,13 +51,14 @@ namespace PRG2_ASSIGNMENT
         /* Constructors */
         public HotelRoom() { }
 
-        public HotelRoom(string rt, string rn, string bc, double r, bool a)
+        public HotelRoom(string rt, string rn, string bc, double r, bool a, int no)
         {
             RoomType = rt;
             RoomNumber = rn;
             BedConfiguration = bc;
             DailyRate = r;
             IsAvail = a;
+            NoOfOccupants = no;
         }
 
         /* Methods */
