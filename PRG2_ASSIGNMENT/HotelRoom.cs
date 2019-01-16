@@ -12,7 +12,7 @@ namespace PRG2_ASSIGNMENT
         private string roomType;
         private string roomNumber;
         private string bedConfiguration;
-        private int dailyRate;
+        private double dailyRate;
         private bool isAvail;
         private int noOfOccupants;
 
@@ -32,7 +32,7 @@ namespace PRG2_ASSIGNMENT
             get { return bedConfiguration; }
             set { bedConfiguration = value; }
         }
-        public int DailyRate
+        public double DailyRate
         {
             get { return dailyRate; }
             set { dailyRate = value; }
@@ -51,7 +51,7 @@ namespace PRG2_ASSIGNMENT
         /* Constructors */
         public HotelRoom() { }
 
-        public HotelRoom(string rt, string rn, string bc, int r, bool a)
+        public HotelRoom(string rt, string rn, string bc, double r, bool a)
         {
             RoomType = rt;
             RoomNumber = rn;
@@ -65,7 +65,7 @@ namespace PRG2_ASSIGNMENT
 
         public override string ToString()
         {
-            return "to be completed";
+            return $"{RoomType}\t\t{RoomNumber}\t{BedConfiguration}\t{DailyRate}";
         }
     }
 }

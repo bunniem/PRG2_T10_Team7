@@ -43,12 +43,17 @@ namespace PRG2_ASSIGNMENT
         /* Methods */
         public void AddRoom(HotelRoom r)
         {
-
+            RoomList.Add(r);
         }
 
         public double CalculateTotal()
         {
-            return 1.0; //to be done
+            double total = 0;
+            foreach(HotelRoom r in RoomList)
+            {
+                total += r.CalculateCharges();
+            }
+            return total;
         }
 
         public override string ToString()
