@@ -52,7 +52,7 @@ namespace PRG2_ASSIGNMENT
             s101.NoOfOccupants = 1;
             s101.IsAvail = false;
             st1.AddRoom(s101);
-            Guest g1 = new Guest("Amelia", "S1234567A", st1, new MemberShip("Gold", 280), true);
+            Guest g1 = new Guest("Amelia", "S1234567A", st1, new Membership("Gold", 280), true);
 
             // Bob
             Stay st2 = new Stay(new DateTime(2019-01-25), new DateTime(2019-01-31));
@@ -61,7 +61,7 @@ namespace PRG2_ASSIGNMENT
             s302.NoOfOccupants = 3;
             s302.IsAvail = false;
             st2.AddRoom(s302);
-            Guest g2 = new Guest("Bob", "G1234567A", st2, new MemberShip("Ordinary", 0), true);
+            Guest g2 = new Guest("Bob", "G1234567A", st2, new Membership("Ordinary", 0), true);
 
             // Cody
             Stay st3 = new Stay(new DateTime(2019-02-01), new DateTime(2019-02-06));
@@ -70,7 +70,7 @@ namespace PRG2_ASSIGNMENT
             s202.NoOfOccupants = 2;
             s202.IsAvail = false;
             st3.AddRoom(s202);
-            Guest g3 = new Guest("Cody", "G2345678A", st3, new MemberShip("Silver", 190), true);
+            Guest g3 = new Guest("Cody", "G2345678A", st3, new Membership("Silver", 190), true);
 
             // Edda
             Stay st4 = new Stay(new DateTime(2019-01-28), new DateTime(2019-02-10));
@@ -79,7 +79,7 @@ namespace PRG2_ASSIGNMENT
             d303.NoOfOccupants = 4;
             d303.IsAvail = false;
             st4.AddRoom(d303);
-            Guest g4 = new Guest("Edda", "S3456789A", st4, new MemberShip("Gold", 10), true);
+            Guest g4 = new Guest("Edda", "S3456789A", st4, new Membership("Gold", 10), true);
 
             // add guests to guestList
             Guest[] guests = { g1, g2, g3, g4 };
