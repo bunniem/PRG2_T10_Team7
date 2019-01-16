@@ -27,7 +27,7 @@ namespace PRG2_ASSIGNMENT
         /* Constructors */
         public StandardRoom() : base() { }
 
-        public StandardRoom(string rn, string bc, double r, bool a) : base("Standard", rn, bc, r, a) { }
+        public StandardRoom(string rn, string bc, double r, bool a, int no) : base("Standard", rn, bc, r, a, no) { }
 
         /* Methods */
         public override double CalculateCharges()
