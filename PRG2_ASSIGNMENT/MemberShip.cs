@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRG2_ASSIGNMENT
 {
-    class MemberShip
+    class Membership
     {
         /* Attributes */
         private string status;
@@ -25,9 +25,9 @@ namespace PRG2_ASSIGNMENT
         }
 
         /* Constructors */
-        public MemberShip() { }
+        public Membership() { }
 
-        public MemberShip(string s, int p)
+        public Membership(string s, int p)
         {
             Status = s;
             Points = p;
@@ -41,7 +41,7 @@ namespace PRG2_ASSIGNMENT
 
         public bool RedeemPoints(int p)
         {
-            if(p <= Points)
+            if (p <= Points)
             {
                 Points -= p;
                 return true;

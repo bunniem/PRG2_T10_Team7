@@ -12,7 +12,7 @@ namespace PRG2_ASSIGNMENT
         private string name;
         private string ppNumber;
         private Stay hotelStay;
-        private MemberShip membership;
+        private Membership membership;
         private bool isCheckedIn;
 
         /* Properties */
@@ -31,7 +31,7 @@ namespace PRG2_ASSIGNMENT
             get { return hotelStay; }
             set { hotelStay = value; }
         }
-        public MemberShip Membership
+        public Membership Membership
         {
             get { return membership; }
             set { membership = value; }
@@ -45,7 +45,7 @@ namespace PRG2_ASSIGNMENT
         /* Constructors */
         public Guest() { }
 
-        public Guest(string n, string p, Stay s, MemberShip m, bool i)
+        public Guest(string n, string p, Stay s, Membership m, bool i)
         {
             Name = n;
             PpNumber = p;
@@ -57,7 +57,7 @@ namespace PRG2_ASSIGNMENT
         /* Methods */
         public override string ToString()
         {
-            return "something"; //to be done
+            return name + ppNumber; //to be done
         }
     }
 }
