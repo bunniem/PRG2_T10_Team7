@@ -19,8 +19,22 @@ namespace PRG2_ASSIGNMENT
         }
 
         /* Constructors */
-        public DeluxeRoom() : base() { }
+        public DeluxeRoom(string rn, string bc, double r, bool a, int no):base("Deluxe", rn, bc, r, a, no) { }
 
-        public DeluxeRoom();
+        public override double CalculateCharges()
+        {
+            double rate = DailyRate;
+            if (AdditionalBed)
+            {
+                rate += 25;
+            }
+
+            return rate;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }
