@@ -20,9 +20,11 @@ namespace PRG2_ASSIGNMENT
     /* Creating Standard Rooms */
     public sealed partial class MainPage : Page
     {
-        /* List of HotelRoom and Guest */
+        /* Global List of HotelRoom and Guest */
         List<HotelRoom> hotelRoomList = new List<HotelRoom>();
         List<Guest> guestList = new List<Guest>();
+        List<HotelRoom> selectedRoomList = new List<HotelRoom>();
+        List<HotelRoom> availRms = new List<HotelRoom>();
 
         public void InitData()
         {
@@ -49,7 +51,6 @@ namespace PRG2_ASSIGNMENT
             StandardRoom sr101 = (StandardRoom)s101;
             sr101.RequireBreakfast = true;
             sr101.RequireWifi = true;
-            s101.NoOfOccupants = 1;
             s101.IsAvail = false;
             st1.AddRoom(s101);
             Guest g1 = new Guest("Amelia", "S1234567A", st1, new Membership("Gold", 280), true);
@@ -58,7 +59,6 @@ namespace PRG2_ASSIGNMENT
             Stay st2 = new Stay(new DateTime(2019-01-25), new DateTime(2019-01-31));
             StandardRoom sr302 = (StandardRoom)s302;
             sr302.RequireBreakfast = true;
-            s302.NoOfOccupants = 3;
             s302.IsAvail = false;
             st2.AddRoom(s302);
             Guest g2 = new Guest("Bob", "G1234567A", st2, new Membership("Ordinary", 0), true);
@@ -67,7 +67,6 @@ namespace PRG2_ASSIGNMENT
             Stay st3 = new Stay(new DateTime(2019-02-01), new DateTime(2019-02-06));
             StandardRoom sr202 = (StandardRoom)s202;
             sr202.RequireBreakfast = true;
-            s202.NoOfOccupants = 2;
             s202.IsAvail = false;
             st3.AddRoom(s202);
             Guest g3 = new Guest("Cody", "G2345678A", st3, new Membership("Silver", 190), true);
@@ -76,7 +75,6 @@ namespace PRG2_ASSIGNMENT
             Stay st4 = new Stay(new DateTime(2019-01-28), new DateTime(2019-02-10));
             DeluxeRoom dr303 = (DeluxeRoom)d303;
             dr303.AdditionalBed = true;
-            d303.NoOfOccupants = 4;
             d303.IsAvail = false;
             st4.AddRoom(d303);
             Guest g4 = new Guest("Edda", "S3456789A", st4, new Membership("Gold", 10), true);
@@ -117,7 +115,6 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<HotelRoom> availRms = new List<HotelRoom>();
             foreach(HotelRoom r in hotelRoomList)
             {
                 if(r.IsAvail)
@@ -126,6 +123,71 @@ namespace PRG2_ASSIGNMENT
                 }
             }
             availrmLv.ItemsSource = availRms;
+        }
+
+        private void AvailrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            wifiCb.Visibility = Visibility.Visible;
+            breakfastCb.Visibility = Visibility.Visible;
+            bedCb.Visibility = Visibility.Visible;
+
+            if (availrmLv.SelectedItem is DeluxeRoom)
+            {
+                wifiCb.Visibility = Visibility.Collapsed;
+                breakfastCb.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                bedCb.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void AddrmBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HotelRoom r = (HotelRoom)availrmLv.SelectedItem;
+            if (r == null)
+            {
+                // error (no room selected)
+            }
+            else
+            {
+                r.IsAvail = false;
+                /* Modify booleans */
+                if (r is DeluxeRoom dr)
+                {
+                    if (bedCb.IsChecked == true)
+                    {
+                        dr.AdditionalBed = true;
+                    }
+                }
+                else
+                {
+                    StandardRoom sr = (StandardRoom)r;
+                    if (breakfastCb.IsChecked == true)
+                    {
+                        sr.RequireBreakfast = true;
+                    }
+                    if (wifiCb.IsChecked == true)
+                    {
+                        sr.RequireWifi = true;
+                    }
+                }
+
+                /* Add selected room to list */
+                selectedRoomList.Add(r);
+                selectrmLv.ItemsSource = null;
+                selectrmLv.ItemsSource = selectedRoomList;
+
+                /* Refresh available room list */
+                availRms.Remove(r);
+                availrmLv.ItemsSource = null;
+                availrmLv.ItemsSource = availRms;
+
+                /* Reset checkboxes to unchecked */
+                wifiCb.IsChecked = false;
+                breakfastCb.IsChecked = false;
+                bedCb.IsChecked = false;
+            }
         }
     }
 }
