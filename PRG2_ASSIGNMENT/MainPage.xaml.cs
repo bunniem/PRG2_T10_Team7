@@ -127,5 +127,10 @@ namespace PRG2_ASSIGNMENT
             }
             availrmLv.ItemsSource = availRms;
         }
+
+        private void AvailrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            breakfastCb.Visibility = Collapsed;
+        }
     }
 }
