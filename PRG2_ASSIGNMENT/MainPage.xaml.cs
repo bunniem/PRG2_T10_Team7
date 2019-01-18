@@ -116,7 +116,7 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            availRms.Clear();
             foreach (HotelRoom r in hotelRoomList)
             {
                 if (r.IsAvail)
@@ -238,16 +238,26 @@ namespace PRG2_ASSIGNMENT
             // TODO: get check in & check out date and add to stay, create a new guest (?) and add to guestList
             //Stay s = new Stay(selectedRoomList, );
             /* Set checkindate & checkoutdate of stay */
-            s.CheckInDate = 
+            bool guestmatch = false;
+            s.CheckInDate = checkInDate.Date.Value.DateTime;
+            s.CheckOutDate = checkOutDate.Date.Value.DateTime;
 
             foreach (Guest m in guestList)
             {
                 if (m.Name == guestTxt.Text && m.PpNumber == ppTxt.Text)
                 {
-                    m.
+                    m.HotelStay = s;
+                    guestmatch = true;
+                    break;
                 }
             }
 
+            if (!guestmatch)
+            {
+                Guest g = new Guest(guestTxt.Text, ppTxt.Text, s, new Membership(), true);
+                guestList.Add(g);
+            }
+            s.RoomList.Clear();
         }
     }
 
