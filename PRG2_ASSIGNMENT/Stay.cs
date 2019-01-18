@@ -57,7 +57,7 @@ namespace PRG2_ASSIGNMENT
 
         public override string ToString()
         {
-            return "something"; //to be done;
+            return "something"; //to be done
         }
 
     }
