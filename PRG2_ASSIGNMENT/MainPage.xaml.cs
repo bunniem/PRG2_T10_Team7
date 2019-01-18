@@ -20,11 +20,11 @@ namespace PRG2_ASSIGNMENT
     /* Creating Standard Rooms */
     public sealed partial class MainPage : Page
     {
-        /* Global List of HotelRoom and Guest */
+        /* Global Lists */
         List<HotelRoom> hotelRoomList = new List<HotelRoom>();
         List<Guest> guestList = new List<Guest>();
-        List<HotelRoom> selectedRoomList = new List<HotelRoom>();
         List<HotelRoom> availRms = new List<HotelRoom>();
+        Stay s = new Stay();
 
         public void InitData()
         {
@@ -92,32 +92,31 @@ namespace PRG2_ASSIGNMENT
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            bool guestmatch = false;
-            string name = guestTxt.Text;
-            string ppnumber = ppTxt.Text;
+            //bool guestmatch = false;
+            //string name = guestTxt.Text;
+            //string ppnumber = ppTxt.Text;
 
-            foreach (Guest m in guestList)
-            {
-                if (m.Name == name && m.PpNumber == ppnumber)
-                {
-                    memberBlk.Text = $"Member status: {m.Membership.Status}";
-                    pointsBlk.Text = $"Points available: {m.Membership.Points}";
-                    guestmatch = true;
-                    break;
-                }
-            }
+            //foreach (Guest m in guestList)
+            //{
+            //    if (m.Name == name && m.PpNumber == ppnumber)
+            //    {
+            //        memberBlk.Text = $"Member status: {m.Membership.Status}";
+            //        pointsBlk.Text = $"Points available: {m.Membership.Points}";
+            //        guestmatch = true;
+            //        break;
+            //    }
+            //}
 
-            if (!guestmatch)
-            {
-                Guest g = new Guest()
-                {
-                    Name = name, PpNumber = ppnumber
-                };
-            }
+            //if (!guestmatch)
+            //{
+            //    g.Name = name;
+            //    g.PpNumber = ppnumber;
+            //}
         }
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             foreach (HotelRoom r in hotelRoomList)
             {
                 if (r.IsAvail)
@@ -180,9 +179,9 @@ namespace PRG2_ASSIGNMENT
                 }
 
                 /* Add selected room to selected list and refresh */
-                selectedRoomList.Add(r);
+                s.AddRoom(r);
                 selectrmLv.ItemsSource = null;
-                selectrmLv.ItemsSource = selectedRoomList;
+                selectrmLv.ItemsSource = s.RoomList;
 
                 /* Remove selected room from avail room list and refresh */
                 availRms.Remove(r);
@@ -216,9 +215,9 @@ namespace PRG2_ASSIGNMENT
                     sr.RequireWifi = false;
                 }
                 /* Remove selected room from list and refresh */
-                selectedRoomList.Remove(r);
+                s.RoomList.Remove(r);
                 selectrmLv.ItemsSource = null;
-                selectrmLv.ItemsSource = selectedRoomList;
+                selectrmLv.ItemsSource = s.RoomList;
 
                 /* Add selected room to available room list and refresh */
                 availRms.Add(r);
@@ -238,6 +237,17 @@ namespace PRG2_ASSIGNMENT
         {
             // TODO: get check in & check out date and add to stay, create a new guest (?) and add to guestList
             //Stay s = new Stay(selectedRoomList, );
+            /* Set checkindate & checkoutdate of stay */
+            s.CheckInDate = 
+
+            foreach (Guest m in guestList)
+            {
+                if (m.Name == guestTxt.Text && m.PpNumber == ppTxt.Text)
+                {
+                    m.
+                }
+            }
+
         }
     }
 
