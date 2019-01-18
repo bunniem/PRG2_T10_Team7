@@ -50,7 +50,8 @@ namespace PRG2_ASSIGNMENT
             double total = 0;
             foreach(HotelRoom r in RoomList)
             {
-                total += r.CalculateCharges();
+                int days = Convert.ToInt32((checkOutDate - checkInDate).TotalDays); //test this to see if int is needed.
+                total += (r.CalculateCharges() * days);
             }
             return total;
         }

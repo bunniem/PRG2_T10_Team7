@@ -44,7 +44,7 @@ namespace PRG2_ASSIGNMENT
 
         /* Constructors */
         public Guest() { }
-
+        
         public Guest(string n, string p, Stay s, Membership m, bool i)
         {
             Name = n;
