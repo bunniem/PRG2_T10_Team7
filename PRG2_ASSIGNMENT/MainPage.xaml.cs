@@ -24,7 +24,8 @@ namespace PRG2_ASSIGNMENT
         List<HotelRoom> hotelRoomList = new List<HotelRoom>();
         List<Guest> guestList = new List<Guest>();
         List<HotelRoom> availRms = new List<HotelRoom>();
-        Stay s = new Stay();
+        bool existingguest = false;
+        Guest g = new Guest();
 
         public void InitData()
         {
@@ -92,26 +93,25 @@ namespace PRG2_ASSIGNMENT
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            //bool guestmatch = false;
-            //string name = guestTxt.Text;
-            //string ppnumber = ppTxt.Text;
+            string name = guestTxt.Text;
+            string ppnumber = ppTxt.Text;
 
-            //foreach (Guest m in guestList)
-            //{
-            //    if (m.Name == name && m.PpNumber == ppnumber)
-            //    {
-            //        memberBlk.Text = $"Member status: {m.Membership.Status}";
-            //        pointsBlk.Text = $"Points available: {m.Membership.Points}";
-            //        guestmatch = true;
-            //        break;
-            //    }
-            //}
-
-            //if (!guestmatch)
-            //{
-            //    g.Name = name;
-            //    g.PpNumber = ppnumber;
-            //}
+            foreach (Guest m in guestList)
+            {
+                if (m.Name == name || m.PpNumber == ppnumber)
+                {
+                    g = m;
+                    existingguest = true;
+                    selectrmLv.ItemsSource = null;
+                    selectrmLv.ItemsSource = g.HotelStay.RoomList;
+                    break;
+                }
+            }
+            if (!existingguest)
+            {
+                Guest newguest = new Guest(guestTxt.Text, ppTxt.Text, new Stay(), new Membership(), false);
+                g = newguest;
+            }
         }
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
@@ -179,9 +179,9 @@ namespace PRG2_ASSIGNMENT
                 }
 
                 /* Add selected room to selected list and refresh */
-                s.AddRoom(r);
+                g.HotelStay.AddRoom(r);
                 selectrmLv.ItemsSource = null;
-                selectrmLv.ItemsSource = s.RoomList;
+                selectrmLv.ItemsSource = g.HotelStay.RoomList;
 
                 /* Remove selected room from avail room list and refresh */
                 availRms.Remove(r);
@@ -215,9 +215,9 @@ namespace PRG2_ASSIGNMENT
                     sr.RequireWifi = false;
                 }
                 /* Remove selected room from list and refresh */
-                s.RoomList.Remove(r);
+                g.HotelStay.RoomList.Remove(r);
                 selectrmLv.ItemsSource = null;
-                selectrmLv.ItemsSource = s.RoomList;
+                selectrmLv.ItemsSource = g.HotelStay.RoomList;
 
                 /* Add selected room to available room list and refresh */
                 availRms.Add(r);
@@ -238,26 +238,18 @@ namespace PRG2_ASSIGNMENT
             // TODO: get check in & check out date and add to stay, create a new guest (?) and add to guestList
             //Stay s = new Stay(selectedRoomList, );
             /* Set checkindate & checkoutdate of stay */
-            bool guestmatch = false;
-            s.CheckInDate = checkInDate.Date.Value.DateTime;
-            s.CheckOutDate = checkOutDate.Date.Value.DateTime;
-
-            foreach (Guest m in guestList)
+            g.HotelStay.CheckInDate = checkInDate.Date.Value.DateTime;
+            g.HotelStay.CheckOutDate = checkOutDate.Date.Value.DateTime;
+            g.IsCheckedIn = true;
+            if (!existingguest)
             {
-                if (m.Name == guestTxt.Text && m.PpNumber == ppTxt.Text)
-                {
-                    m.HotelStay = s;
-                    guestmatch = true;
-                    break;
-                }
-            }
-
-            if (!guestmatch)
-            {
-                Guest g = new Guest(guestTxt.Text, ppTxt.Text, s, new Membership(), true);
                 guestList.Add(g);
             }
-            s.RoomList.Clear();
+            g = new Guest();
+            statusBlk.Text = g.Name;
+            selectrmLv.ItemsSource = guestList;
+            existingguest = false;
+            //s.RoomList.Clear();
         }
     }
 

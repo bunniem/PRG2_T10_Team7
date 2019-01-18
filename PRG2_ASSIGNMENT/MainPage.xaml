@@ -9,11 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBox x:Name="guestTxt" HorizontalAlignment="Left" Margin="70,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="75"/>
+        <TextBox x:Name="guestTxt" Text="Amelia" HorizontalAlignment="Left" Margin="70,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="75"/>
         <TextBlock x:Name="guestBlk" HorizontalAlignment="Left" Margin="70,76,0,0" TextWrapping="Wrap" FontSize="25" Text="Name of guest:" VerticalAlignment="Top" Width="215" Height="36"/>
         <TextBox x:Name="adultnoTxt" HorizontalAlignment="Left" Margin="408,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="75"/>
         <TextBox x:Name="childrennoTxt" HorizontalAlignment="Left" Margin="408,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="75"/>
-        <TextBox x:Name="ppTxt" HorizontalAlignment="Left" Margin="70,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="75"/>
+        <TextBox x:Name="ppTxt" Text="S1234567A" HorizontalAlignment="Left" Margin="70,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Height="75"/>
         <TextBlock x:Name="ppBlk" HorizontalAlignment="Left" Margin="70,228,0,0" TextWrapping="Wrap" FontSize="25" Text="Passport Number:" VerticalAlignment="Top" Width="215" Height="36"/>
         <TextBlock x:Name="adultnoBlk" HorizontalAlignment="Left" Margin="408,76,0,0" TextWrapping="Wrap" FontSize="25" Text="No. Of Adults:" VerticalAlignment="Top" Width="215" Height="36"/>
         <TextBlock x:Name="childrennoBlk" HorizontalAlignment="Left" Margin="408,228,0,0" TextWrapping="Wrap" FontSize="25" Text="No. Of Children:" VerticalAlignment="Top" Width="215" Height="36"/>
@@ -42,6 +42,5 @@
         <Button x:Name="redeemBtn" FontSize="20" Content="Redeem points" HorizontalAlignment="Left" Margin="1443,264,0,0" VerticalAlignment="Top" Height="75" Width="175"/>
         <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="1282,378,0,0" TextWrapping="Wrap" FontSize="25" Text="Invoice:" VerticalAlignment="Top" Width="102" Height="36"/>
         <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="525,800,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="30" Width="178"/>
-
     </Grid>
 </Page>
