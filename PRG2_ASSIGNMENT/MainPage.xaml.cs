@@ -93,6 +93,7 @@ namespace PRG2_ASSIGNMENT
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
@@ -112,6 +113,18 @@ namespace PRG2_ASSIGNMENT
                 Guest newguest = new Guest(guestTxt.Text, ppTxt.Text, new Stay(), new Membership(), false);
                 g = newguest;
             }
+
+            //PROOF OF CONCEPT (MULTIPLE WINDOWS)
+            guestTxt.Visibility = Visibility.Collapsed;
+            ppTxt.Visibility = Visibility.Collapsed;
+            guestBlk.Visibility = Visibility.Collapsed;
+            ppBlk.Visibility = Visibility.Collapsed;
+            searchBtn.Visibility = Visibility.Collapsed;
+
+            chkinBlk.Visibility = Visibility.Visible;
+            chkoutBlk.Visibility = Visibility.Visible;
+            checkInDate.Visibility = Visibility.Visible;
+            checkOutDate.Visibility = Visibility.Visible;
         }
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
