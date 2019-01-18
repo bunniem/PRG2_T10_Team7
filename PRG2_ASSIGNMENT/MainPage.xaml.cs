@@ -34,10 +34,10 @@ namespace PRG2_ASSIGNMENT
             HotelRoom s201 = new StandardRoom("201", "Twin", 110.0, true, 2);
             HotelRoom s202 = new StandardRoom("202", "Twin", 110.0, true, 2);
             HotelRoom s203 = new StandardRoom("203", "Twin", 110.0, true, 2);
-            HotelRoom s301 = new StandardRoom("301", "Triple", 120.0, true, 3);
-            HotelRoom s302 = new StandardRoom("302", "Triple", 120.0, true, 3);
             HotelRoom d204 = new DeluxeRoom("204", "Twin", 140.0, true, 3);
             HotelRoom d205 = new DeluxeRoom("205", "Twin", 140.0, true, 3);
+            HotelRoom s301 = new StandardRoom("301", "Triple", 120.0, true, 3);
+            HotelRoom s302 = new StandardRoom("302", "Triple", 120.0, true, 3);
             HotelRoom d303 = new DeluxeRoom("303", "Triple", 210.0, true, 4);
             HotelRoom d304 = new DeluxeRoom("304", "Triple", 210.0, true, 4);
 
@@ -223,6 +223,7 @@ namespace PRG2_ASSIGNMENT
                 /* Add selected room to available room list and refresh */
                 availRms.Add(r);
                 r.IsAvail = true; // room made available
+                availRms.Sort();
                 availrmLv.ItemsSource = null;
                 availrmLv.ItemsSource = availRms;
 

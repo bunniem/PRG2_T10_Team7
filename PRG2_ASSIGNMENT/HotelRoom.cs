@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRG2_ASSIGNMENT
 {
-    abstract class HotelRoom
+    abstract class HotelRoom : IComparable<HotelRoom>
     {
         /* Attributes */
         private string roomType;
@@ -67,6 +67,11 @@ namespace PRG2_ASSIGNMENT
         public override string ToString()
         {
             return $"{RoomType}\t\t{RoomNumber}\t{BedConfiguration}\t{DailyRate}";
+        }
+
+        public int CompareTo (HotelRoom r)
+        {
+            return RoomNumber.CompareTo(r.RoomNumber);
         }
     }
 }
