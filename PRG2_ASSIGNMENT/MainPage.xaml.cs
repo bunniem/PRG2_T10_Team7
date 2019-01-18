@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,12 @@ namespace PRG2_ASSIGNMENT
         List<HotelRoom> availRms = new List<HotelRoom>();
         bool existingguest = false;
         Guest g = new Guest();
+
+        /* List of xaml objects */
+        //List<object> pageOne = new List<object>();
+        //List<object> pageTwo = new List<object>();
+        //List<object> pageThree = new List<object>();
+        //List<object> pageFour = new List<object>();
 
         public void InitData()
         {
@@ -83,6 +90,18 @@ namespace PRG2_ASSIGNMENT
             // add guests to guestList
             Guest[] guests = { g1, g2, g3, g4 };
             guestList.AddRange(guests);
+
+            //object[] oneElements = { guestBlk, guestTxt, ppBlk, ppTxt, adultnoBlk, adultnoTxt, childrennoBlk, childrennoTxt, proceedBtn, searchBtn, extendBtn};
+            //pageOne.AddRange(oneElements);
+
+            //object[] twoElements = { checkInDate, checkOutDate, chkinBlk, chkoutBlk, searchBtn };
+            //pageTwo.AddRange(twoElements);
+
+            //PROOF OF CONCEPT
+            availrmBlk.Visibility = Visibility.Collapsed;
+            availrmLv.Visibility = Visibility.Collapsed;
+            selectrmBlk.Visibility = Visibility.Collapsed;
+            selectrmLv.Visibility = Visibility.Collapsed;
         }
 
         public MainPage()
@@ -93,7 +112,6 @@ namespace PRG2_ASSIGNMENT
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
@@ -113,18 +131,6 @@ namespace PRG2_ASSIGNMENT
                 Guest newguest = new Guest(guestTxt.Text, ppTxt.Text, new Stay(), new Membership(), false);
                 g = newguest;
             }
-
-            //PROOF OF CONCEPT (MULTIPLE WINDOWS)
-            guestTxt.Visibility = Visibility.Collapsed;
-            ppTxt.Visibility = Visibility.Collapsed;
-            guestBlk.Visibility = Visibility.Collapsed;
-            ppBlk.Visibility = Visibility.Collapsed;
-            searchBtn.Visibility = Visibility.Collapsed;
-
-            chkinBlk.Visibility = Visibility.Visible;
-            chkoutBlk.Visibility = Visibility.Visible;
-            checkInDate.Visibility = Visibility.Visible;
-            checkOutDate.Visibility = Visibility.Visible;
         }
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
@@ -138,12 +144,24 @@ namespace PRG2_ASSIGNMENT
                 }
             }
             availrmLv.ItemsSource = availRms;
+
+            //PROOF OF CONCEPT
+            chkinBlk.Visibility = Visibility.Collapsed;
+            chkoutBlk.Visibility = Visibility.Collapsed;
+            checkInDate.Visibility = Visibility.Collapsed;
+            checkOutDate.Visibility = Visibility.Collapsed;
+            chkrmBtn.Visibility = Visibility.Collapsed;
+
+            availrmBlk.Visibility = Visibility.Visible;
+            availrmLv.Visibility = Visibility.Visible;
+            selectrmBlk.Visibility = Visibility.Visible;
+            selectrmLv.Visibility = Visibility.Visible;
         }
 
         private void AvailrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // reset all checkBoxes to visible
-            List<CheckBox> checkBoxes = new List<CheckBox> { wifiCb, breakfastCb, bedCb };
+            List<CheckBox> checkBoxes = new List<CheckBox> { wifiCb, breakfastCb, bedCb};
             foreach(CheckBox cb in checkBoxes)
             {
                 cb.Visibility = Visibility.Visible;
@@ -263,6 +281,26 @@ namespace PRG2_ASSIGNMENT
             selectrmLv.ItemsSource = guestList;
             existingguest = false;
             //s.RoomList.Clear();
+        }
+        private void ProceedBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //PROOF OF CONCEPT (MULTIPLE WINDOWS)
+            guestTxt.Visibility = Visibility.Collapsed;
+            ppTxt.Visibility = Visibility.Collapsed;
+            guestBlk.Visibility = Visibility.Collapsed;
+            ppBlk.Visibility = Visibility.Collapsed;
+            adultnoBlk.Visibility = Visibility.Collapsed;
+            adultnoTxt.Visibility = Visibility.Collapsed;
+            childrennoBlk.Visibility = Visibility.Collapsed;
+            childrennoTxt.Visibility = Visibility.Collapsed;
+            proceedBtn.Visibility = Visibility.Collapsed;
+            searchBtn.Visibility = Visibility.Collapsed;
+
+            chkinBlk.Visibility = Visibility.Visible;
+            chkoutBlk.Visibility = Visibility.Visible;
+            checkInDate.Visibility = Visibility.Visible;
+            checkOutDate.Visibility = Visibility.Visible;
+            chkrmBtn.Visibility = Visibility.Visible;
         }
     }
 
