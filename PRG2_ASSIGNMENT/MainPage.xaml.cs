@@ -25,12 +25,14 @@ namespace PRG2_ASSIGNMENT
         List<HotelRoom> hotelRoomList = new List<HotelRoom>();
         List<Guest> guestList = new List<Guest>();
         List<HotelRoom> availRms = new List<HotelRoom>();
-        bool existingguest = false;
+        //bool existingguest = false;
         Guest g = new Guest();
 
         /* List of xaml objects */
-        //List<object> pageOne = new List<object>();
-        //List<object> pageTwo = new List<object>();
+        List<UIElement> pageOne = new List<UIElement>();
+        List<UIElement> pageTwoProceed = new List<UIElement>();
+        List<UIElement> pageTwoSearch = new List<UIElement>();
+        List<UIElement> pageThreeChkIn = new List<UIElement>();
         //List<object> pageThree = new List<object>();
         //List<object> pageFour = new List<object>();
 
@@ -91,11 +93,22 @@ namespace PRG2_ASSIGNMENT
             Guest[] guests = { g1, g2, g3, g4 };
             guestList.AddRange(guests);
 
-            //object[] oneElements = { guestBlk, guestTxt, ppBlk, ppTxt, adultnoBlk, adultnoTxt, childrennoBlk, childrennoTxt, proceedBtn, searchBtn, extendBtn};
-            //pageOne.AddRange(oneElements);
+            /* UI Elements */
+            // First page (Front page)
+            UIElement[] oneUiElements = { guestBlk, guestTxt, ppBlk, ppTxt, adultnoBlk, adultnoTxt, childrennoBlk, childrennoTxt, proceedBtn, searchBtn, extendBtn };
+            pageOne.AddRange(oneUiElements);
 
-            //object[] twoElements = { checkInDate, checkOutDate, chkinBlk, chkoutBlk, searchBtn };
-            //pageTwo.AddRange(twoElements);
+            // Second page (After proceedBtn is clicked)
+            UIElement[] twoProceedUiElements = { checkInDate, checkOutDate, chkinBlk, chkoutBlk, chkrmBtn };
+            pageTwoProceed.AddRange(twoProceedUiElements);
+
+            // Third page (After chkrmBtn is clicked)
+            UIElement[] threeCheckUiElements = { availrmBlk, availrmLv, selectrmBlk, selectrmLv, };
+            pageThreeChkIn.AddRange(threeCheckUiElements);
+
+            // Second page (After search button is clicked)
+            UIElement[] twoSearchUiElements = {selectrmLv, selectrmBlk};
+            pageTwoSearch.AddRange(twoSearchUiElements);
 
             //PROOF OF CONCEPT
             availrmBlk.Visibility = Visibility.Collapsed;
@@ -112,6 +125,7 @@ namespace PRG2_ASSIGNMENT
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
+            bool guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
@@ -120,16 +134,25 @@ namespace PRG2_ASSIGNMENT
                 if (m.Name == name || m.PpNumber == ppnumber)
                 {
                     g = m;
-                    existingguest = true;
+                    guestexist = true;
                     selectrmLv.ItemsSource = null;
                     selectrmLv.ItemsSource = g.HotelStay.RoomList;
                     break;
                 }
             }
-            if (!existingguest)
+            if (!guestexist)
             {
-                Guest newguest = new Guest(guestTxt.Text, ppTxt.Text, new Stay(), new Membership(), false);
-                g = newguest;
+                //Guest newguest = new Guest(guestTxt.Text, ppTxt.Text, new Stay(), new Membership(), false);
+                //g = newguest;
+            }
+            /* UIElement */
+            foreach(UIElement uI in pageOne)
+            {
+                uI.Visibility = Visibility.Collapsed;
+            }
+            foreach(UIElement uI in pageTwoSearch)
+            {
+                uI.Visibility = Visibility.Visible;
             }
         }
 
@@ -145,17 +168,15 @@ namespace PRG2_ASSIGNMENT
             }
             availrmLv.ItemsSource = availRms;
 
-            //PROOF OF CONCEPT
-            chkinBlk.Visibility = Visibility.Collapsed;
-            chkoutBlk.Visibility = Visibility.Collapsed;
-            checkInDate.Visibility = Visibility.Collapsed;
-            checkOutDate.Visibility = Visibility.Collapsed;
-            chkrmBtn.Visibility = Visibility.Collapsed;
-
-            availrmBlk.Visibility = Visibility.Visible;
-            availrmLv.Visibility = Visibility.Visible;
-            selectrmBlk.Visibility = Visibility.Visible;
-            selectrmLv.Visibility = Visibility.Visible;
+            /* UIElement */
+            foreach (UIElement uI in pageTwoProceed)
+            {
+                uI.Visibility = Visibility.Collapsed;
+            }
+            foreach(UIElement uI in pageThreeChkIn)
+            {
+                uI.Visibility = Visibility.Visible;
+            }
         }
 
         private void AvailrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -266,9 +287,9 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkinBtn_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: get check in & check out date and add to stay, create a new guest (?) and add to guestList
-            //Stay s = new Stay(selectedRoomList, );
-            /* Set checkindate & checkoutdate of stay */
+            //TODO: get check in &check out date and add to stay, create a new guest(?) and add to guestList
+            Stay s = new Stay(selectedRoomList, );
+            //    /* Set checkindate & checkoutdate of stay */
             g.HotelStay.CheckInDate = checkInDate.Date.Value.DateTime;
             g.HotelStay.CheckOutDate = checkOutDate.Date.Value.DateTime;
             g.IsCheckedIn = true;
@@ -280,27 +301,39 @@ namespace PRG2_ASSIGNMENT
             statusBlk.Text = g.Name;
             selectrmLv.ItemsSource = guestList;
             existingguest = false;
-            //s.RoomList.Clear();
+            //    //s.RoomList.Clear();
         }
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
-            //PROOF OF CONCEPT (MULTIPLE WINDOWS)
-            guestTxt.Visibility = Visibility.Collapsed;
-            ppTxt.Visibility = Visibility.Collapsed;
-            guestBlk.Visibility = Visibility.Collapsed;
-            ppBlk.Visibility = Visibility.Collapsed;
-            adultnoBlk.Visibility = Visibility.Collapsed;
-            adultnoTxt.Visibility = Visibility.Collapsed;
-            childrennoBlk.Visibility = Visibility.Collapsed;
-            childrennoTxt.Visibility = Visibility.Collapsed;
-            proceedBtn.Visibility = Visibility.Collapsed;
-            searchBtn.Visibility = Visibility.Collapsed;
+            bool guestexist = false;
+            string name = guestTxt.Text;
+            string ppnumber = ppTxt.Text;
 
-            chkinBlk.Visibility = Visibility.Visible;
-            chkoutBlk.Visibility = Visibility.Visible;
-            checkInDate.Visibility = Visibility.Visible;
-            checkOutDate.Visibility = Visibility.Visible;
-            chkrmBtn.Visibility = Visibility.Visible;
+            foreach (Guest eg in guestList)
+            {
+                if (eg.Name == name || eg.PpNumber == ppnumber)
+                {
+                    g = eg;
+                    guestexist = true;
+                    break;
+                }
+            }
+            if (!guestexist)
+            {
+                Guest ng = new Guest(guestTxt.Text, ppTxt.Text, new Stay(), new Membership(), false);
+                g = ng;
+            }
+
+            /* UIElement */
+            foreach (UIElement uI in pageOne)
+            {
+                uI.Visibility = Visibility.Collapsed;
+            }
+
+            foreach(UIElement uI in pageTwoProceed)
+            {
+                uI.Visibility = Visibility.Visible;
+            }
         }
     }
 
