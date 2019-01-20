@@ -11,6 +11,8 @@ namespace PRG2_ASSIGNMENT
         /* Attributes */
         private string status;
         private int points;
+        private bool silverStatus = false;
+        private bool goldStatus = false;
 
         /* Properties */
         public string Status
@@ -31,13 +33,39 @@ namespace PRG2_ASSIGNMENT
         {
             Status = s;
             Points = p;
+            if(Status == "Silver")
+            {
+                silverStatus = true;
+            }
+            else if(Status == "Gold")
+            {
+                silverStatus = true;
+                goldStatus = true;
+            }
         }
 
         /* Methods */
         public void EarnPoints(double p)
         {
-            // convert amount spent to points (TO DO)
-            Points += Convert.ToInt32(p);
+            int earn = Convert.ToInt32(p / 10);
+            Points += earn;
+            if (!goldStatus)
+            {
+                if (Points >= 200)
+                {
+                    Status = "Gold";
+                    goldStatus = true;
+                    silverStatus = true;
+                }
+            }
+            if (!silverStatus)
+            {
+                if (Points >= 100)
+                {
+                    Status = "Silver";
+                    silverStatus = true;
+                }
+            }
         }
 
         public bool RedeemPoints(int p)

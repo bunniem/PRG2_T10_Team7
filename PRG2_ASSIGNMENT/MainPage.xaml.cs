@@ -111,7 +111,7 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Show current rooms page (search button is clicked)           
-            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, memberBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
+            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, memberstatusBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
 
             // Show available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2 };
@@ -158,6 +158,10 @@ namespace PRG2_ASSIGNMENT
                             currentrmLv.ItemsSource = null;
                             currentrmLv.ItemsSource = guest.HotelStay.RoomList;
 
+                            // Display member status & points
+                            memberstatusBlk.Text = $"Member status: {guest.Membership.Status}";
+                            pointsBlk.Text = $"Points available: {guest.Membership.Points.ToString()}";
+
                             // Display invoice
                             double chargesPerDay = 0;
                             double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
@@ -167,8 +171,7 @@ namespace PRG2_ASSIGNMENT
                                 invoiceDetailBlk.Text += r.ToString() + "\n";
                                 chargesPerDay += r.CalculateCharges();
                             }
-                            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\n\nDuration of stay: {noOfNights} days\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
-
+                            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
 
                             /* UI visibility */
                             frontPage.Hide();
@@ -395,6 +398,8 @@ namespace PRG2_ASSIGNMENT
             /* Set checkindate & checkoutdate of stay */
             guest.HotelStay.CheckInDate = checkInDateTxt.Date.Value.DateTime;
             guest.HotelStay.CheckOutDate = checkOutDateTxt.Date.Value.DateTime;
+            guest.Membership.Status = "Ordinary";
+            guest.Membership.Points = 0;
 
             guest.HotelStay.RoomList.Sort(); // sort roomList by room number
 
