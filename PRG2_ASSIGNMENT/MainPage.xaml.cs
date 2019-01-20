@@ -116,7 +116,7 @@ namespace PRG2_ASSIGNMENT
             currentRmPage.UIElements = new List<UIElement> { currentrmBlk, currentrmLv, extendBtn, invoiceBlk, memberBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn };
 
             // Show available rooms and check in function (chkrm button is clicked)
-            chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
+            chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2 };
 
             // show available rooms and check in function (hidden elements until event happens)
             hiddenchkInPage.UIElements = new List<UIElement> { wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
@@ -407,10 +407,43 @@ namespace PRG2_ASSIGNMENT
             frontPage.Show();
         }
 
+        /* Back buttons for navigation */
         private void BackBtn1_Click(object sender, RoutedEventArgs e)
         {
-            /* UI Visibility */
-            //foreach()
+            chkRmAvailPage.Hide();
+            frontPage.Show();
+            
+            /* Reset values of date to null */
+            checkInDateTxt.Date = null;
+            checkOutDateTxt.Date = null;
+        }
+
+        private void BackBtn2_Click(object sender, RoutedEventArgs e)
+        {
+            chkInPage.Hide();
+            chkRmAvailPage.Show();
+
+            /* Add all selected rooms back to available room list */
+            foreach(HotelRoom r in guest.HotelStay.RoomList.ToList())
+            {
+                /* Set addon booleans for rooms to false */
+                if (r is DeluxeRoom dr)
+                {
+                    dr.AdditionalBed = false;
+                }
+                else if (r is StandardRoom sr)
+                {
+                    sr.RequireBreakfast = false;
+                    sr.RequireWifi = false;
+                }
+                /* Remove selected room from guest's roomList */
+                guest.HotelStay.RoomList.Remove(r);
+
+                /* Add selected room to available room list */
+                r.IsAvail = true; // room made available
+                availRms.Add(r);
+            }
+            availRms.Sort(); // sort available room list
         }
     }
 
