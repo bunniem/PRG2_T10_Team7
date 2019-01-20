@@ -111,7 +111,7 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Show current rooms page (search button is clicked)           
-            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, memberBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn };
+            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, memberBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
 
             // Show available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2 };
@@ -452,6 +452,12 @@ namespace PRG2_ASSIGNMENT
                 availRms.Add(r);
             }
             availRms.Sort(); // sort available room list
+        }
+
+        private void BackBtn3_Click(object sender, RoutedEventArgs e)
+        {
+            currentRmPage.Hide();
+            frontPage.Show();
         }
     }
 

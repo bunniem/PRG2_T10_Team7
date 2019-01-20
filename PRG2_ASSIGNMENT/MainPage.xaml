@@ -48,6 +48,6 @@
         <Button x:Name="backBtn1" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="500,249,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="BackBtn1_Click"/>
         <Button x:Name="backBtn2" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="602,607,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="BackBtn2_Click"/>
         <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="581,333,0,0" TextWrapping="Wrap" FontSize="25" Text="Invoice:" VerticalAlignment="Top" Width="215" Height="36"/>
-        <Button x:Name="backBtn3" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="602,637,0,0" VerticalAlignment="Top" Height="60" Width="101"/>
+        <Button x:Name="backBtn3" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="602,637,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="BackBtn3_Click"/>
     </Grid>
 </Page>
