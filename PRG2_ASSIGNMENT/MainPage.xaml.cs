@@ -111,10 +111,10 @@ namespace PRG2_ASSIGNMENT
 
             /* UI Elements */
             // Front page
-            frontPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, adultnoBlk, adultnoTxt, childrennoBlk, childrennoTxt, proceedBtn, searchBtn, extendBtn };
+            frontPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, adultnoBlk, adultnoTxt, childrennoBlk, childrennoTxt, proceedBtn, searchBtn, };
 
             // Check rooms available page (proceed button is clicked)
-            chkRmAvailPage.UIElements = new List<UIElement> { checkInDate, checkOutDate, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
+            chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Show current rooms page (search button is clicked)           
             currentRmPage.UIElements = new List<UIElement> { currentrmBlk, currentrmLv, extendBtn, invoiceBlk, memberBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn };
@@ -403,9 +403,14 @@ namespace PRG2_ASSIGNMENT
             /* Reset all fields to blank */
             guestTxt.Text = "";
             ppTxt.Text = "";
+            checkInDateTxt.Date = null;
             //selectrmLv.ItemsSource = guestList;
             //existingguest = false;
             //    //s.RoomList.Clear();
+
+            /* UI Visibilty */
+            chkInPage.Hide();
+            frontPage.Show();
         }
 
         private void BackBtn1_Click(object sender, RoutedEventArgs e)
