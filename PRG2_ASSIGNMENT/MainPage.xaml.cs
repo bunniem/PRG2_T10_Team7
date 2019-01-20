@@ -25,22 +25,18 @@ namespace PRG2_ASSIGNMENT
         List<Guest> guestList = new List<Guest>();
         List<HotelRoom> availRms = new List<HotelRoom>();
 
-        bool guestexist = false;
-        Guest guest = new Guest();
-
-        /* List of xaml objects */
+        /* Global UIElement Lists */
         UIElementList frontPage = new UIElementList();
         UIElementList chkRmAvailPage = new UIElementList();
         UIElementList currentRmPage = new UIElementList();
         UIElementList chkInPage = new UIElementList();
         UIElementList hiddenchkInPage = new UIElementList();
 
-        List<UIElement> pageOne = new List<UIElement>();
-        List<UIElement> pageTwoProceed = new List<UIElement>();
-        List<UIElement> pageTwoSearch = new List<UIElement>();
-        List<UIElement> pageThreeChkIn = new List<UIElement>();
-        //List<object> pageThree = new List<object>();
-        //List<object> pageFour = new List<object>();
+        /* Global guest */
+        bool guestexist = false;
+        Guest guest = new Guest();
+
+
 
         public void InitData()
         {
@@ -404,9 +400,7 @@ namespace PRG2_ASSIGNMENT
             guestTxt.Text = "";
             ppTxt.Text = "";
             checkInDateTxt.Date = null;
-            //selectrmLv.ItemsSource = guestList;
-            //existingguest = false;
-            //    //s.RoomList.Clear();
+            checkOutDateTxt.Date = null;
 
             /* UI Visibilty */
             chkInPage.Hide();
