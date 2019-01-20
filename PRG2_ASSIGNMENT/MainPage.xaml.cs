@@ -36,8 +36,6 @@ namespace PRG2_ASSIGNMENT
         bool guestexist = false;
         Guest guest = new Guest();
 
-
-
         public void InitData()
         {
             /* Initialising Rooms */
@@ -113,7 +111,7 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Show current rooms page (search button is clicked)           
-            currentRmPage.UIElements = new List<UIElement> { currentrmBlk, currentrmLv, extendBtn, invoiceBlk, memberBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn };
+            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, memberBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn };
 
             // Show available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2 };
@@ -127,15 +125,66 @@ namespace PRG2_ASSIGNMENT
             this.InitializeComponent();
             InitData(); // initialise all hotel rooms and existing guests
 
-
             /* UI Visibility */
-            frontPage.Show();
             chkRmAvailPage.Hide();
             currentRmPage.Hide();
             chkInPage.Hide();
+            frontPage.Show();
 
             statusBlk.Visibility = Visibility.Collapsed; // what to do with status block
         }
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            guestexist = false;
+            string name = guestTxt.Text;
+            string ppnumber = ppTxt.Text;
+
+            if (name == "" && ppnumber == "")
+            {
+                // do something if name not entered
+            }
+            else
+            {
+                if (!guestexist)
+                {
+                    foreach (Guest eg in guestList)
+                    {
+                        if (eg.Name == name || eg.PpNumber == ppnumber)
+                        {
+                            guest = eg;
+                            guestexist = true;
+
+                            // refresh current room listview 
+                            currentrmLv.ItemsSource = null;
+                            currentrmLv.ItemsSource = guest.HotelStay.RoomList;
+
+                            // Display invoice
+                            double chargesPerDay = 0;
+
+                            invoiceDetailBlk.Text = "Invoice:\n\nRoom Type\tRoom No.\tBed Config.\tDaily Rate\tWi-Fi\tBreakfast\tAdd. bed\tCharges\n";                            
+                            foreach(HotelRoom r in guest.HotelStay.RoomList)
+                            {
+                                invoiceDetailBlk.Text += r.ToString() + "\n";
+                                chargesPerDay += r.CalculateCharges();
+                            }
+                            //invoiceDetailBlk.Text += $"Charges per day: \t\t\t\t\t\t {chargesPerDay}\n\nDuration of stay: ";
+
+
+                            /* UI visibility */
+                            frontPage.Hide();
+                            currentRmPage.Show();
+
+                            break;
+                        }
+                    }
+                }
+                if (!guestexist)
+                {
+                    // do something if guest does not exist
+                }
+            }
+        }
+
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
             guestexist = false;
@@ -186,48 +235,6 @@ namespace PRG2_ASSIGNMENT
                     {
                         // error: not all fields filled in
                     }
-                }
-            }
-        }
-
-        private void SearchBtn_Click(object sender, RoutedEventArgs e)
-        {
-            guestexist = false;
-            string name = guestTxt.Text;
-            string ppnumber = ppTxt.Text;
-
-            if (name == "" && ppnumber == "")
-            {
-                // do something if name not entered
-            }
-            else
-            {
-                if (!guestexist)
-                {
-                    foreach (Guest eg in guestList)
-                    {
-                        if (eg.Name == name || eg.PpNumber == ppnumber)
-                        {
-                            guest = eg;
-                            guestexist = true;
-
-                            // refresh current room listview 
-                            currentrmLv.ItemsSource = null;
-                            currentrmLv.ItemsSource = guest.HotelStay.RoomList;
-
-                            break;
-                        }
-                    }
-                }
-                if (!guestexist)
-                {
-                    // do something if guest does not exist
-                }
-                else
-                {
-                    /* UI visibility */
-                    frontPage.Hide();
-                    currentRmPage.Show();
                 }
             }
         }
@@ -365,7 +372,7 @@ namespace PRG2_ASSIGNMENT
                 /* Add selected room to available room list and refresh */
                 r.IsAvail = true; // room made available
                 availRms.Add(r);
-                availRms.Sort();
+                availRms.Sort(); // sort roomList by room number
                 availrmLv.ItemsSource = null;
                 availrmLv.ItemsSource = availRms;
 
@@ -385,10 +392,11 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkinBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: get check in & check out date and add to stay, create a new guest(?) and add to guestList
             /* Set checkindate & checkoutdate of stay */
             guest.HotelStay.CheckInDate = checkInDateTxt.Date.Value.DateTime;
             guest.HotelStay.CheckOutDate = checkOutDateTxt.Date.Value.DateTime;
+
+            guest.HotelStay.RoomList.Sort(); // sort roomList by room number
 
             guest.IsCheckedIn = true; // guest is checked in
             if (!guestexist)

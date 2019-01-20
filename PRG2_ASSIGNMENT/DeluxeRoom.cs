@@ -36,7 +36,7 @@ namespace PRG2_ASSIGNMENT
         /* Methods */
         public override string ToString()
         {
-            return base.ToString();
+            return base.ToString() + $"\tTrue\tTrue\t{AdditionalBed}\t${CalculateCharges()}";
         }
     }
 }
