@@ -129,6 +129,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StandardRoom.cs" />
     <Compile Include="Stay.cs" />
+    <Compile Include="UiVisibility.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

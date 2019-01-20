@@ -45,5 +45,6 @@
         <Button x:Name="proceedBtn" FontSize="20" Content="Proceed >" HorizontalAlignment="Left" Margin="678,333,0,0" VerticalAlignment="Top" Height="60" Width="120" Click="ProceedBtn_Click"/>
         <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="203" Margin="410,402,0,0" VerticalAlignment="Top" Width="408"/>
         <TextBlock x:Name="currentrmBlk" HorizontalAlignment="Left" Margin="410,357,0,0" TextWrapping="Wrap" FontSize="25" Text="Current rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <Button x:Name="backBtn1" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="500,333,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="BackBtn1_Click"/>
     </Grid>
 </Page>
