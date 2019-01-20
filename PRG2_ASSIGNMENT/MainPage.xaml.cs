@@ -25,6 +25,7 @@ namespace PRG2_ASSIGNMENT
         List<Guest> guestList = new List<Guest>();
         List<HotelRoom> availRms = new List<HotelRoom>();
 
+        bool guestexist = false;
         Guest guest = new Guest();
 
         /* List of xaml objects */
@@ -141,7 +142,7 @@ namespace PRG2_ASSIGNMENT
         }
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
-            bool guestexist = false;
+            guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
@@ -163,7 +164,7 @@ namespace PRG2_ASSIGNMENT
                 }
                 if (guestexist)
                 {
-                    if (guest.HotelStay.RoomList.Any())
+                    if (guest.IsCheckedIn)
                     {
                         // error: guest still checked into hotel, need to check out to check in more rooms
                     }
@@ -195,7 +196,7 @@ namespace PRG2_ASSIGNMENT
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            bool guestexist = false;
+            guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
@@ -237,11 +238,11 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!checkInDate.Date.HasValue || !checkOutDate.Date.HasValue)
+            if (!checkInDateTxt.Date.HasValue || !checkOutDateTxt.Date.HasValue)
             {
                 // error: either field not filled in
             }
-            else if (checkInDate.Date > checkOutDate.Date)
+            else if (checkInDateTxt.Date > checkOutDateTxt.Date)
             {
                 // error: checkoutdate earlier than checkindate
             }
@@ -389,17 +390,19 @@ namespace PRG2_ASSIGNMENT
         private void ChkinBtn_Click(object sender, RoutedEventArgs e)
         {
             //TODO: get check in & check out date and add to stay, create a new guest(?) and add to guestList
-            //Stay s = new Stay(selectedRoomList, checkInDate.Date.Value.DateTime);
-            //    /* Set checkindate & checkoutdate of stay */
-            //g.HotelStay.CheckInDate = checkInDate.Date.Value.DateTime;
-            //g.HotelStay.CheckOutDate = checkOutDate.Date.Value.DateTime;
-            //g.IsCheckedIn = true;
-            //if (!existingguest)
-            //{
-            //    guestList.Add(g);
-            //}
-            //g = new Guest();
-            //statusBlk.Text = g.Name;
+            /* Set checkindate & checkoutdate of stay */
+            guest.HotelStay.CheckInDate = checkInDateTxt.Date.Value.DateTime;
+            guest.HotelStay.CheckOutDate = checkOutDateTxt.Date.Value.DateTime;
+
+            guest.IsCheckedIn = true; // guest is checked in
+            if (!guestexist)
+            {
+                guestList.Add(guest);
+            }
+
+            /* Reset all fields to blank */
+            guestTxt.Text = "";
+            ppTxt.Text = "";
             //selectrmLv.ItemsSource = guestList;
             //existingguest = false;
             //    //s.RoomList.Clear();

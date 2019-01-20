@@ -26,9 +26,9 @@
         <CheckBox x:Name="bedCb" FontSize="17" Content="Add Bed" HorizontalAlignment="Left" Margin="606,361,0,0" VerticalAlignment="Top" Width="164"/>
         <Button x:Name="addrmBtn" FontSize="20" Content="Add Room" HorizontalAlignment="Left" Margin="604,468,0,0" VerticalAlignment="Top" Height="60" Width="160" Click="AddrmBtn_Click"/>
         <Button x:Name="removermBtn" FontSize="20" Content="Remove Room" HorizontalAlignment="Left" Margin="606,545,0,0" VerticalAlignment="Top" Height="60" Width="160" Click="RemovermBtn_Click"/>
-        <CalendarDatePicker x:Name="checkInDate" HorizontalAlignment="Left" Margin="386,175,0,0" VerticalAlignment="Top" Width="239"/>
+        <CalendarDatePicker x:Name="checkInDateTxt" HorizontalAlignment="Left" Margin="386,175,0,0" VerticalAlignment="Top" Width="239"/>
         <TextBlock x:Name="chkinBlk" HorizontalAlignment="Left" Margin="386,139,0,0" TextWrapping="Wrap" FontSize="25" Text="Check In:" VerticalAlignment="Top" Width="239" Height="36"/>
-        <CalendarDatePicker x:Name="checkOutDate" HorizontalAlignment="Left" Margin="680,175,0,0" VerticalAlignment="Top" Width="239"/>
+        <CalendarDatePicker x:Name="checkOutDateTxt" HorizontalAlignment="Left" Margin="680,175,0,0" VerticalAlignment="Top" Width="239"/>
         <TextBlock x:Name="chkoutBlk" HorizontalAlignment="Left" Margin="680,139,0,0" TextWrapping="Wrap" FontSize="25" Text="Check Out:" VerticalAlignment="Top" Width="239" Height="36"/>
         <Button x:Name="chkrmBtn" FontSize="20" Content="Check Rooms Available" HorizontalAlignment="Left" Margin="525,249,0,0" VerticalAlignment="Top" Height="60" Width="239" Click="ChkrmBtn_Click"/>
         <TextBlock x:Name="selectrmBlk" HorizontalAlignment="Left" Margin="803,223,0,0" TextWrapping="Wrap" FontSize="25" Text="Rooms Selected:" VerticalAlignment="Top" Width="215" Height="36"/>
