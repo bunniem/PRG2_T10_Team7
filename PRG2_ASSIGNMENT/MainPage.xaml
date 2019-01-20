@@ -34,19 +34,20 @@
         <TextBlock x:Name="selectrmBlk" HorizontalAlignment="Left" Margin="750,226,0,0" TextWrapping="Wrap" FontSize="25" Text="Rooms Selected:" VerticalAlignment="Top" Width="215" Height="36"/>
         <ListView x:Name="selectrmLv" HorizontalAlignment="Left" Height="227" Margin="750,264,0,0" VerticalAlignment="Top" Width="488" SelectionChanged="SelectrmLv_SelectionChanged"/>
         <Button x:Name="chkinBtn" FontSize="20" Content="Check-In" HorizontalAlignment="Left" Margin="750,514,0,0" VerticalAlignment="Top" Height="86" Width="488" Click="ChkinBtn_Click"/>
-        <Button x:Name="chkoutBtn" FontSize="20" Content="Check-Out" HorizontalAlignment="Left" Margin="750,668,0,-34" VerticalAlignment="Top" Height="86" Width="488"/>
+        <Button x:Name="chkoutBtn" FontSize="20" Content="Check-Out" HorizontalAlignment="Left" Margin="750,622,0,0" VerticalAlignment="Top" Height="86" Width="488"/>
         <TextBlock x:Name="title"  FontWeight="Bold"  FontSize="42" HorizontalAlignment="Left" TextAlignment="Center" TextWrapping="Wrap" Text="Hotel Guest Management System" VerticalAlignment="Top" Height="64" Width="1270" Margin="10,0,0,0"/>
         <TextBlock x:Name="memberBlk" HorizontalAlignment="Left" Margin="678,163,0,0" TextWrapping="Wrap" FontSize="18" Text="Member status:" VerticalAlignment="Top" Height="30" Width="178"/>
         <TextBlock x:Name="pointsBlk" HorizontalAlignment="Left" Margin="678,193,0,0" TextWrapping="Wrap" FontSize="18" Text="Points available:" VerticalAlignment="Top" Height="30" Width="178"/>
         <TextBox x:Name="pointsTxt" HorizontalAlignment="Left" Margin="680,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Height="51"/>
         <Button x:Name="redeemBtn" FontSize="20" Content="Redeem points" HorizontalAlignment="Left" Margin="798,249,0,0" VerticalAlignment="Top" Height="51" Width="153"/>
-        <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Left" Margin="583,393,0,0" TextWrapping="Wrap" FontSize="13" VerticalAlignment="Top" Width="657" Height="248"/>
+        <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Left" Margin="581,374,0,0" TextWrapping="Wrap" FontSize="13" VerticalAlignment="Top" Width="657" Height="248"/>
         <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="525,637,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="30" Width="178"/>
         <Button x:Name="proceedBtn" FontSize="20" Content="Proceed >" HorizontalAlignment="Left" Margin="678,333,0,0" VerticalAlignment="Top" Height="60" Width="120" Click="ProceedBtn_Click"/>
-        <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="224" Margin="70,388,0,0" VerticalAlignment="Top" Width="488"/>
-        <TextBlock x:Name="currentrmBlk" HorizontalAlignment="Left" Margin="70,352,0,0" TextWrapping="Wrap" FontSize="25" Text="Current rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="224" Margin="70,374,0,0" VerticalAlignment="Top" Width="488"/>
+        <TextBlock x:Name="currentrmBlk" HorizontalAlignment="Left" Margin="70,333,0,0" TextWrapping="Wrap" FontSize="25" Text="Current rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
         <Button x:Name="backBtn1" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="500,249,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="BackBtn1_Click"/>
         <Button x:Name="backBtn2" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="602,607,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="BackBtn2_Click"/>
-        <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="583,352,0,0" TextWrapping="Wrap" FontSize="25" Text="Invoice:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="581,333,0,0" TextWrapping="Wrap" FontSize="25" Text="Invoice:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <Button x:Name="backBtn3" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="602,637,0,0" VerticalAlignment="Top" Height="60" Width="101"/>
     </Grid>
 </Page>

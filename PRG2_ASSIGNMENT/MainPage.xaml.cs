@@ -58,7 +58,7 @@ namespace PRG2_ASSIGNMENT
 
             /* Initialising existing Guests */
             // Amelia
-            Stay st1 = new Stay(new DateTime(2019 - 01 - 26), new DateTime(2019 - 02 - 02));
+            Stay st1 = new Stay(new DateTime(2019, 1, 26), new DateTime(2019, 02, 02));
             StandardRoom sr101 = (StandardRoom)s101;
             sr101.RequireBreakfast = true;
             sr101.RequireWifi = true;
@@ -67,7 +67,7 @@ namespace PRG2_ASSIGNMENT
             Guest g1 = new Guest("Amelia", "S1234567A", st1, new Membership("Gold", 280), true);
 
             // Bob
-            Stay st2 = new Stay(new DateTime(2019 - 01 - 25), new DateTime(2019 - 01 - 31));
+            Stay st2 = new Stay(new DateTime(2019, 1, 25), new DateTime(2019, 1, 31));
             StandardRoom sr302 = (StandardRoom)s302;
             sr302.RequireBreakfast = true;
             s302.IsAvail = false;
@@ -75,7 +75,7 @@ namespace PRG2_ASSIGNMENT
             Guest g2 = new Guest("Bob", "G1234567A", st2, new Membership("Ordinary", 0), true);
 
             // Cody
-            Stay st3 = new Stay(new DateTime(2019 - 02 - 01), new DateTime(2019 - 02 - 06));
+            Stay st3 = new Stay(new DateTime(2019, 2, 1), new DateTime(2019, 2, 6));
             StandardRoom sr202 = (StandardRoom)s202;
             sr202.RequireBreakfast = true;
             s202.IsAvail = false;
@@ -83,7 +83,7 @@ namespace PRG2_ASSIGNMENT
             Guest g3 = new Guest("Cody", "G2345678A", st3, new Membership("Silver", 190), true);
 
             // Edda
-            Stay st4 = new Stay(new DateTime(2019 - 01 - 28), new DateTime(2019 - 02 - 10));
+            Stay st4 = new Stay(new DateTime(2019, 1, 28), new DateTime(2019, 2, 10));
             DeluxeRoom dr303 = (DeluxeRoom)d303;
             dr303.AdditionalBed = true;
             d303.IsAvail = false;
@@ -160,14 +160,14 @@ namespace PRG2_ASSIGNMENT
 
                             // Display invoice
                             double chargesPerDay = 0;
-
+                            double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
                             invoiceDetailBlk.Text = "Invoice:\n\nRoom Type\tRoom No.\tBed Config.\tDaily Rate\tWi-Fi\tBreakfast\tAdd. bed\tCharges\n";                            
                             foreach(HotelRoom r in guest.HotelStay.RoomList)
                             {
                                 invoiceDetailBlk.Text += r.ToString() + "\n";
                                 chargesPerDay += r.CalculateCharges();
                             }
-                            //invoiceDetailBlk.Text += $"Charges per day: \t\t\t\t\t\t {chargesPerDay}\n\nDuration of stay: ";
+                            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\n\nDuration of stay: {noOfNights} days\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
 
 
                             /* UI visibility */
