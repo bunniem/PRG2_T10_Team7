@@ -25,7 +25,6 @@ namespace PRG2_ASSIGNMENT
         List<Guest> guestList = new List<Guest>();
         List<HotelRoom> availRms = new List<HotelRoom>();
 
-        bool guestexist = false;
         Guest guest = new Guest();
 
         /* List of xaml objects */
@@ -33,6 +32,8 @@ namespace PRG2_ASSIGNMENT
         UIElementList chkRmAvailPage = new UIElementList();
         UIElementList currentRmPage = new UIElementList();
         UIElementList chkInPage = new UIElementList();
+        UIElementList hiddenchkInPage = new UIElementList();
+
         List<UIElement> pageOne = new List<UIElement>();
         List<UIElement> pageTwoProceed = new List<UIElement>();
         List<UIElement> pageTwoSearch = new List<UIElement>();
@@ -118,7 +119,10 @@ namespace PRG2_ASSIGNMENT
             currentRmPage.UIElements = new List<UIElement> { currentrmBlk, currentrmLv, extendBtn, invoiceBlk, memberBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn };
 
             // Show available rooms and check in function (chkrm button is clicked)
-            chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, chkinBtn, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn };
+            chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
+
+            // show available rooms and check in function (hidden elements until event happens)
+            hiddenchkInPage.UIElements = new List<UIElement> { wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
         }
 
         public MainPage()
@@ -133,50 +137,69 @@ namespace PRG2_ASSIGNMENT
             currentRmPage.Hide();
             chkInPage.Hide();
 
-            statusBlk.Visibility = Visibility.Collapsed; // do something with this
+            statusBlk.Visibility = Visibility.Collapsed; // what to do with status block
         }
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
+            bool guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
-            if(name == "" && ppnumber == "")
+            if (name == "" && ppnumber == "")
             {
                 //do something if no name or ppnumber entered
             }
             else
             {
                 // search guest by name or passport number
-                if (!guestexist)
+                foreach (Guest eg in guestList)
                 {
-                    foreach (Guest eg in guestList)
+                    if (eg.Name == name || eg.PpNumber == ppnumber)
                     {
-                        if (eg.Name == name || eg.PpNumber == ppnumber)
-                        {
-                            guest = eg;
-                            guestexist = true;
-                            break;
-                        }
+                        guest = eg;
+                        guestexist = true;
+                        break;
                     }
                 }
-                if (!guestexist)
+                if (guestexist)
                 {
-                    Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest if guest not found in database
-                    guest = ng;
+                    if (guest.HotelStay.RoomList.Any())
+                    {
+                        // error: guest still checked into hotel, need to check out to check in more rooms
+                    }
+                    else // existing guest, but not checked into hotel
+                    {
+                        /* UI Visibility */
+                        frontPage.Hide();
+                        chkRmAvailPage.Show();
+                    }
                 }
+                else
+                {
+                    if (name != "" && ppnumber != "")
+                    {
+                        Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest if guest not found in database
+                        guest = ng;
 
-                /* UI Visibility */
-                frontPage.Hide();
-                chkRmAvailPage.Show();
-            }  
+                        /* UI Visibility */
+                        frontPage.Hide();
+                        chkRmAvailPage.Show();
+                    }
+                    else
+                    {
+                        // error: not all fields filled in
+                    }
+                }
+            }
         }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
+            bool guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
-            if(name == "" && ppnumber == "")
+            if (name == "" && ppnumber == "")
             {
                 // do something if name not entered
             }
@@ -218,13 +241,12 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: either field not filled in
             }
-            else if(checkInDate.Date > checkOutDate.Date) 
+            else if (checkInDate.Date > checkOutDate.Date)
             {
                 // error: checkoutdate earlier than checkindate
             }
-            else {
-                statusBlk.Text = checkInDate.Date.ToString();
-                statusBlk.Visibility = Visibility.Visible;
+            else
+            {
                 // Refresh availrm listview
                 availrmLv.ItemsSource = null;
                 availrmLv.ItemsSource = availRms;
@@ -233,44 +255,45 @@ namespace PRG2_ASSIGNMENT
                 selectrmLv.ItemsSource = null;
                 selectrmLv.ItemsSource = guest.HotelStay.RoomList;
 
-                /* UIElement */
+                /* UI Visibility */
                 chkRmAvailPage.Hide();
                 chkInPage.Show();
+                hiddenchkInPage.Hide();
             }
         }
 
         private void AvailrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             addrmBtn.Visibility = Visibility.Visible;
-            // reset all checkBoxes to visible
-            List<CheckBox> checkBoxes = new List<CheckBox> { wifiCb, breakfastCb, bedCb};
-            foreach(CheckBox cb in checkBoxes)
-            {
-                cb.Visibility = Visibility.Visible;
-            }
 
-            // hide checkBoxes that do not apply to selected room
+            // hide all checkboxes
+            wifiCb.Visibility = Visibility.Collapsed;
+            breakfastCb.Visibility = Visibility.Collapsed;
+            bedCb.Visibility = Visibility.Collapsed;
+
+            // show checkBoxes that apply for selected room
             if (availrmLv.SelectedItem is DeluxeRoom)
             {
-                wifiCb.Visibility = Visibility.Collapsed;
-                breakfastCb.Visibility = Visibility.Collapsed;
+                bedCb.Visibility = Visibility.Visible;
             }
             else
             {
-                bedCb.Visibility = Visibility.Collapsed;
+                wifiCb.Visibility = Visibility.Visible;
+                breakfastCb.Visibility = Visibility.Visible;
             }
         }
 
         private void AddrmBtn_Click(object sender, RoutedEventArgs e)
         {
             HotelRoom r = (HotelRoom)availrmLv.SelectedItem;
-            if (r == null)
+            if (r is null)
             {
-                // error (no room selected)
+                // error: no room selected
             }
             else
             {
                 r.IsAvail = false; // room not available
+
                 /* set addon booleans for rooms based on checkboxes */
                 if (r is DeluxeRoom dr)
                 {
@@ -279,7 +302,7 @@ namespace PRG2_ASSIGNMENT
                         dr.AdditionalBed = true;
                     }
                 }
-                else if(r is StandardRoom sr)
+                else if (r is StandardRoom sr)
                 {
                     if (breakfastCb.IsChecked == true)
                     {
@@ -291,7 +314,7 @@ namespace PRG2_ASSIGNMENT
                     }
                 }
 
-                /* Add selected room to selected list and refresh */
+                /* Add selected room to guest's roomList and refresh selectedrm listview  */
                 guest.HotelStay.AddRoom(r);
                 selectrmLv.ItemsSource = null;
                 selectrmLv.ItemsSource = guest.HotelStay.RoomList;
@@ -301,28 +324,28 @@ namespace PRG2_ASSIGNMENT
                 availrmLv.ItemsSource = null;
                 availrmLv.ItemsSource = availRms;
 
-                /* Reset checkboxes to unchecked */
+                /* Uncheck checkboxes */
                 wifiCb.IsChecked = false;
                 breakfastCb.IsChecked = false;
                 bedCb.IsChecked = false;
 
-                /* UIElement Visibility */
-                List<CheckBox> checkBoxes = new List<CheckBox> { wifiCb, breakfastCb, bedCb };
-                foreach (CheckBox cb in checkBoxes)
-                {
-                    cb.Visibility = Visibility.Collapsed;
-                }
-
-                addrmBtn.Visibility = Visibility.Collapsed;
+                /* UI Visibility */
+                hiddenchkInPage.Hide();
+                chkinBtn.Visibility = Visibility.Visible;
             }
+        }
+
+        private void SelectrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            removermBtn.Visibility = Visibility.Visible;
         }
 
         private void RemovermBtn_Click(object sender, RoutedEventArgs e)
         {
             HotelRoom r = (HotelRoom)selectrmLv.SelectedItem;
-            if (r == null)
+            if (r is null)
             {
-                // error (no room selected)
+                // error: no room selected
             }
             else
             {
@@ -336,35 +359,37 @@ namespace PRG2_ASSIGNMENT
                     sr.RequireBreakfast = false;
                     sr.RequireWifi = false;
                 }
-                /* Remove selected room from list and refresh */
+
+                /* Remove selected room from guest's roomList and refresh */
                 guest.HotelStay.RoomList.Remove(r);
                 selectrmLv.ItemsSource = null;
                 selectrmLv.ItemsSource = guest.HotelStay.RoomList;
 
                 /* Add selected room to available room list and refresh */
-                availRms.Add(r);
                 r.IsAvail = true; // room made available
+                availRms.Add(r);
                 availRms.Sort();
                 availrmLv.ItemsSource = null;
                 availrmLv.ItemsSource = availRms;
 
-                /* Reset checkboxes to unchecked */
+                /* Uncheck checkboxes */
                 wifiCb.IsChecked = false;
                 breakfastCb.IsChecked = false;
                 bedCb.IsChecked = false;
 
-                removermBtn.Visibility = Visibility.Collapsed;
+                /* UI Visibility */
+                hiddenchkInPage.Hide();
+                if (guest.HotelStay.RoomList.Any()) //guest's roomList contains at least one room
+                {
+                    chkinBtn.Visibility = Visibility.Visible;
+                }
             }
-        }
-        private void SelectrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            removermBtn.Visibility = Visibility.Visible;
         }
 
         private void ChkinBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: get check in &check out date and add to stay, create a new guest(?) and add to guestList
-            //Stay s = new Stay(selectedRoomList, );
+            //TODO: get check in & check out date and add to stay, create a new guest(?) and add to guestList
+            //Stay s = new Stay(selectedRoomList, checkInDate.Date.Value.DateTime);
             //    /* Set checkindate & checkoutdate of stay */
             //g.HotelStay.CheckInDate = checkInDate.Date.Value.DateTime;
             //g.HotelStay.CheckOutDate = checkOutDate.Date.Value.DateTime;
