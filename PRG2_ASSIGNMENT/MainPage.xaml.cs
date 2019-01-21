@@ -35,6 +35,7 @@ namespace PRG2_ASSIGNMENT
         /* Global guest */
         bool guestexist = false;
         Guest guest = new Guest();
+        int redeempoints = 0;
 
         public void InitData()
         {
@@ -131,7 +132,7 @@ namespace PRG2_ASSIGNMENT
             chkInPage.Hide();
             frontPage.Show();
 
-            statusBlk.Visibility = Visibility.Collapsed; // what to do with status block
+            statusBlk.Visibility = Visibility.Visible; // what to do with status block
         }
         public void printInvoice() // print invoice
         {
@@ -156,7 +157,7 @@ namespace PRG2_ASSIGNMENT
 
             if (name == "" && ppnumber == "")
             {
-                // do something if name not entered
+                // error: name and ppnumber not entered
             }
             else
             {
@@ -200,7 +201,7 @@ namespace PRG2_ASSIGNMENT
                 }
                 if (!guestexist)
                 {
-                    // do something if guest does not exist
+                    // error: guest does not exist
                 }
             }
         }
@@ -213,7 +214,7 @@ namespace PRG2_ASSIGNMENT
 
             if (name == "" && ppnumber == "")
             {
-                //do something if no name or ppnumber entered
+                // error: no name or ppnumber entered
             }
             else
             {
@@ -481,6 +482,7 @@ namespace PRG2_ASSIGNMENT
             // unfreeze textboxes
             guestTxt.IsReadOnly = false;
             ppTxt.IsReadOnly = false;
+            pointsTxt.Text = ""; // reset points textbox
 
             currentRmPage.Hide();
             frontPage.Show();
@@ -496,7 +498,7 @@ namespace PRG2_ASSIGNMENT
             {
                 int oldpoints = guest.Membership.Points;
                 string oldstatus = guest.Membership.Status;
-                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal()); // add points to guest
+                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal()-redeempoints); // add points to guest              
                 int newpoints = guest.Membership.Points;
                 string newstatus = guest.Membership.Status;
 
@@ -528,6 +530,11 @@ namespace PRG2_ASSIGNMENT
                 guestTxt.IsReadOnly = false;
                 ppTxt.IsReadOnly = false;
 
+                /* Reset all fields to blank */
+                guestTxt.Text = "";
+                ppTxt.Text = "";
+                pointsTxt.Text = "";
+
                 currentRmPage.Hide();
                 frontPage.Show();
 
@@ -551,33 +558,41 @@ namespace PRG2_ASSIGNMENT
 
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
-            int redeem = Convert.ToInt32(pointsTxt.Text);
+            statusBlk.Visibility = Visibility.Visible;
             printInvoice();
             // add deducted amount to invoice
-            if(guest.Membership.Status == "Silver")
+            if(pointsTxt.Text == "")
             {
-                bool hasSr = false;
-                // check for standard rooms
-                foreach (HotelRoom r in guest.HotelStay.RoomList)
-                {
-                    if(r is StandardRoom sr)
-                    {
-                        hasSr = true;
-                        break;
-                    }
-                }
-                if (hasSr)
-                {
-                    invoiceBlk.Text = $"\nDiscount (Converted points): {redeem}\nTotal Payable: {guest.HotelStay.CalculateTotal() - redeem}";
-                }
-                else
-                {
-                    statusBlk.Text = "Silver members can only offset their bills for standard rooms";
-                }
+                // error: points field blank
             }
             else
             {
-                invoiceBlk.Text = $"\nDiscount (Converted points): {redeem}\nTotal Payable: {guest.HotelStay.CalculateTotal() - redeem}";
+                redeempoints = Convert.ToInt32(pointsTxt.Text);
+                if (guest.Membership.Status == "Silver")
+                {
+                    bool hasSr = false;
+                    // check for standard rooms
+                    foreach (HotelRoom r in guest.HotelStay.RoomList)
+                    {
+                        if (r is StandardRoom sr)
+                        {
+                            hasSr = true;
+                            break;
+                        }
+                    }
+                    if (hasSr)
+                    {
+                        invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                    }
+                    else
+                    {
+                        statusBlk.Text = "Silver members can only offset their bills for standard rooms";
+                    }
+                }
+                else
+                {
+                    invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                }
             }
         }
     }

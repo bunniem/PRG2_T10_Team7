@@ -39,7 +39,7 @@
         <TextBlock x:Name="statuspointsBlk" HorizontalAlignment="Left" Margin="678,163,0,0" TextWrapping="Wrap" FontSize="18" VerticalAlignment="Top" Height="86" Width="273"/>
         <TextBox x:Name="pointsTxt" HorizontalAlignment="Left" Margin="680,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Height="51"/>
         <Button x:Name="redeemBtn" FontSize="20" Content="Redeem points" HorizontalAlignment="Left" Margin="798,249,0,0" VerticalAlignment="Top" Height="51" Width="153" Click="RedeemBtn_Click"/>
-        <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Left" Margin="581,374,0,0" TextWrapping="Wrap" FontSize="13.5" VerticalAlignment="Top" Width="657" Height="248"/>
+        <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Left" Margin="581,374,0,0" TextWrapping="Wrap" FontSize="13.5" VerticalAlignment="Top" Width="657" Height="323"/>
         <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="44,144,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="170" Width="311"/>
         <Button x:Name="proceedBtn" FontSize="20" Content="Proceed >" HorizontalAlignment="Left" Margin="678,333,0,0" VerticalAlignment="Top" Height="60" Width="120" Click="ProceedBtn_Click"/>
         <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="224" Margin="12,376,0,0" VerticalAlignment="Top" Width="544"/>
