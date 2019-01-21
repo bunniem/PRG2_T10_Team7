@@ -116,7 +116,7 @@ namespace PRG2_ASSIGNMENT
             // Show available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2 };
 
-            // show available rooms and check in function (hidden elements until event happens)
+            // Show available rooms and check in function (hidden elements until event happens)
             hiddenchkInPage.UIElements = new List<UIElement> { wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
         }
 
@@ -132,6 +132,18 @@ namespace PRG2_ASSIGNMENT
             frontPage.Show();
 
             statusBlk.Visibility = Visibility.Collapsed; // what to do with status block
+        }
+        public void printInvoice() // print invoice
+        {
+            double chargesPerDay = 0;
+            double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
+            invoiceDetailBlk.Text = "\nRoom Type\tNo.\tBed Config.\tRate\tWi-Fi\tBreakfast\tAdd. bed\tCharges\n";
+            foreach (HotelRoom r in guest.HotelStay.RoomList)
+            {
+                invoiceDetailBlk.Text += r.ToString() + "\n";
+                chargesPerDay += r.CalculateCharges();
+            }
+            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
         }
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -165,19 +177,22 @@ namespace PRG2_ASSIGNMENT
                             statuspointsBlk.Text = guest.Membership.ToString();
 
                             // Display invoice
-                            double chargesPerDay = 0;
-                            double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
-                            invoiceDetailBlk.Text = "\nRoom Type\tNo.\tBed Config.\tRate\tWi-Fi\tBreakfast\tAdd. bed\tCharges\n";
-                            foreach (HotelRoom r in guest.HotelStay.RoomList)
+                            if (guest.IsCheckedIn)
                             {
-                                invoiceDetailBlk.Text += r.ToString() + "\n";
-                                chargesPerDay += r.CalculateCharges();
+                                printInvoice();
                             }
-                            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
+                            else {
+                                invoiceDetailBlk.Text = "Guest is currently not checked in.";
+                            }
 
                             /* UI visibility */
                             frontPage.Hide();
                             currentRmPage.Show();
+                            if(guest.Membership.Status == "Ordinary") // hide redeem button from ordinary members
+                            {
+                                pointsTxt.Visibility = Visibility.Collapsed;
+                                redeemBtn.Visibility = Visibility.Collapsed;
+                            }
 
                             break;
                         }
@@ -473,40 +488,97 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
-            /* Add all selected rooms back to available room list */
-            foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
+            if (!guest.IsCheckedIn)
             {
-                /* Set addon booleans for rooms to false */
-                if (r is DeluxeRoom dr)
-                {
-                    dr.AdditionalBed = false;
-                }
-                else if (r is StandardRoom sr)
-                {
-                    sr.RequireBreakfast = false;
-                    sr.RequireWifi = false;
-                }
-                /* Remove selected room from guest's roomList */
-                guest.HotelStay.RoomList.Remove(r);
-
-                /* Add selected room to available room list */
-                r.IsAvail = true; // room made available
-                availRms.Add(r);
+                statusBlk.Text = "Error: Guest is not checked in.";
             }
-            availRms.Sort(); // sort available room list
-            guest.IsCheckedIn = false; // guest not checked in
-            // unfreeze textboxes                          
-            guestTxt.IsReadOnly = false;
-            ppTxt.IsReadOnly = false;
+            else
+            {
+                int oldpoints = guest.Membership.Points;
+                string oldstatus = guest.Membership.Status;
+                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal()); // add points to guest
+                int newpoints = guest.Membership.Points;
+                string newstatus = guest.Membership.Status;
 
-            currentRmPage.Hide();
-            frontPage.Show();
+                /* Add all selected rooms back to available room list */
+                foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
+                {
+                    /* Set addon booleans for rooms to false */
+                    if (r is DeluxeRoom dr)
+                    {
+                        dr.AdditionalBed = false;
+                    }
+                    else if (r is StandardRoom sr)
+                    {
+                        sr.RequireBreakfast = false;
+                        sr.RequireWifi = false;
+                    }
+                    /* Remove selected room from guest's roomList */
+                    guest.HotelStay.RoomList.Remove(r);
 
-            // display message
-            statusBlk.Text = $"Check-Out successful!\nYou have earned {guest.HotelStay.CalculateTotal()} points\nMember status is {guest.Membership.Status}\nThank you for your stay, {guest.Name}!";
-            statusBlk.Visibility = Visibility.Visible;
+                    /* Add selected room to available room list */
+                    r.IsAvail = true; // room made available
+                    availRms.Add(r);
+                }
+                availRms.Sort(); // sort available room list
+                guest.IsCheckedIn = false; // guest not checked in
+
+
+                // unfreeze textboxes                          
+                guestTxt.IsReadOnly = false;
+                ppTxt.IsReadOnly = false;
+
+                currentRmPage.Hide();
+                frontPage.Show();
+
+                // display message
+                statusBlk.Text = $"Check-Out successful!\n";
+                if (oldstatus != newstatus)
+                {
+                    statusBlk.Text += $"Your status has been converted\nMember status: {newstatus}";
+                }
+                else
+                {
+                    statusBlk.Text += $"Member status: {newstatus}";
+                }
+                statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}\nThank you for your stay, {guest.Name}!";
+                statusBlk.Visibility = Visibility.Visible;
+            }
+
             //await Task.Delay(5000);
             
+        }
+
+        private void RedeemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int redeem = Convert.ToInt32(pointsTxt.Text);
+            printInvoice();
+            // add deducted amount to invoice
+            if(guest.Membership.Status == "Silver")
+            {
+                bool hasSr = false;
+                // check for standard rooms
+                foreach (HotelRoom r in guest.HotelStay.RoomList)
+                {
+                    if(r is StandardRoom sr)
+                    {
+                        hasSr = true;
+                        break;
+                    }
+                }
+                if (hasSr)
+                {
+                    invoiceBlk.Text = $"\nDiscount (Converted points): {redeem}\nTotal Payable: {guest.HotelStay.CalculateTotal() - redeem}";
+                }
+                else
+                {
+                    statusBlk.Text = "Silver members can only offset their bills for standard rooms";
+                }
+            }
+            else
+            {
+                invoiceBlk.Text = $"\nDiscount (Converted points): {redeem}\nTotal Payable: {guest.HotelStay.CalculateTotal() - redeem}";
+            }
         }
     }
 

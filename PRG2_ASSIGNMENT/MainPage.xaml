@@ -18,7 +18,7 @@
         <TextBlock x:Name="adultnoBlk" HorizontalAlignment="Left" Margin="678,122,0,0" TextWrapping="Wrap" FontSize="25" Text="No. Of Adults:" VerticalAlignment="Top" Width="162" Height="36"/>
         <TextBlock x:Name="childrennoBlk" HorizontalAlignment="Left" Margin="678,226,0,0" TextWrapping="Wrap" FontSize="25" Text="No. Of Children:" VerticalAlignment="Top" Width="185" Height="36"/>
         <Button x:Name="searchBtn" FontSize="20" Content="Search" HorizontalAlignment="Left" Margin="500,333,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="SearchBtn_Click"/>
-        <Button x:Name="extendBtn" FontSize="20" Content="Extend Stay" HorizontalAlignment="Left" Margin="1048,187,0,0" VerticalAlignment="Top" Height="60" Width="127"/>
+        <Button x:Name="extendBtn" FontSize="20" Content="Extend Stay" HorizontalAlignment="Left" Margin="986,244,0,0" VerticalAlignment="Top" Height="60" Width="127"/>
         <ListView x:Name="availrmLv" HorizontalAlignment="Left" Height="326" Margin="70,267,0,0" VerticalAlignment="Top" Width="380" SelectionChanged="AvailrmLv_SelectionChanged"/>
         <TextBlock x:Name="availrmBlk" HorizontalAlignment="Left" Margin="70,226,0,0" TextWrapping="Wrap" FontSize="25" Text="Available rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
         <CheckBox x:Name="breakfastCb" FontSize="17" Content="Add Breakfast" HorizontalAlignment="Left" Margin="581,361,0,0" VerticalAlignment="Top" Width="164"/>
@@ -38,12 +38,12 @@
         <TextBlock x:Name="title"  FontWeight="Bold"  FontSize="42" HorizontalAlignment="Left" TextAlignment="Center" TextWrapping="Wrap" Text="Hotel Guest Management System" VerticalAlignment="Top" Height="64" Width="1270" Margin="10,0,0,0"/>
         <TextBlock x:Name="statuspointsBlk" HorizontalAlignment="Left" Margin="678,163,0,0" TextWrapping="Wrap" FontSize="18" VerticalAlignment="Top" Height="86" Width="273"/>
         <TextBox x:Name="pointsTxt" HorizontalAlignment="Left" Margin="680,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Height="51"/>
-        <Button x:Name="redeemBtn" FontSize="20" Content="Redeem points" HorizontalAlignment="Left" Margin="798,249,0,0" VerticalAlignment="Top" Height="51" Width="153"/>
+        <Button x:Name="redeemBtn" FontSize="20" Content="Redeem points" HorizontalAlignment="Left" Margin="798,249,0,0" VerticalAlignment="Top" Height="51" Width="153" Click="RedeemBtn_Click"/>
         <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Left" Margin="581,374,0,0" TextWrapping="Wrap" FontSize="13.5" VerticalAlignment="Top" Width="657" Height="248"/>
-        <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="70,130,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="96" Width="288"/>
+        <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="44,144,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="170" Width="311"/>
         <Button x:Name="proceedBtn" FontSize="20" Content="Proceed >" HorizontalAlignment="Left" Margin="678,333,0,0" VerticalAlignment="Top" Height="60" Width="120" Click="ProceedBtn_Click"/>
-        <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="224" Margin="70,374,0,0" VerticalAlignment="Top" Width="488"/>
-        <TextBlock x:Name="currentrmBlk" HorizontalAlignment="Left" Margin="70,333,0,0" TextWrapping="Wrap" FontSize="25" Text="Current rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="224" Margin="12,376,0,0" VerticalAlignment="Top" Width="544"/>
+        <TextBlock x:Name="currentrmBlk" HorizontalAlignment="Left" Margin="12,339,0,0" TextWrapping="Wrap" FontSize="25" Text="Current rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
         <Button x:Name="backBtn1" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="500,249,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="BackBtn1_Click"/>
         <Button x:Name="backBtn2" FontSize="20" Content="Back" HorizontalAlignment="Left" Margin="602,607,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="BackBtn2_Click"/>
         <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="581,333,0,0" TextWrapping="Wrap" FontSize="25" Text="Invoice:" VerticalAlignment="Top" Width="215" Height="36"/>
