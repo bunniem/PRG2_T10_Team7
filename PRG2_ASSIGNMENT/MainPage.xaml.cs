@@ -515,7 +515,9 @@ namespace PRG2_ASSIGNMENT
             {
                 int oldpoints = guest.Membership.Points;
                 string oldstatus = guest.Membership.Status;
-                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal()-redeempoints); // add points to guest              
+                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal()-redeempoints); // add points to guest           
+                guest.Membership.RedeemPoints(redeempoints); // redeem points from guest
+                redeempoints = 0; // reset redeempoints
                 int newpoints = guest.Membership.Points;
                 string newstatus = guest.Membership.Status;
 
@@ -541,7 +543,6 @@ namespace PRG2_ASSIGNMENT
                 }
                 availRms.Sort(); // sort available room list
                 guest.IsCheckedIn = false; // guest not checked in
-
 
                 // unfreeze textboxes                          
                 guestTxt.IsReadOnly = false;
@@ -581,6 +582,10 @@ namespace PRG2_ASSIGNMENT
             if(pointsTxt.Text == "")
             {
                 // error: points field blank
+            }
+            else if (Convert.ToInt32(pointsTxt.Text) > guest.Membership.Points)
+            {
+                // error: points more than membership
             }
             else
             {
