@@ -270,6 +270,10 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: checkoutdate earlier than checkindate
             }
+            else if(childrennoTxt.Text == "" && adultnoTxt.Text == "")
+            {
+                // error: number of occupants not entered
+            }
             else
             {
                 // Refresh availrm listview
@@ -421,21 +425,34 @@ namespace PRG2_ASSIGNMENT
 
             guest.HotelStay.RoomList.Sort(); // sort roomList by room number
 
-            guest.IsCheckedIn = true; // guest is checked in
-            if (!guestexist)
+            double totalno = Convert.ToDouble(adultnoTxt.Text) + Convert.ToDouble(childrennoTxt.Text)/2;
+            int totalcap = 0;
+            foreach(HotelRoom r in guest.HotelStay.RoomList)
             {
-                guestList.Add(guest);
+                totalcap += r.NoOfOccupants;
             }
+            if (totalno > totalcap)
+            {
+                // error: not enough rooms to fit everybody
+            }
+            else
+            {
+                guest.IsCheckedIn = true; // guest is checked in
+                if (!guestexist)
+                {
+                    guestList.Add(guest);
+                }
 
-            /* Reset all fields to blank */
-            guestTxt.Text = "";
-            ppTxt.Text = "";
-            checkInDateTxt.Date = null;
-            checkOutDateTxt.Date = null;
+                /* Reset all fields to blank */
+                guestTxt.Text = "";
+                ppTxt.Text = "";
+                checkInDateTxt.Date = null;
+                checkOutDateTxt.Date = null;
 
-            /* UI Visibilty */
-            chkInPage.Hide();
-            frontPage.Show();
+                /* UI Visibilty */
+                chkInPage.Hide();
+                frontPage.Show();
+            }
         }
 
         /* Back buttons for navigation */
@@ -594,6 +611,14 @@ namespace PRG2_ASSIGNMENT
                     invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
                 }
             }
+        }
+
+        private void ExtendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
+
+            // print invoice
+            printInvoice();
         }
     }
 

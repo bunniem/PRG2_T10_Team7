@@ -18,7 +18,7 @@
         <TextBlock x:Name="adultnoBlk" HorizontalAlignment="Left" Margin="678,122,0,0" TextWrapping="Wrap" FontSize="25" Text="No. Of Adults:" VerticalAlignment="Top" Width="162" Height="36"/>
         <TextBlock x:Name="childrennoBlk" HorizontalAlignment="Left" Margin="678,226,0,0" TextWrapping="Wrap" FontSize="25" Text="No. Of Children:" VerticalAlignment="Top" Width="185" Height="36"/>
         <Button x:Name="searchBtn" FontSize="20" Content="Search" HorizontalAlignment="Left" Margin="500,333,0,0" VerticalAlignment="Top" Height="60" Width="101" Click="SearchBtn_Click"/>
-        <Button x:Name="extendBtn" FontSize="20" Content="Extend Stay" HorizontalAlignment="Left" Margin="986,244,0,0" VerticalAlignment="Top" Height="60" Width="127"/>
+        <Button x:Name="extendBtn" FontSize="20" Content="Extend Stay" HorizontalAlignment="Left" Margin="986,244,0,0" VerticalAlignment="Top" Height="60" Width="127" Click="ExtendBtn_Click"/>
         <ListView x:Name="availrmLv" HorizontalAlignment="Left" Height="326" Margin="70,267,0,0" VerticalAlignment="Top" Width="380" SelectionChanged="AvailrmLv_SelectionChanged"/>
         <TextBlock x:Name="availrmBlk" HorizontalAlignment="Left" Margin="70,226,0,0" TextWrapping="Wrap" FontSize="25" Text="Available rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
         <CheckBox x:Name="breakfastCb" FontSize="17" Content="Add Breakfast" HorizontalAlignment="Left" Margin="581,361,0,0" VerticalAlignment="Top" Width="164"/>
