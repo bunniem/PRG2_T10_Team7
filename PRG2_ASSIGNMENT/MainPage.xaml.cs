@@ -216,6 +216,10 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: no name or ppnumber entered
             }
+            else if (childrennoTxt.Text == "" && adultnoTxt.Text == "")
+            {
+                // error: no number of occupants entered
+            }
             else
             {
                 // search guest by name or passport number
@@ -266,13 +270,9 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: either field not filled in
             }
-            else if (checkInDateTxt.Date > checkOutDateTxt.Date)
+            else if (checkInDateTxt.Date >= checkOutDateTxt.Date)
             {
-                // error: checkoutdate earlier than checkindate
-            }
-            else if(childrennoTxt.Text == "" && adultnoTxt.Text == "")
-            {
-                // error: number of occupants not entered
+                // error: checkoutdate earlier or equal to than checkindate
             }
             else
             {
