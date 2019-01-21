@@ -151,9 +151,6 @@ namespace PRG2_ASSIGNMENT
             guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
-            // freeze textboxes
-            guestTxt.IsReadOnly = true;
-            ppTxt.IsReadOnly = true;
 
             if (name == "" && ppnumber == "")
             {
@@ -163,6 +160,9 @@ namespace PRG2_ASSIGNMENT
             {
                 if (!guestexist)
                 {
+                    // freeze textboxes
+                    guestTxt.IsReadOnly = true;
+                    ppTxt.IsReadOnly = true;
                     foreach (Guest eg in guestList)
                     {
                         if (eg.Name == name || eg.PpNumber == ppnumber)
