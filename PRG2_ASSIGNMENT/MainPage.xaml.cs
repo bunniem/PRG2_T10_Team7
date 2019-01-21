@@ -168,8 +168,8 @@ namespace PRG2_ASSIGNMENT
                             // Display invoice
                             double chargesPerDay = 0;
                             double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
-                            invoiceDetailBlk.Text = "\nRoom Type\tRoom No.\tBed Config.\tDaily Rate\tWi-Fi\tBreakfast\tAdd. bed\tCharges\n";                            
-                            foreach(HotelRoom r in guest.HotelStay.RoomList)
+                            invoiceDetailBlk.Text = "\nRoom Type\tNo.\tBed Config.\tRate\tWi-Fi\tBreakfast\tAdd. bed\tCharges\n";
+                            foreach (HotelRoom r in guest.HotelStay.RoomList)
                             {
                                 invoiceDetailBlk.Text += r.ToString() + "\n";
                                 chargesPerDay += r.CalculateCharges();
@@ -474,7 +474,35 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
+            /* Add all selected rooms back to available room list */
+            foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
+            {
+                /* Set addon booleans for rooms to false */
+                if (r is DeluxeRoom dr)
+                {
+                    dr.AdditionalBed = false;
+                }
+                else if (r is StandardRoom sr)
+                {
+                    sr.RequireBreakfast = false;
+                    sr.RequireWifi = false;
+                }
+                /* Remove selected room from guest's roomList */
+                guest.HotelStay.RoomList.Remove(r);
 
+                /* Add selected room to available room list */
+                r.IsAvail = true; // room made available
+                availRms.Add(r);
+            }
+            availRms.Sort(); // sort available room list
+            guest.IsCheckedIn = false; // guest not checked in
+
+            // display message
+            statusBlk.Text = $"Check-Out successful! Thank you for your stay, {guest.Name}!";
+            statusBlk.Visibility = Visibility.Visible;
+
+            currentRmPage.Hide();
+            frontPage.Show();
         }
     }
 
