@@ -168,7 +168,7 @@ namespace PRG2_ASSIGNMENT
                             // Display invoice
                             double chargesPerDay = 0;
                             double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
-                            invoiceDetailBlk.Text = "Invoice:\n\nRoom Type\tRoom No.\tBed Config.\tDaily Rate\tWi-Fi\tBreakfast\tAdd. bed\tCharges\n";                            
+                            invoiceDetailBlk.Text = "\nRoom Type\tRoom No.\tBed Config.\tDaily Rate\tWi-Fi\tBreakfast\tAdd. bed\tCharges\n";                            
                             foreach(HotelRoom r in guest.HotelStay.RoomList)
                             {
                                 invoiceDetailBlk.Text += r.ToString() + "\n";
