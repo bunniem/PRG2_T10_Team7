@@ -134,6 +134,7 @@ namespace PRG2_ASSIGNMENT
 
             statusBlk.Visibility = Visibility.Visible; // what to do with status block
         }
+
         public void printInvoice() // print invoice
         {
             double chargesPerDay = 0;
@@ -146,6 +147,7 @@ namespace PRG2_ASSIGNMENT
             }
             invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
         }
+
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
             guestexist = false;
