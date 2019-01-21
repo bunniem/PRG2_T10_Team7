@@ -138,6 +138,9 @@ namespace PRG2_ASSIGNMENT
             guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
+            // freeze textboxes
+            guestTxt.IsReadOnly = true;
+            ppTxt.IsReadOnly = true;
 
             if (name == "" && ppnumber == "")
             {
@@ -461,8 +464,17 @@ namespace PRG2_ASSIGNMENT
 
         private void BackBtn3_Click(object sender, RoutedEventArgs e)
         {
+            // unfreeze textboxes
+            guestTxt.IsReadOnly = false;
+            ppTxt.IsReadOnly = false;
+
             currentRmPage.Hide();
             frontPage.Show();
+        }
+
+        private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
