@@ -111,7 +111,7 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Show current rooms page (search button is clicked)           
-            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, memberstatusBlk, pointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
+            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
 
             // Show available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2 };
@@ -162,8 +162,7 @@ namespace PRG2_ASSIGNMENT
                             currentrmLv.ItemsSource = guest.HotelStay.RoomList;
 
                             // Display member status & points
-                            memberstatusBlk.Text = $"Member status: {guest.Membership.Status}";
-                            pointsBlk.Text = $"Points available: {guest.Membership.Points.ToString()}";
+                            statuspointsBlk.Text = guest.Membership.ToString();
 
                             // Display invoice
                             double chargesPerDay = 0;
@@ -496,13 +495,18 @@ namespace PRG2_ASSIGNMENT
             }
             availRms.Sort(); // sort available room list
             guest.IsCheckedIn = false; // guest not checked in
-
-            // display message
-            statusBlk.Text = $"Check-Out successful! Thank you for your stay, {guest.Name}!";
-            statusBlk.Visibility = Visibility.Visible;
+            // unfreeze textboxes                          
+            guestTxt.IsReadOnly = false;
+            ppTxt.IsReadOnly = false;
 
             currentRmPage.Hide();
             frontPage.Show();
+
+            // display message
+            statusBlk.Text = $"Check-Out successful!\nYou have earned {guest.HotelStay.CalculateTotal()} points\nMember status is {guest.Membership.Status}\nThank you for your stay, {guest.Name}!";
+            statusBlk.Visibility = Visibility.Visible;
+            //await Task.Delay(5000);
+            
         }
     }
 

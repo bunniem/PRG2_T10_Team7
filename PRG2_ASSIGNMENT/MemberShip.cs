@@ -33,15 +33,6 @@ namespace PRG2_ASSIGNMENT
         {
             Status = s;
             Points = p;
-            if(Status == "Silver")
-            {
-                silverStatus = true;
-            }
-            else if(Status == "Gold")
-            {
-                silverStatus = true;
-                goldStatus = true;
-            }
         }
 
         /* Methods */
@@ -80,7 +71,7 @@ namespace PRG2_ASSIGNMENT
 
         public override string ToString()
         {
-            return base.ToString();
+            return $"Member status: {Status}\nPoints available: {Points}";
         }
     }
 }
