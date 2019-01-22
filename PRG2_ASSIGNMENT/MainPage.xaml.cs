@@ -218,9 +218,9 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: no name or ppnumber entered
             }
-            else if (childrennoTxt.Text == "" && adultnoTxt.Text == "")
+            else if (childrennoTxt.Text == "" && adultnoTxt.Text == "" || adultnoTxt.Text == "0")
             {
-                // error: no number of occupants entered
+                // error: no number of occupants entered / no adults entered
             }
             else
             {
