@@ -422,8 +422,13 @@ namespace PRG2_ASSIGNMENT
             /* Set checkindate & checkoutdate of stay */
             guest.HotelStay.CheckInDate = checkInDateTxt.Date.Value.DateTime;
             guest.HotelStay.CheckOutDate = checkOutDateTxt.Date.Value.DateTime;
-            guest.Membership.Status = "Ordinary";
-            guest.Membership.Points = 0;
+
+            /* Auto membership for new guests */
+            if (!guestexist)
+            {
+                guest.Membership.Status = "Ordinary";
+                guest.Membership.Points = 0;
+            }
 
             guest.HotelStay.RoomList.Sort(); // sort roomList by room number
 

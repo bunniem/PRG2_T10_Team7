@@ -9,11 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="720" Width="1280">
 
     <Grid>
-        <TextBox x:Name="guestTxt" Text="Amelia" HorizontalAlignment="Left" Margin="386,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Height="50"/>
+        <TextBox x:Name="guestTxt" HorizontalAlignment="Left" Margin="386,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Height="50"/>
         <TextBlock x:Name="guestBlk" HorizontalAlignment="Left" Margin="386,122,0,0" TextWrapping="Wrap" FontSize="25" Text="Name of guest:" VerticalAlignment="Top" Width="215" Height="36"/>
-        <TextBox x:Name="adultnoTxt" HorizontalAlignment="Left" Margin="678,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="50"/>
-        <TextBox x:Name="childrennoTxt" HorizontalAlignment="Left" Margin="678,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="50"/>
-        <TextBox x:Name="ppTxt" Text="S1234567A" HorizontalAlignment="Left" Margin="386,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Height="50"/>
+        <TextBox x:Name="adultnoTxt" Text="1" HorizontalAlignment="Left" Margin="678,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="50"/>
+        <TextBox x:Name="childrennoTxt" Text="0" HorizontalAlignment="Left" Margin="678,259,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="50"/>
+        <TextBox x:Name="ppTxt" HorizontalAlignment="Left" Margin="386,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" Height="50"/>
         <TextBlock x:Name="ppBlk" HorizontalAlignment="Left" Margin="386,226,0,0" TextWrapping="Wrap" FontSize="25" Text="Passport Number:" VerticalAlignment="Top" Width="215" Height="36"/>
         <TextBlock x:Name="adultnoBlk" HorizontalAlignment="Left" Margin="678,122,0,0" TextWrapping="Wrap" FontSize="25" Text="No. Of Adults:" VerticalAlignment="Top" Width="162" Height="36"/>
         <TextBlock x:Name="childrennoBlk" HorizontalAlignment="Left" Margin="678,226,0,0" TextWrapping="Wrap" FontSize="25" Text="No. Of Children:" VerticalAlignment="Top" Width="185" Height="36"/>
@@ -40,7 +40,7 @@
         <TextBox x:Name="pointsTxt" HorizontalAlignment="Left" Margin="680,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Height="51"/>
         <Button x:Name="redeemBtn" FontSize="20" Content="Redeem points" HorizontalAlignment="Left" Margin="798,249,0,0" VerticalAlignment="Top" Height="51" Width="153" Click="RedeemBtn_Click"/>
         <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Left" Margin="581,374,0,0" TextWrapping="Wrap" FontSize="13.5" VerticalAlignment="Top" Width="657" Height="258"/>
-        <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="44,144,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="170" Width="311"/>
+        <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="806,61,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="170" Width="311"/>
         <Button x:Name="proceedBtn" FontSize="20" Content="Proceed >" HorizontalAlignment="Left" Margin="678,333,0,0" VerticalAlignment="Top" Height="60" Width="120" Click="ProceedBtn_Click"/>
         <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="224" Margin="12,376,0,0" VerticalAlignment="Top" Width="544"/>
         <TextBlock x:Name="currentrmBlk" HorizontalAlignment="Left" Margin="12,339,0,0" TextWrapping="Wrap" FontSize="25" Text="Current rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
