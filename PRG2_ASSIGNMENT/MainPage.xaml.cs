@@ -20,7 +20,7 @@ namespace PRG2_ASSIGNMENT
         UIElementList currentRmPage = new UIElementList();
         UIElementList chkInPage = new UIElementList();
         UIElementList hiddenchkInPage = new UIElementList();
-        UIElementList statusBlk = new UIElementList();
+        UIElementList statusMsg = new UIElementList();
 
         /* Global guest */
         bool guestexist = false;
@@ -109,6 +109,9 @@ namespace PRG2_ASSIGNMENT
 
             // Show available rooms and check in function (hidden elements until event happens)
             hiddenchkInPage.UIElements = new List<UIElement> { wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
+
+            // Show Status messages (for error messages or informational messages)
+            statusMsg.UIElements = new List<UIElement> { statusBlk, hideBtn };
         }
 
         public MainPage()
