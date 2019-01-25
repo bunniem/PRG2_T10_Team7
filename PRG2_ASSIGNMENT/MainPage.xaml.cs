@@ -99,7 +99,7 @@ namespace PRG2_ASSIGNMENT
             frontPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, adultnoBlk, adultnoTxt, childrennoBlk, childrennoTxt, proceedBtn, searchBtn };
 
             // Check rooms available page (proceed button is clicked)
-            chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1, statusBlk };
+            chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Show current rooms page (search button is clicked)           
             currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
@@ -120,6 +120,7 @@ namespace PRG2_ASSIGNMENT
             InitData(); // initialise all hotel rooms and existing guests
 
             /* UI Visibility */
+            statusMsg.Hide();
             chkRmAvailPage.Hide();
             currentRmPage.Hide();
             chkInPage.Hide();
