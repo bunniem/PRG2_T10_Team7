@@ -186,7 +186,7 @@ namespace PRG2_ASSIGNMENT
                     statusBlk.Text = "Error: No existing guest with matching Name or Passport Number!";
                     statusMsg.Show();
 
-                    /* Set fields to allow input */
+                    // enable input for textboxes
                     guestTxt.IsReadOnly = false;
                     ppTxt.IsReadOnly = false;
                 }
@@ -739,6 +739,7 @@ namespace PRG2_ASSIGNMENT
         {
             chkRmAvailPage.Hide();
             frontPage.Show();
+            statusMsg.Hide();
 
             /* Reset values of date to null */
             checkInDateTxt.Date = null;
@@ -749,6 +750,7 @@ namespace PRG2_ASSIGNMENT
         {
             chkInPage.Hide();
             chkRmAvailPage.Show();
+            statusMsg.Hide();
 
             /* Add all selected rooms back to available room list */
             foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
@@ -775,13 +777,14 @@ namespace PRG2_ASSIGNMENT
 
         private void BackBtn3_Click(object sender, RoutedEventArgs e)
         {
-            // unfreeze textboxes
+            pointsTxt.Text = ""; // reset points textbox
+            // enable input for textboxes
             guestTxt.IsReadOnly = false;
             ppTxt.IsReadOnly = false;
-            pointsTxt.Text = ""; // reset points textbox
 
             currentRmPage.Hide();
             frontPage.Show();
+            statusMsg.Hide();
         }
     }
 }
