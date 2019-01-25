@@ -239,17 +239,29 @@ namespace PRG2_ASSIGNMENT
                     if (guest.IsCheckedIn)
                     {
                         // error: guest still checked into hotel, need to check out to check in more rooms
+                        statusBlk.Text = "Error: Guest is already checked in the hotel. Check out to check in more rooms!";
                     }
                     else // existing guest, not checked into hotel
                     {
                         /* UI Visibility */
                         frontPage.Hide();
                         chkRmAvailPage.Show();
+                        statusMsg.Hide();
                     }
                 }
                 else // guest does not exist
                 {
-                    if (name != "" && ppnumber != "")
+                    if (name == "" || ppnumber == "")
+                    {
+                        // error: not all fields filled in
+                        statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
+                        statusMsg.Show();
+                    }
+
+                    else if () { //error --- add validation
+
+                    }
+                    else
                     {
                         Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest
                         guest = ng;
@@ -257,12 +269,7 @@ namespace PRG2_ASSIGNMENT
                         /* UI Visibility */
                         frontPage.Hide();
                         chkRmAvailPage.Show();
-                    }
-                    else
-                    {
-                        // error: not all fields filled in
-                        statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
-                        statusMsg.Show();
+                        statusMsg.Hide();
                     }
                 }
 
