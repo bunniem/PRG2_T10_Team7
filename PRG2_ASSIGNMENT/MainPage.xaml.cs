@@ -20,6 +20,7 @@ namespace PRG2_ASSIGNMENT
         UIElementList currentRmPage = new UIElementList();
         UIElementList chkInPage = new UIElementList();
         UIElementList hiddenchkInPage = new UIElementList();
+        UIElementList statusBlk = new UIElementList();
 
         /* Global guest */
         bool guestexist = false;
@@ -564,7 +565,7 @@ namespace PRG2_ASSIGNMENT
                 statusBlk.Text = $"Check-Out successful!\n";
                 if (oldstatus != newstatus)
                 {
-                    statusBlk.Text += $"Your status has been converted\nMember status: {newstatus}";
+                    statusBlk.Text += $"New Member status: {newstatus}";
                 }
                 else
                 {
@@ -572,8 +573,17 @@ namespace PRG2_ASSIGNMENT
                 }
                 if(newpoints > oldpoints)
                 {
-                    statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}\nThank you for your stay, {guest.Name}!";
-                }               
+                    statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}";
+                }
+                else if(oldpoints > newpoints)
+                {
+                    statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}!";
+                }
+                else
+                {
+                    statusBlk.Text += "Points have not changed";
+                }
+                statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
                 statusBlk.Visibility = Visibility.Visible;
             }
 
