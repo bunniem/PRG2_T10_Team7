@@ -101,7 +101,7 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Show current rooms page (search button is clicked)           
-            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
+            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
 
             // Show available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2 };
@@ -120,8 +120,6 @@ namespace PRG2_ASSIGNMENT
             currentRmPage.Hide();
             chkInPage.Hide();
             frontPage.Show();
-
-            statusBlk.Visibility = Visibility.Collapsed;
         }
 
         public void PrintInvoice() // print invoice
@@ -572,7 +570,10 @@ namespace PRG2_ASSIGNMENT
                 {
                     statusBlk.Text += $"Member status: {newstatus}";
                 }
-                statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}\nThank you for your stay, {guest.Name}!";
+                if(newpoints > oldpoints)
+                {
+                    statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}\nThank you for your stay, {guest.Name}!";
+                }               
                 statusBlk.Visibility = Visibility.Visible;
             }
 

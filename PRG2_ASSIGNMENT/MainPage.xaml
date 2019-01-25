@@ -18,7 +18,7 @@
         <TextBlock x:Name="adultnoBlk" HorizontalAlignment="Left" Margin="678,75,0,0" TextWrapping="Wrap" FontSize="22" Text="No. of Adults:" VerticalAlignment="Top" Width="162" Height="36"/>
         <TextBlock x:Name="childrennoBlk" HorizontalAlignment="Left" Margin="678,159,0,0" TextWrapping="Wrap" FontSize="22" Text="No. of Children:" VerticalAlignment="Top" Width="185" Height="36"/>
         <Button x:Name="searchBtn" FontSize="16" Content="Search" HorizontalAlignment="Left" Margin="500,261,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="SearchBtn_Click"/>
-        <Button x:Name="extendBtn" FontSize="16" Content="Extend Stay" HorizontalAlignment="Left" Margin="986,194,0,0" VerticalAlignment="Top" Height="35" Width="127" Click="ExtendBtn_Click"/>
+        <Button x:Name="extendBtn" FontSize="16" Content="Extend Stay" HorizontalAlignment="Left" Margin="993,194,0,0" VerticalAlignment="Top" Height="32" Width="127" Click="ExtendBtn_Click"/>
         <ListView x:Name="availrmLv" HorizontalAlignment="Left" Height="430" Margin="70,267,0,0" VerticalAlignment="Top" Width="380" SelectionChanged="AvailrmLv_SelectionChanged"/>
         <TextBlock x:Name="availrmBlk" HorizontalAlignment="Left" Margin="70,226,0,0" TextWrapping="Wrap" FontSize="22" Text="Available rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
         <CheckBox x:Name="breakfastCb" FontSize="17" Content="Add Breakfast" HorizontalAlignment="Left" Margin="554,349,0,0" VerticalAlignment="Top" Width="164"/>
@@ -39,8 +39,8 @@
         <TextBlock x:Name="statuspointsBlk" HorizontalAlignment="Left" Margin="678,116,0,0" TextWrapping="Wrap" FontSize="18" VerticalAlignment="Top" Height="86" Width="273"/>
         <TextBox x:Name="pointsTxt" HorizontalAlignment="Left" Margin="680,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Height="18"/>
         <Button x:Name="redeemBtn" FontSize="16" Content="Redeem points" HorizontalAlignment="Left" Margin="798,194,0,0" VerticalAlignment="Top" Height="32" Width="153" Click="RedeemBtn_Click"/>
-        <ScrollViewer Margin="606,313,0,210">
-            <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Left" TextWrapping="Wrap" FontSize="13.5" VerticalAlignment="Top" Width="674" Height="187"/>
+        <ScrollViewer x:Name="invoiceDetailScroll" Margin="606,313,0,116" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="13.5" VerticalAlignment="Top" Width="674" Height="387" Margin="0,0,0,0"/>
         </ScrollViewer>
         <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="12,52,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="137" Width="267"/>
         <Button x:Name="proceedBtn" FontSize="16" Content="Proceed >" HorizontalAlignment="Left" Margin="678,261,0,0" VerticalAlignment="Top" Height="35" Width="120" Click="ProceedBtn_Click"/>
