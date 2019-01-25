@@ -283,6 +283,7 @@ namespace PRG2_ASSIGNMENT
 
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
+            statusMsg.Hide();
             guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
@@ -290,12 +291,20 @@ namespace PRG2_ASSIGNMENT
             if (name == "" || ppnumber == "")
             {
                 // error: no name or ppnumber entered
-                statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
+                statusBlk.Text = "Error: Guests need to enter both name and passport number fields!";
+                statusMsg.Show();
             }
-            else if (childrennoTxt.Text == "" && adultnoTxt.Text == "" || adultnoTxt.Text == "0")
+            else if (childrennoTxt.Text == "" || adultnoTxt.Text == "")
             {
-                // error: no number of occupants entered / no adults entered
+                // error: no number of occupants entered
+                statusBlk.Text = "Error: Number of guests not entered for adult / children!\nIf there is no children, please put '0'.";
+                statusMsg.Show();
+            }
+            else if (adultnoTxt.Text == "0")
+            {
+                // error: no adults entered
                 statusBlk.Text = "Error: There must be at least 1 adult!";
+                statusMsg.Show();
             }
             else if (!int.TryParse(adultnoTxt.Text, out int adultNo) || !int.TryParse(childrennoTxt.Text, out int childrenNo))
             {
@@ -304,10 +313,10 @@ namespace PRG2_ASSIGNMENT
             }
             else
             {
-                // search guest by name or passport number
+                // search guest by name and passport number
                 foreach (Guest eg in guestList)
                 {
-                    if (eg.Name == name || eg.PpNumber == ppnumber)
+                    if (eg.Name == name && eg.PpNumber == ppnumber)
                     {
                         guest = eg;
                         guestexist = true;
@@ -321,6 +330,7 @@ namespace PRG2_ASSIGNMENT
                     {
                         // error: guest still checked into hotel, need to check out to check in more rooms
                         statusBlk.Text = "Error: Guest is already checked in the hotel. Check out to check in more rooms!";
+                        statusMsg.Show();
                     }
                     else // existing guest, not checked into hotel
                     {
@@ -330,35 +340,31 @@ namespace PRG2_ASSIGNMENT
                         statusMsg.Hide();
                     }
                 }
-                else // guest does not exist
+                else
                 {
+                    bool namematch = false;
+                    bool ppmatch = false;
 
-                    bool existingName = false;
-                    bool existingPpNumber = false;
-                    bool existingsameguest = false;
-
+                    // check if name or passport number match any existing users
                     foreach (Guest g in guestList)
                     {
-
-                        if (name == g.Name)
+                        if(g.Name == name)
                         {
-                            existingName = true;
-                        }
-
-                        if (ppnumber == g.PpNumber)
-                        {
-                            existingPpNumber = true;
-                        }
-
-                        if (name == g.Name && ppnumber == g.PpNumber)
-                        {
-                            existingsameguest = true;
+                            namematch = true;
                         }
                     }
 
-                    if (existingName == false && existingPpNumber == false)
+                    foreach (Guest g in guestList)
                     {
-                        Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest
+                        if (g.PpNumber == ppnumber)
+                        {
+                            ppmatch = true;
+                        }
+                    }
+                    if(!namematch && !ppmatch) // new guest
+                    {
+                        // create new guest
+                        Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false);
                         guest = ng;
 
                         /* UI Visibility */
@@ -366,10 +372,9 @@ namespace PRG2_ASSIGNMENT
                         chkRmAvailPage.Show();
                         statusMsg.Hide();
                     }
-
-                    else if ((existingName == false && existingPpNumber == true) || (existingName == true && existingPpNumber == false) || (existingName == true && existingPpNumber == true && existingsameguest == false))
+                    else
                     {
-                        statusBlk.Text = "Error: Name or passport no. is incorrect/does not match any existing user!";
+                        statusBlk.Text = "Error: Name or Passport number is incorrect / does not match any user";
                         statusMsg.Show();
                     }
                 }
