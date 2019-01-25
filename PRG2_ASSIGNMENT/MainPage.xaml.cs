@@ -723,23 +723,20 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: points field blank
                 statusBlk.Text = "Error: Points to redeem must be entered!";
-                statusMsg.Show();
             }
             else if (!int.TryParse(pointsTxt.Text, out int redeempoints))
             {
                 statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
-                statusMsg.Show();
             }
             else if (Convert.ToInt32(pointsTxt.Text) > guest.Membership.Points)
             {
                 // error: points more than membership
                 statusBlk.Text = "Error: Points entered cannot exceed current points!";
-                statusMsg.Show();
             }
             else
             {
                 redeempoints = Convert.ToInt32(pointsTxt.Text);
-                if (guest.Membership.Status == "Silver")
+                if (guest.Membership.Status == "Silver") // silver members
                 {
                     bool hasSr = false;
                     // check for standard rooms
@@ -754,15 +751,17 @@ namespace PRG2_ASSIGNMENT
                     if (hasSr)
                     {
                         invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                        statusMsg.Hide();
                     }
                     else
                     {
                         statusBlk.Text = "Silver members can only offset their bills for standard rooms";
                     }
                 }
-                else
+                else // gold members
                 {
                     invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                    statusMsg.Hide();
                 }
             }
         }
