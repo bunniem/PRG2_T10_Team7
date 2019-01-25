@@ -99,7 +99,7 @@ namespace PRG2_ASSIGNMENT
             frontPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, adultnoBlk, adultnoTxt, childrennoBlk, childrennoTxt, proceedBtn, searchBtn };
 
             // Check rooms available page (proceed button is clicked)
-            chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
+            chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1, statusBlk };
 
             // Show current rooms page (search button is clicked)           
             currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
@@ -381,10 +381,14 @@ namespace PRG2_ASSIGNMENT
             if (!checkInDateTxt.Date.HasValue || !checkOutDateTxt.Date.HasValue)
             {
                 // error: either field not filled in
+                statusBlk.Text = "Error: Both check in and check out dates need to be entered!";
+                statusMsg.Show();
             }
             else if (checkInDateTxt.Date >= checkOutDateTxt.Date)
             {
                 // error: checkoutdate earlier or equal to than checkindate
+                statusBlk.Text = "Error: Check in date cannot be same as or later than the check out date!";
+                statusMsg.Show();
             }
             else
             {
