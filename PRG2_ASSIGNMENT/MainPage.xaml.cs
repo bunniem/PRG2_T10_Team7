@@ -141,7 +141,10 @@ namespace PRG2_ASSIGNMENT
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
+            statusMsg.Hide(); // hide status message
             guestexist = false;
+            bool namematch = false;
+            bool ppmatch = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
@@ -149,54 +152,131 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: name and ppnumber not entered
                 statusBlk.Text = "Error: To view an existing guest's checked in rooms, enter either their name or passport number!";
+                statusMsg.Show();
             }
             else
             {
-                // freeze textboxes
+                // disable input for textboxes
                 guestTxt.IsReadOnly = true;
                 ppTxt.IsReadOnly = true;
-                foreach (Guest eg in guestList)
+
+                // match name with existing users, and set bool to true if match
+                foreach (Guest g in guestList)
                 {
-                    if (eg.Name == name || eg.PpNumber == ppnumber)
+                    if (g.Name == name)
                     {
-                        guest = eg;
-                        guestexist = true;
-
-                        // refresh current room listview 
-                        currentrmLv.ItemsSource = null;
-                        currentrmLv.ItemsSource = guest.HotelStay.RoomList;
-
-                        // Display member status & points
-                        statuspointsBlk.Text = guest.Membership.ToString();
-
-                        // Display invoice
-                        if (guest.IsCheckedIn)
-                        {
-                            PrintInvoice();
-                        }
-                        else
-                        {
-                            invoiceDetailBlk.Text = "Guest is currently not checked in.";
-                        }
-
-                        /* UI visibility */
-                        frontPage.Hide();
-                        currentRmPage.Show();
-                        if (guest.Membership.Status == "Ordinary") // hide redeem button from ordinary members
-                        {
-                            pointsTxt.Visibility = Visibility.Collapsed;
-                            redeemBtn.Visibility = Visibility.Collapsed;
-                        }
-
-                        break;
+                        namematch = true;
                     }
                 }
-                if (!guestexist)
+
+                // match pp number with existing users, and set bool to true if match
+                foreach (Guest g in guestList)
                 {
-                    // error: guest does not exist
-                    statusBlk.Text = "Error: No guests found with matching name or passport number!";
+                    if (g.PpNumber == ppnumber)
+                    {
+                        ppmatch = true;
+                    }
+                }
+
+                // check booleans namematch and ppmatch to determine the result
+                if (!namematch && !ppmatch)
+                {
+                    // Error: No existing guest with matching Name or Passport No.
+                    statusBlk.Text = "Error: No existing guest with matching Name or Passport Number!";
+                    statusMsg.Show();
+
+                    /* Set fields to allow input */
                     guestTxt.IsReadOnly = false;
                     ppTxt.IsReadOnly = false;
+                }
+                else if (namematch && !ppmatch)
+                {
+                    // use name to match with existing guest
+                    foreach (Guest eg in guestList)
+                    {
+                        if (eg.Name == name)
+                        {
+                            guest = eg;
+                        }
+                    }
+                    guestexist = true;
+
+                    statusBlk.Text = $"Guest matched via name: {name}";
+                    statusMsg.Show();
+                }
+                else if (!namematch && ppmatch)
+                {
+                    // use passport number to match with existing guest
+                    foreach (Guest eg in guestList)
+                    {
+                        if (eg.PpNumber == ppnumber)
+                        {
+                            guest = eg;
+                        }
+                    }
+                    guestexist = true;
+
+                    statusBlk.Text = $"Guest matched via Passport number: {ppnumber}";
+                    statusMsg.Show();
+                }
+                else if (namematch && ppmatch)
+                {
+
+                    // name and pp number matches the same guest
+                    foreach (Guest eg in guestList)
+                    {
+                        if (eg.Name == name && eg.PpNumber == ppnumber)
+                        {
+                            guest = eg;
+                            guestexist = true;
+                            break;
+                        }
+                    }
+                    // name and pp number does not match the same guest
+                    if (!guestexist)
+                    {
+                        // use passport number to match existing guest
+                        foreach (Guest eg in guestList)
+                        {
+                            if (eg.PpNumber == ppnumber)
+                            {
+                                guest = eg;
+                                guestexist = true;
+
+                                statusBlk.Text = $"Guest matched via Passport number: {ppnumber}";
+                                statusMsg.Show();
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (guestexist) // Only runs if guest exists
+                {
+                    // Refresh current room listview 
+                    currentrmLv.ItemsSource = null;
+                    currentrmLv.ItemsSource = guest.HotelStay.RoomList;
+
+                    // Display member status & points
+                    statuspointsBlk.Text = guest.Membership.ToString();
+
+                    // Display invoice
+                    if (guest.IsCheckedIn)
+                    {
+                        PrintInvoice();
+                    }
+                    else
+                    {
+                        invoiceDetailBlk.Text = "Guest is currently not checked in.";
+                    }
+
+                    /* UI visibility */
+                    frontPage.Hide();
+                    currentRmPage.Show();
+                    if (guest.Membership.Status == "Ordinary") // Hide redeem button from ordinary members
+                    {
+                        pointsTxt.Visibility = Visibility.Collapsed;
+                        redeemBtn.Visibility = Visibility.Collapsed;
+                    }
                 }
             }
         }
