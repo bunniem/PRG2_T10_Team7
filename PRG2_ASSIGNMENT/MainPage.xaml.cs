@@ -716,10 +716,19 @@ namespace PRG2_ASSIGNMENT
             if (pointsTxt.Text == "")
             {
                 // error: points field blank
+                statusBlk.Text = "Error: Points to redeem must be entered!";
+                statusMsg.Show();
+            }
+            else if (!int.TryParse(pointsTxt.Text, out int redeempoints))
+            {
+                statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
+                statusMsg.Show();
             }
             else if (Convert.ToInt32(pointsTxt.Text) > guest.Membership.Points)
             {
                 // error: points more than membership
+                statusBlk.Text = "Error: Points entered cannot exceed current points!";
+                statusMsg.Show();
             }
             else
             {
