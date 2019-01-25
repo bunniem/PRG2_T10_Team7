@@ -235,18 +235,18 @@ namespace PRG2_ASSIGNMENT
                         {
                             // error: guest still checked into hotel, need to check out to check in more rooms
                         }
-                        else // existing guest, but not checked into hotel
+                        else // existing guest, not checked into hotel
                         {
                             /* UI Visibility */
                             frontPage.Hide();
                             chkRmAvailPage.Show();
                         }
                     }
-                    else
+                    else // guest does not exist
                     {
                         if (name != "" && ppnumber != "")
                         {
-                            Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest if guest not found in database
+                            Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest
                             guest = ng;
 
                             /* UI Visibility */
@@ -262,7 +262,7 @@ namespace PRG2_ASSIGNMENT
                 catch
                 {
                     statusBlk.Text = "error!"; // Make it go away after user enters numeric adult and child no.
-
+                    statusMsg.Show();
                 }
             }
         }
@@ -518,6 +518,7 @@ namespace PRG2_ASSIGNMENT
             if (!guest.IsCheckedIn)
             {
                 statusBlk.Text = "Error: Guest is not checked in.";
+                statusMsg.Show();
             }
             else
             {
@@ -587,7 +588,7 @@ namespace PRG2_ASSIGNMENT
                     statusBlk.Text += "Points have not changed";
                 }
                 statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
-                statusBlk.Visibility = Visibility.Visible;
+                statusMsg.Show();
             }
 
             //await Task.Delay(5000);
@@ -596,7 +597,7 @@ namespace PRG2_ASSIGNMENT
 
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
-            statusBlk.Visibility = Visibility.Visible;
+            statusMsg.Show();
             PrintInvoice();
             // add deducted amount to invoice
             if (pointsTxt.Text == "")
@@ -649,8 +650,7 @@ namespace PRG2_ASSIGNMENT
         private void HideBtn_Click(object sender, RoutedEventArgs e)
         {
             statusBlk.Text = "";
-            statusBlk.Visibility = Visibility.Collapsed;
-            hideBtn.Visibility = Visibility.Collapsed;
+            statusMsg.Hide();
         }
     }
 }
