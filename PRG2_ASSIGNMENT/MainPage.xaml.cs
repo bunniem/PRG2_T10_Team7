@@ -110,7 +110,7 @@ namespace PRG2_ASSIGNMENT
             // Show available rooms and check in function (hidden elements until event happens)
             hiddenchkInPage.UIElements = new List<UIElement> { wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
 
-            // Show Status messages (for error messages or informational messages)
+            // Show status messages (for error or informational messages)
             statusMsg.UIElements = new List<UIElement> { statusBlk, hideBtn };
         }
 
@@ -120,6 +120,7 @@ namespace PRG2_ASSIGNMENT
             InitData(); // initialise all hotel rooms and existing guests
 
             /* UI Visibility */
+            // show front page only
             statusMsg.Hide();
             chkRmAvailPage.Hide();
             currentRmPage.Hide();
@@ -179,7 +180,7 @@ namespace PRG2_ASSIGNMENT
                     }
                 }
 
-                // check booleans namematch and ppmatch to determine the result
+                // compare booleans namematch and ppmatch to determine the result
                 if (!namematch && !ppmatch)
                 {
                     // Error: No existing guest with matching Name or Passport No.
@@ -202,7 +203,7 @@ namespace PRG2_ASSIGNMENT
                     }
                     guestexist = true;
 
-                    statusBlk.Text = $"Guest matched via name: {name}";
+                    statusBlk.Text = $"Guest found via name: {name}";
                     statusMsg.Show();
                 }
                 else if (!namematch && ppmatch)
@@ -217,7 +218,7 @@ namespace PRG2_ASSIGNMENT
                     }
                     guestexist = true;
 
-                    statusBlk.Text = $"Guest matched via Passport number: {ppnumber}";
+                    statusBlk.Text = $"Guest found via Passport number: {ppnumber}";
                     statusMsg.Show();
                 }
                 else if (namematch && ppmatch)
@@ -244,7 +245,7 @@ namespace PRG2_ASSIGNMENT
                                 guest = eg;
                                 guestexist = true;
 
-                                statusBlk.Text = $"Guest matched via Passport number: {ppnumber}";
+                                statusBlk.Text = $"Guest found via Passport number: {ppnumber}";
                                 statusMsg.Show();
                                 break;
                             }
@@ -267,24 +268,24 @@ namespace PRG2_ASSIGNMENT
                     }
                     else
                     {
-                        invoiceDetailBlk.Text = "Guest is currently not checked in.";
+                        invoiceDetailBlk.Text = "Guest is not checked in.";
                     }
 
                     /* UI visibility */
-                    frontPage.Hide();
-                    currentRmPage.Show();
                     if (guest.Membership.Status == "Ordinary") // Hide redeem button from ordinary members
                     {
                         pointsTxt.Visibility = Visibility.Collapsed;
                         redeemBtn.Visibility = Visibility.Collapsed;
                     }
+                    frontPage.Hide();
+                    currentRmPage.Show();
                 }
             }
         }
 
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
-            statusMsg.Hide();
+            statusMsg.Hide(); // hide status message
             guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
@@ -384,21 +385,19 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
         {
+            statusMsg.Show(); // show status message
             if (!checkInDateTxt.Date.HasValue || !checkOutDateTxt.Date.HasValue)
             {
                 // error: either field not filled in
                 statusBlk.Text = "Error: Both check in and check out dates need to be entered!";
-                statusMsg.Show();
             }
             else if (checkInDateTxt.Date >= checkOutDateTxt.Date)
             {
                 // error: checkoutdate earlier or equal to than checkindate
                 statusBlk.Text = "Error: Check in date cannot be same as or later than the check out date!";
-                statusMsg.Show();
             }
             else
             {
-                statusMsg.Hide();
                 // Refresh availrm listview
                 availrmLv.ItemsSource = null;
                 availrmLv.ItemsSource = availRms;
@@ -408,6 +407,7 @@ namespace PRG2_ASSIGNMENT
                 selectrmLv.ItemsSource = guest.HotelStay.RoomList;
 
                 /* UI Visibility */
+                statusMsg.Hide();
                 chkRmAvailPage.Hide();
                 chkInPage.Show();
                 hiddenchkInPage.Hide();
@@ -423,7 +423,7 @@ namespace PRG2_ASSIGNMENT
             breakfastCb.Visibility = Visibility.Collapsed;
             bedCb.Visibility = Visibility.Collapsed;
 
-            // show checkBoxes that apply for selected room
+            // show checkboxes that apply for selected room
             if (availrmLv.SelectedItem is DeluxeRoom)
             {
                 bedCb.Visibility = Visibility.Visible;
@@ -526,16 +526,10 @@ namespace PRG2_ASSIGNMENT
 
         private void ChkinBtn_Click(object sender, RoutedEventArgs e)
         {
+            statusMsg.Show(); // show status message
             /* Set checkindate & checkoutdate of stay */
             guest.HotelStay.CheckInDate = checkInDateTxt.Date.Value.DateTime;
             guest.HotelStay.CheckOutDate = checkOutDateTxt.Date.Value.DateTime;
-
-            /* Auto membership for new guests */
-            if (!guestexist)
-            {
-                guest.Membership.Status = "Ordinary";
-                guest.Membership.Points = 0;
-            }
 
             guest.HotelStay.RoomList.Sort(); // sort roomList by room number
 
@@ -549,15 +543,18 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: not enough rooms to fit everybody
                 statusBlk.Text = "Error: No. of occupants exceed the maximum permissible no. of occupants in room(s) selected. Please add a bed or change the room configuration!";
-                statusMsg.Show();
             }
             else
             {
                 guest.IsCheckedIn = true; // guest is checked in
                 if (!guestexist)
                 {
+                    /* Auto membership for new guests */
+                    guest.Membership.Status = "Ordinary";
+                    guest.Membership.Points = 0;
                     guestList.Add(guest);
                 }
+                statusBlk.Text = "Check-In Successful!"; // display message when check in successful
 
                 /* Reset all fields to blank */
                 guestTxt.Text = "";
@@ -568,26 +565,26 @@ namespace PRG2_ASSIGNMENT
                 /* UI Visibilty */
                 chkInPage.Hide();
                 frontPage.Show();
-
-                statusBlk.Text = "Check In Successful!";
-                statusMsg.Show();
             }
         }
 
 
         private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
+            statusMsg.Show(); // show status message
             if (!guest.IsCheckedIn)
             {
                 statusBlk.Text = "Error: Guest is not checked in!";
-                statusMsg.Show();
             }
             else
             {
+                /* Get points and status before deduction and earning points */
                 int oldpoints = guest.Membership.Points;
                 string oldstatus = guest.Membership.Status;
                 guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal() - redeempoints); // add points to guest           
                 guest.Membership.RedeemPoints(redeempoints); // redeem points from guest
+
+                /* Get points and status after deduction and earning points */
                 redeempoints = 0; // reset redeempoints
                 int newpoints = guest.Membership.Points;
                 string newstatus = guest.Membership.Status;
@@ -615,7 +612,7 @@ namespace PRG2_ASSIGNMENT
                 availRms.Sort(); // sort available room list
                 guest.IsCheckedIn = false; // guest not checked in
 
-                // unfreeze textboxes                          
+                // enable input for textboxes                    
                 guestTxt.IsReadOnly = false;
                 ppTxt.IsReadOnly = false;
 
@@ -624,8 +621,6 @@ namespace PRG2_ASSIGNMENT
                 ppTxt.Text = "";
                 pointsTxt.Text = "";
 
-                currentRmPage.Hide();
-                frontPage.Show();
 
                 // display message
                 statusBlk.Text = $"Check-Out successful!\n";
@@ -650,13 +645,14 @@ namespace PRG2_ASSIGNMENT
                     statusBlk.Text += "Points have not changed";
                 }
                 statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
-                statusMsg.Show();
+                currentRmPage.Hide();
+                frontPage.Show();
             }
         }
 
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
-            statusMsg.Show();
+            statusMsg.Show(); // show status message
             PrintInvoice();
             // add deducted amount to invoice
             if (pointsTxt.Text == "")
@@ -666,11 +662,12 @@ namespace PRG2_ASSIGNMENT
             }
             else if (!int.TryParse(pointsTxt.Text, out int redeempoints))
             {
+                // error: non numerical characters in points field
                 statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
             }
             else if (Convert.ToInt32(pointsTxt.Text) > guest.Membership.Points)
             {
-                // error: points more than membership
+                // error: points entered more than current points
                 statusBlk.Text = "Error: Points entered cannot exceed current points!";
             }
             else
@@ -679,7 +676,7 @@ namespace PRG2_ASSIGNMENT
                 if (guest.Membership.Status == "Silver") // silver members
                 {
                     bool hasSr = false;
-                    // check for standard rooms
+                    // check for standard rooms in guest's roomList
                     foreach (HotelRoom r in guest.HotelStay.RoomList)
                     {
                         if (r is StandardRoom sr)
@@ -688,14 +685,14 @@ namespace PRG2_ASSIGNMENT
                             break;
                         }
                     }
-                    if (hasSr)
+                    if (hasSr) // has standard rooms in its roomList
                     {
                         invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
                         statusMsg.Hide();
                     }
                     else
                     {
-                        statusBlk.Text = "Silver members can only offset their bills for standard rooms";
+                        statusBlk.Text = "Error: Silver members can only offset their bills for standard rooms!";
                     }
                 }
                 else // gold members
@@ -723,21 +720,18 @@ namespace PRG2_ASSIGNMENT
         /* Back buttons for navigation */
         private void BackBtn1_Click(object sender, RoutedEventArgs e)
         {
-            chkRmAvailPage.Hide();
-            frontPage.Show();
-            statusMsg.Hide();
-
             /* Reset values of date to null */
             checkInDateTxt.Date = null;
             checkOutDateTxt.Date = null;
+
+            /* UI Visibility */
+            statusMsg.Hide();
+            chkRmAvailPage.Hide();
+            frontPage.Show();
         }
 
         private void BackBtn2_Click(object sender, RoutedEventArgs e)
         {
-            chkInPage.Hide();
-            chkRmAvailPage.Show();
-            statusMsg.Hide();
-
             /* Add all selected rooms back to available room list */
             foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
             {
@@ -759,6 +753,11 @@ namespace PRG2_ASSIGNMENT
                 availRms.Add(r);
             }
             availRms.Sort(); // sort available room list
+
+            /* UI Visibility */
+            statusMsg.Hide();
+            chkInPage.Hide();
+            chkRmAvailPage.Show();
         }
 
         private void BackBtn3_Click(object sender, RoutedEventArgs e)
@@ -768,9 +767,10 @@ namespace PRG2_ASSIGNMENT
             guestTxt.IsReadOnly = false;
             ppTxt.IsReadOnly = false;
 
+            /* UI Visibility */
+            statusMsg.Hide();
             currentRmPage.Hide();
             frontPage.Show();
-            statusMsg.Hide();
         }
     }
 }

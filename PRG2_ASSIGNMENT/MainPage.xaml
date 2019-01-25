@@ -39,7 +39,7 @@
         <TextBlock x:Name="statuspointsBlk" HorizontalAlignment="Left" Margin="678,116,0,0" TextWrapping="Wrap" FontSize="18" VerticalAlignment="Top" Height="86" Width="273"/>
         <TextBox x:Name="pointsTxt" HorizontalAlignment="Left" Margin="680,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Height="18"/>
         <Button x:Name="redeemBtn" FontSize="16" Content="Redeem points" HorizontalAlignment="Left" Margin="798,194,0,0" VerticalAlignment="Top" Height="32" Width="153" Click="RedeemBtn_Click"/>
-        <ScrollViewer x:Name="invoiceDetailScroll" Margin="606,313,0,116" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ScrollViewer x:Name="invoiceDetailScroll" Margin="606,313,0,86">
             <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="13.5" VerticalAlignment="Top" Width="674" Height="387" Margin="0,0,0,0"/>
         </ScrollViewer>
         <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="12,52,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="137" Width="267"/>
