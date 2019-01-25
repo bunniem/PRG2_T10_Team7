@@ -561,6 +561,8 @@ namespace PRG2_ASSIGNMENT
             if (totalno > totalcap)
             {
                 // error: not enough rooms to fit everybody
+                statusBlk.Text = "Error: No. of occupants exceed the maximum permissible no. of occupants in room(s) selected. Please add a bed or change the room configuration!";
+                statusMsg.Show();
             }
             else
             {
@@ -579,6 +581,9 @@ namespace PRG2_ASSIGNMENT
                 /* UI Visibilty */
                 chkInPage.Hide();
                 frontPage.Show();
+
+                statusBlk.Text = "Check In Successful!";
+                statusMsg.Show();
             }
         }
 
