@@ -1,19 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace PRG2_ASSIGNMENT
 {
@@ -132,7 +121,7 @@ namespace PRG2_ASSIGNMENT
             chkInPage.Hide();
             frontPage.Show();
 
-            statusBlk.Visibility = Visibility.Collapsed; 
+            statusBlk.Visibility = Visibility.Collapsed;
         }
 
         public void PrintInvoice() // print invoice
@@ -160,46 +149,43 @@ namespace PRG2_ASSIGNMENT
             }
             else
             {
-                if (!guestexist)
+                // freeze textboxes
+                guestTxt.IsReadOnly = true;
+                ppTxt.IsReadOnly = true;
+                foreach (Guest eg in guestList)
                 {
-                    // freeze textboxes
-                    guestTxt.IsReadOnly = true;
-                    ppTxt.IsReadOnly = true;
-                    foreach (Guest eg in guestList)
+                    if (eg.Name == name || eg.PpNumber == ppnumber)
                     {
-                        if (eg.Name == name || eg.PpNumber == ppnumber)
+                        guest = eg;
+                        guestexist = true;
+
+                        // refresh current room listview 
+                        currentrmLv.ItemsSource = null;
+                        currentrmLv.ItemsSource = guest.HotelStay.RoomList;
+
+                        // Display member status & points
+                        statuspointsBlk.Text = guest.Membership.ToString();
+
+                        // Display invoice
+                        if (guest.IsCheckedIn)
                         {
-                            guest = eg;
-                            guestexist = true;
-
-                            // refresh current room listview 
-                            currentrmLv.ItemsSource = null;
-                            currentrmLv.ItemsSource = guest.HotelStay.RoomList;
-
-                            // Display member status & points
-                            statuspointsBlk.Text = guest.Membership.ToString();
-
-                            // Display invoice
-                            if (guest.IsCheckedIn)
-                            {
-                                PrintInvoice();
-                            }
-                            else
-                            {
-                                invoiceDetailBlk.Text = "Guest is currently not checked in.";
-                            }
-
-                            /* UI visibility */
-                            frontPage.Hide();
-                            currentRmPage.Show();
-                            if (guest.Membership.Status == "Ordinary") // hide redeem button from ordinary members
-                            {
-                                pointsTxt.Visibility = Visibility.Collapsed;
-                                redeemBtn.Visibility = Visibility.Collapsed;
-                            }
-
-                            break;
+                            PrintInvoice();
                         }
+                        else
+                        {
+                            invoiceDetailBlk.Text = "Guest is currently not checked in.";
+                        }
+
+                        /* UI visibility */
+                        frontPage.Hide();
+                        currentRmPage.Show();
+                        if (guest.Membership.Status == "Ordinary") // hide redeem button from ordinary members
+                        {
+                            pointsTxt.Visibility = Visibility.Collapsed;
+                            redeemBtn.Visibility = Visibility.Collapsed;
+                        }
+
+                        break;
                     }
                 }
                 if (!guestexist)
@@ -227,7 +213,7 @@ namespace PRG2_ASSIGNMENT
             }
             else
             {
-                try
+                try // convert, if error print error
                 {
                     Convert.ToDouble(adultnoTxt.Text);
                     Convert.ToDouble(childrennoTxt.Text);
@@ -273,7 +259,7 @@ namespace PRG2_ASSIGNMENT
                 }
                 catch
                 {
-                    statusBlk.Text = "error!"; //Make it go away after user enters numeric adult and child no.
+                    statusBlk.Text = "error!"; // Make it go away after user enters numeric adult and child no.
 
                 }
             }
