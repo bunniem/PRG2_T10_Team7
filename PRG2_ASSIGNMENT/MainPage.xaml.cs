@@ -287,7 +287,7 @@ namespace PRG2_ASSIGNMENT
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
-            if (name == "" && ppnumber == "")
+            if (name == "" || ppnumber == "")
             {
                 // error: no name or ppnumber entered
                 statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
@@ -314,22 +314,49 @@ namespace PRG2_ASSIGNMENT
                         break;
                     }
                 }
+
                 if (guestexist)
                 {
                     if (guest.IsCheckedIn)
                     {
                         // error: guest still checked into hotel, need to check out to check in more rooms
+                        statusBlk.Text = "Error: Guest is already checked in the hotel. Check out to check in more rooms!";
                     }
                     else // existing guest, not checked into hotel
                     {
                         /* UI Visibility */
                         frontPage.Hide();
                         chkRmAvailPage.Show();
+                        statusMsg.Hide();
                     }
                 }
                 else // guest does not exist
                 {
-                    if (name != "" && ppnumber != "")
+
+                    bool existingName = false;
+                    bool existingPpNumber = false;
+                    bool existingsameguest = false;
+
+                    foreach (Guest g in guestList)
+                    {
+
+                        if (name == g.Name)
+                        {
+                            existingName = true;
+                        }
+
+                        if (ppnumber == g.PpNumber)
+                        {
+                            existingPpNumber = true;
+                        }
+
+                        if (name == g.Name && ppnumber == g.PpNumber)
+                        {
+                            existingsameguest = true;
+                        }
+                    }
+
+                    if (existingName == false && existingPpNumber == false)
                     {
                         Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest
                         guest = ng;
@@ -337,15 +364,15 @@ namespace PRG2_ASSIGNMENT
                         /* UI Visibility */
                         frontPage.Hide();
                         chkRmAvailPage.Show();
+                        statusMsg.Hide();
                     }
-                    else
+
+                    else if ((existingName == false && existingPpNumber == true) || (existingName == true && existingPpNumber == false) || (existingName == true && existingPpNumber == true && existingsameguest == false))
                     {
-                        // error: not all fields filled in
-                        statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
+                        statusBlk.Text = "Error: Name or passport no. is incorrect/does not match any existing user!";
                         statusMsg.Show();
                     }
                 }
-
             }
         }
 
