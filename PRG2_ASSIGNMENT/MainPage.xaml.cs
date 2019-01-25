@@ -588,61 +588,12 @@ namespace PRG2_ASSIGNMENT
             }
         }
 
-        /* Back buttons for navigation */
-        private void BackBtn1_Click(object sender, RoutedEventArgs e)
-        {
-            chkRmAvailPage.Hide();
-            frontPage.Show();
-
-            /* Reset values of date to null */
-            checkInDateTxt.Date = null;
-            checkOutDateTxt.Date = null;
-        }
-
-        private void BackBtn2_Click(object sender, RoutedEventArgs e)
-        {
-            chkInPage.Hide();
-            chkRmAvailPage.Show();
-
-            /* Add all selected rooms back to available room list */
-            foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
-            {
-                /* Set addon booleans for rooms to false */
-                if (r is DeluxeRoom dr)
-                {
-                    dr.AdditionalBed = false;
-                }
-                else if (r is StandardRoom sr)
-                {
-                    sr.RequireBreakfast = false;
-                    sr.RequireWifi = false;
-                }
-                /* Remove selected room from guest's roomList */
-                guest.HotelStay.RoomList.Remove(r);
-
-                /* Add selected room to available room list */
-                r.IsAvail = true; // room made available
-                availRms.Add(r);
-            }
-            availRms.Sort(); // sort available room list
-        }
-
-        private void BackBtn3_Click(object sender, RoutedEventArgs e)
-        {
-            // unfreeze textboxes
-            guestTxt.IsReadOnly = false;
-            ppTxt.IsReadOnly = false;
-            pointsTxt.Text = ""; // reset points textbox
-
-            currentRmPage.Hide();
-            frontPage.Show();
-        }
 
         private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
             if (!guest.IsCheckedIn)
             {
-                statusBlk.Text = "Error: Guest is not checked in.";
+                statusBlk.Text = "Error: Guest is not checked in!";
                 statusMsg.Show();
             }
             else
@@ -715,9 +666,6 @@ namespace PRG2_ASSIGNMENT
                 statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
                 statusMsg.Show();
             }
-
-            //await Task.Delay(5000);
-
         }
 
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
@@ -784,6 +732,56 @@ namespace PRG2_ASSIGNMENT
         {
             statusBlk.Text = "";
             statusMsg.Hide();
+        }
+
+        /* Back buttons for navigation */
+        private void BackBtn1_Click(object sender, RoutedEventArgs e)
+        {
+            chkRmAvailPage.Hide();
+            frontPage.Show();
+
+            /* Reset values of date to null */
+            checkInDateTxt.Date = null;
+            checkOutDateTxt.Date = null;
+        }
+
+        private void BackBtn2_Click(object sender, RoutedEventArgs e)
+        {
+            chkInPage.Hide();
+            chkRmAvailPage.Show();
+
+            /* Add all selected rooms back to available room list */
+            foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
+            {
+                /* Set addon booleans for rooms to false */
+                if (r is DeluxeRoom dr)
+                {
+                    dr.AdditionalBed = false;
+                }
+                else if (r is StandardRoom sr)
+                {
+                    sr.RequireBreakfast = false;
+                    sr.RequireWifi = false;
+                }
+                /* Remove selected room from guest's roomList */
+                guest.HotelStay.RoomList.Remove(r);
+
+                /* Add selected room to available room list */
+                r.IsAvail = true; // room made available
+                availRms.Add(r);
+            }
+            availRms.Sort(); // sort available room list
+        }
+
+        private void BackBtn3_Click(object sender, RoutedEventArgs e)
+        {
+            // unfreeze textboxes
+            guestTxt.IsReadOnly = false;
+            ppTxt.IsReadOnly = false;
+            pointsTxt.Text = ""; // reset points textbox
+
+            currentRmPage.Hide();
+            frontPage.Show();
         }
     }
 }
