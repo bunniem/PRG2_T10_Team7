@@ -46,7 +46,7 @@
         <Button x:Name="proceedBtn" FontSize="16" Content="Proceed >" HorizontalAlignment="Left" Margin="678,261,0,0" VerticalAlignment="Top" Height="35" Width="120" Click="ProceedBtn_Click"/>
         <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="321" Margin="0,313,0,0" VerticalAlignment="Top" Width="544"/>
         <TextBlock x:Name="currentrmBlk" HorizontalAlignment="Left" Margin="0,277,0,0" TextWrapping="Wrap" FontSize="22" Text="Current rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
-        <Button x:Name="backBtn1" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="500,202,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn1_Click"/>
+        <Button x:Name="backBtn1" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="524,202,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn1_Click"/>
         <Button x:Name="backBtn2" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="594,649,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn2_Click"/>
         <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="602,277,0,0" TextWrapping="Wrap" FontSize="22" Text="Invoice:" VerticalAlignment="Top" Width="215" Height="36"/>
         <Button x:Name="backBtn3" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="602,646,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn3_Click"/>
