@@ -207,7 +207,7 @@ namespace PRG2_ASSIGNMENT
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
 
-            if (name == "" && ppnumber == "")
+            if (name == "" || ppnumber == "")
             {
                 // error: no name or ppnumber entered
                 statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
@@ -234,6 +234,7 @@ namespace PRG2_ASSIGNMENT
                         break;
                     }
                 }
+
                 if (guestexist)
                 {
                     if (guest.IsCheckedIn)
@@ -251,17 +252,31 @@ namespace PRG2_ASSIGNMENT
                 }
                 else // guest does not exist
                 {
-                    if (name == "" || ppnumber == "")
+
+                    bool existingName = false;
+                    bool existingPpNumber = false;
+                    bool existingsameguest = false;
+
+                    foreach (Guest g in guestList)
                     {
-                        // error: not all fields filled in
-                        statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
-                        statusMsg.Show();
+
+                        if (name == g.Name)
+                        {
+                            existingName = true;
+                        }
+
+                        if (ppnumber == g.PpNumber)
+                        {
+                            existingPpNumber = true;
+                        }
+
+                        if (name == g.Name && ppnumber == g.PpNumber)
+                        {
+                            existingsameguest = true;
+                        }
                     }
 
-                    else if () { //error --- add validation
-
-                    }
-                    else
+                    if (existingName == false && existingPpNumber == false)
                     {
                         Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest
                         guest = ng;
@@ -271,8 +286,13 @@ namespace PRG2_ASSIGNMENT
                         chkRmAvailPage.Show();
                         statusMsg.Hide();
                     }
-                }
 
+                    else if ((existingName == false && existingPpNumber == true) || (existingName == true && existingPpNumber == false) || (existingName == true && existingPpNumber == true && existingsameguest == false))
+                    {
+                        statusBlk.Text = "Error: Name or passport no. is incorrect/does not match any existing user!";
+                        statusMsg.Show();
+                    }
+                }
             }
         }
 
