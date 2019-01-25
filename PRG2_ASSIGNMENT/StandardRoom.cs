@@ -48,7 +48,7 @@ namespace PRG2_ASSIGNMENT
 
         public override string ToString()
         {
-            return base.ToString();
+            return base.ToString() + $"\t{RequireWifi}\t{RequireBreakfast}\tFalse\t${CalculateCharges()}";
         }
     }
 }

@@ -66,10 +66,10 @@ namespace PRG2_ASSIGNMENT
 
         public override string ToString()
         {
-            return $"{RoomType}\t\t{RoomNumber}\t{BedConfiguration}\t{DailyRate}";
+            return $"{RoomType}\t\t{RoomNumber}\t{BedConfiguration}\t\t${DailyRate}";
         }
 
-        public int CompareTo (HotelRoom r)
+        public int CompareTo (HotelRoom r) // used for sorting
         {
             return RoomNumber.CompareTo(r.RoomNumber);
         }
