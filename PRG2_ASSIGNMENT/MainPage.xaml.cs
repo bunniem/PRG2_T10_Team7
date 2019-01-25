@@ -148,7 +148,7 @@ namespace PRG2_ASSIGNMENT
             if (name == "" && ppnumber == "")
             {
                 // error: name and ppnumber not entered
-                statusBlk.Text = "Error: Name or passport number must be entered!";
+                statusBlk.Text = "Error: To view an existing guest's checked in rooms, enter either their name or passport number!";
             }
             else
             {
@@ -194,7 +194,7 @@ namespace PRG2_ASSIGNMENT
                 if (!guestexist)
                 {
                     // error: guest does not exist
-                    statusBlk.Text = "Error: No guests found with matching name or passport number!"
+                    statusBlk.Text = "Error: No guests found with matching name or passport number!";
                     guestTxt.IsReadOnly = false;
                     ppTxt.IsReadOnly = false;
                 }
@@ -210,10 +210,12 @@ namespace PRG2_ASSIGNMENT
             if (name == "" && ppnumber == "")
             {
                 // error: no name or ppnumber entered
+                statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
             }
             else if (childrennoTxt.Text == "" && adultnoTxt.Text == "" || adultnoTxt.Text == "0")
             {
                 // error: no number of occupants entered / no adults entered
+                statusBlk.Text = "Error: There must be at least 1 adult!";
             }
             else
             {
@@ -236,6 +238,7 @@ namespace PRG2_ASSIGNMENT
                         if (guest.IsCheckedIn)
                         {
                             // error: guest still checked into hotel, need to check out to check in more rooms
+                            statusBlk.Text = "Error: Guest is already checked into hotel. Check out to check in more rooms!";
                         }
                         else // existing guest, but not checked into hotel
                         {
@@ -258,12 +261,13 @@ namespace PRG2_ASSIGNMENT
                         else
                         {
                             // error: not all fields filled in
+                            statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
                         }
                     }
                 }
                 catch
                 {
-                    statusBlk.Text = "error!"; // Make it go away after user enters numeric adult and child no.
+                    statusBlk.Text = "Error: Please enter numeric digits for number of adults and children fields!";
 
                 }
             }
