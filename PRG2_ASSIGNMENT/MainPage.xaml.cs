@@ -128,7 +128,7 @@ namespace PRG2_ASSIGNMENT
             frontPage.Show();
         }
 
-        public void PrintInvoice() // print invoice
+        public void PrintInvoice() // method to print invoice
         {
             double chargesPerDay = 0;
             double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
@@ -221,9 +221,8 @@ namespace PRG2_ASSIGNMENT
                     statusBlk.Text = $"Guest found via Passport number: {ppnumber}";
                     statusMsg.Show();
                 }
-                else if (namematch && ppmatch)
+                else
                 {
-
                     // name and pp number matches the same guest
                     foreach (Guest eg in guestList)
                     {
@@ -234,7 +233,7 @@ namespace PRG2_ASSIGNMENT
                             break;
                         }
                     }
-                    // name and pp number does not match the same guest
+                    // name and pp number matches to two different guests
                     if (!guestexist)
                     {
                         // use passport number to match existing guest
@@ -281,6 +280,146 @@ namespace PRG2_ASSIGNMENT
                     currentRmPage.Show();
                 }
             }
+        }
+        private void RedeemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            statusMsg.Show(); // show status message
+            PrintInvoice();
+            // add deducted amount to invoice
+            if (pointsTxt.Text == "")
+            {
+                // error: points field blank
+                statusBlk.Text = "Error: Points to redeem must be entered!";
+            }
+            else if (!int.TryParse(pointsTxt.Text, out int redeempoints))
+            {
+                // error: non numerical characters in points field
+                statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
+            }
+            else if (Convert.ToInt32(pointsTxt.Text) > guest.Membership.Points)
+            {
+                // error: points entered more than current points
+                statusBlk.Text = "Error: Points entered cannot exceed current points!";
+            }
+            else
+            {
+                redeempoints = Convert.ToInt32(pointsTxt.Text);
+                if (guest.Membership.Status == "Silver") // silver members
+                {
+                    bool hasSr = false;
+                    // check for standard rooms in guest's roomList
+                    foreach (HotelRoom r in guest.HotelStay.RoomList)
+                    {
+                        if (r is StandardRoom sr)
+                        {
+                            hasSr = true;
+                            break;
+                        }
+                    }
+                    if (hasSr) // has standard rooms in its roomList
+                    {
+                        invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                        statusMsg.Hide();
+                    }
+                    else
+                    {
+                        statusBlk.Text = "Error: Silver members can only offset their bills for standard rooms!";
+                    }
+                }
+                else // gold members
+                {
+                    invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                    statusMsg.Hide();
+                }
+            }
+        }
+
+        private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            statusMsg.Show(); // show status message
+            if (!guest.IsCheckedIn)
+            {
+                statusBlk.Text = "Error: Guest is not checked in!";
+            }
+            else
+            {
+                /* Get points and status before deduction and earning points */
+                int oldpoints = guest.Membership.Points;
+                string oldstatus = guest.Membership.Status;
+                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal() - redeempoints); // add points to guest           
+                guest.Membership.RedeemPoints(redeempoints); // redeem points from guest
+
+                /* Get points and status after deduction and earning points */
+                redeempoints = 0; // reset redeempoints
+                int newpoints = guest.Membership.Points;
+                string newstatus = guest.Membership.Status;
+
+                /* Add all selected rooms back to available room list */
+                foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
+                {
+                    /* Set addon booleans for rooms to false */
+                    if (r is DeluxeRoom dr)
+                    {
+                        dr.AdditionalBed = false;
+                    }
+                    else if (r is StandardRoom sr)
+                    {
+                        sr.RequireBreakfast = false;
+                        sr.RequireWifi = false;
+                    }
+                    /* Remove selected room from guest's roomList */
+                    guest.HotelStay.RoomList.Remove(r);
+
+                    /* Add selected room to available room list */
+                    r.IsAvail = true; // room made available
+                    availRms.Add(r);
+                }
+                availRms.Sort(); // sort available room list
+                guest.IsCheckedIn = false; // guest not checked in
+
+                // enable input for textboxes                    
+                guestTxt.IsReadOnly = false;
+                ppTxt.IsReadOnly = false;
+
+                /* Reset all fields to blank */
+                guestTxt.Text = "";
+                ppTxt.Text = "";
+                pointsTxt.Text = "";
+
+                // display message
+                statusBlk.Text = $"Check-Out successful!\n";
+                if (oldstatus != newstatus)
+                {
+                    statusBlk.Text += $"New Member status: {newstatus}";
+                }
+                else
+                {
+                    statusBlk.Text += $"Member status: {newstatus}";
+                }
+                if (newpoints > oldpoints)
+                {
+                    statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}";
+                }
+                else if (oldpoints > newpoints)
+                {
+                    statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}!";
+                }
+                else
+                {
+                    statusBlk.Text += "Points have not changed";
+                }
+                statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
+                currentRmPage.Hide();
+                frontPage.Show();
+            }
+        }
+
+        private void ExtendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
+
+            // print invoice
+            PrintInvoice();
         }
 
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
@@ -566,149 +705,6 @@ namespace PRG2_ASSIGNMENT
                 chkInPage.Hide();
                 frontPage.Show();
             }
-        }
-
-
-        private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            statusMsg.Show(); // show status message
-            if (!guest.IsCheckedIn)
-            {
-                statusBlk.Text = "Error: Guest is not checked in!";
-            }
-            else
-            {
-                /* Get points and status before deduction and earning points */
-                int oldpoints = guest.Membership.Points;
-                string oldstatus = guest.Membership.Status;
-                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal() - redeempoints); // add points to guest           
-                guest.Membership.RedeemPoints(redeempoints); // redeem points from guest
-
-                /* Get points and status after deduction and earning points */
-                redeempoints = 0; // reset redeempoints
-                int newpoints = guest.Membership.Points;
-                string newstatus = guest.Membership.Status;
-
-                /* Add all selected rooms back to available room list */
-                foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
-                {
-                    /* Set addon booleans for rooms to false */
-                    if (r is DeluxeRoom dr)
-                    {
-                        dr.AdditionalBed = false;
-                    }
-                    else if (r is StandardRoom sr)
-                    {
-                        sr.RequireBreakfast = false;
-                        sr.RequireWifi = false;
-                    }
-                    /* Remove selected room from guest's roomList */
-                    guest.HotelStay.RoomList.Remove(r);
-
-                    /* Add selected room to available room list */
-                    r.IsAvail = true; // room made available
-                    availRms.Add(r);
-                }
-                availRms.Sort(); // sort available room list
-                guest.IsCheckedIn = false; // guest not checked in
-
-                // enable input for textboxes                    
-                guestTxt.IsReadOnly = false;
-                ppTxt.IsReadOnly = false;
-
-                /* Reset all fields to blank */
-                guestTxt.Text = "";
-                ppTxt.Text = "";
-                pointsTxt.Text = "";
-
-
-                // display message
-                statusBlk.Text = $"Check-Out successful!\n";
-                if (oldstatus != newstatus)
-                {
-                    statusBlk.Text += $"New Member status: {newstatus}";
-                }
-                else
-                {
-                    statusBlk.Text += $"Member status: {newstatus}";
-                }
-                if (newpoints > oldpoints)
-                {
-                    statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}";
-                }
-                else if (oldpoints > newpoints)
-                {
-                    statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}!";
-                }
-                else
-                {
-                    statusBlk.Text += "Points have not changed";
-                }
-                statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
-                currentRmPage.Hide();
-                frontPage.Show();
-            }
-        }
-
-        private void RedeemBtn_Click(object sender, RoutedEventArgs e)
-        {
-            statusMsg.Show(); // show status message
-            PrintInvoice();
-            // add deducted amount to invoice
-            if (pointsTxt.Text == "")
-            {
-                // error: points field blank
-                statusBlk.Text = "Error: Points to redeem must be entered!";
-            }
-            else if (!int.TryParse(pointsTxt.Text, out int redeempoints))
-            {
-                // error: non numerical characters in points field
-                statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
-            }
-            else if (Convert.ToInt32(pointsTxt.Text) > guest.Membership.Points)
-            {
-                // error: points entered more than current points
-                statusBlk.Text = "Error: Points entered cannot exceed current points!";
-            }
-            else
-            {
-                redeempoints = Convert.ToInt32(pointsTxt.Text);
-                if (guest.Membership.Status == "Silver") // silver members
-                {
-                    bool hasSr = false;
-                    // check for standard rooms in guest's roomList
-                    foreach (HotelRoom r in guest.HotelStay.RoomList)
-                    {
-                        if (r is StandardRoom sr)
-                        {
-                            hasSr = true;
-                            break;
-                        }
-                    }
-                    if (hasSr) // has standard rooms in its roomList
-                    {
-                        invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
-                        statusMsg.Hide();
-                    }
-                    else
-                    {
-                        statusBlk.Text = "Error: Silver members can only offset their bills for standard rooms!";
-                    }
-                }
-                else // gold members
-                {
-                    invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
-                    statusMsg.Hide();
-                }
-            }
-        }
-
-        private void ExtendBtn_Click(object sender, RoutedEventArgs e)
-        {
-            guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
-
-            // print invoice
-            PrintInvoice();
         }
 
         private void HideBtn_Click(object sender, RoutedEventArgs e)
