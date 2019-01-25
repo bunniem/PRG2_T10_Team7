@@ -398,6 +398,7 @@ namespace PRG2_ASSIGNMENT
             }
             else
             {
+                statusMsg.Hide();
                 // Refresh availrm listview
                 availrmLv.ItemsSource = null;
                 availrmLv.ItemsSource = availRms;
