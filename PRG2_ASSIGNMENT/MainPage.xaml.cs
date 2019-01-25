@@ -349,7 +349,7 @@ namespace PRG2_ASSIGNMENT
                     // check if name or passport number match any existing users
                     foreach (Guest g in guestList)
                     {
-                        if(g.Name == name)
+                        if (g.Name == name)
                         {
                             namematch = true;
                         }
@@ -362,7 +362,7 @@ namespace PRG2_ASSIGNMENT
                             ppmatch = true;
                         }
                     }
-                    if(!namematch && !ppmatch) // new guest
+                    if (!namematch && !ppmatch) // new guest
                     {
                         // create new guest
                         Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false);
@@ -438,53 +438,46 @@ namespace PRG2_ASSIGNMENT
         private void AddrmBtn_Click(object sender, RoutedEventArgs e)
         {
             HotelRoom r = (HotelRoom)availrmLv.SelectedItem;
-            if (r is null)
+            r.IsAvail = false; // room not available
+
+            /* set addon booleans for rooms based on checkboxes */
+            if (r is DeluxeRoom dr)
             {
-                // error: no room selected
+                if (bedCb.IsChecked == true)
+                {
+                    dr.AdditionalBed = true;
+                }
             }
-            else
+            else if (r is StandardRoom sr)
             {
-                r.IsAvail = false; // room not available
-
-                /* set addon booleans for rooms based on checkboxes */
-                if (r is DeluxeRoom dr)
+                if (breakfastCb.IsChecked == true)
                 {
-                    if (bedCb.IsChecked == true)
-                    {
-                        dr.AdditionalBed = true;
-                    }
+                    sr.RequireBreakfast = true;
                 }
-                else if (r is StandardRoom sr)
+                if (wifiCb.IsChecked == true)
                 {
-                    if (breakfastCb.IsChecked == true)
-                    {
-                        sr.RequireBreakfast = true;
-                    }
-                    if (wifiCb.IsChecked == true)
-                    {
-                        sr.RequireWifi = true;
-                    }
+                    sr.RequireWifi = true;
                 }
-
-                /* Add selected room to guest's roomList and refresh selectedrm listview  */
-                guest.HotelStay.AddRoom(r);
-                selectrmLv.ItemsSource = null;
-                selectrmLv.ItemsSource = guest.HotelStay.RoomList;
-
-                /* Remove selected room from avail room list and refresh */
-                availRms.Remove(r);
-                availrmLv.ItemsSource = null;
-                availrmLv.ItemsSource = availRms;
-
-                /* Uncheck checkboxes */
-                wifiCb.IsChecked = false;
-                breakfastCb.IsChecked = false;
-                bedCb.IsChecked = false;
-
-                /* UI Visibility */
-                hiddenchkInPage.Hide();
-                chkinBtn.Visibility = Visibility.Visible;
             }
+
+            /* Add selected room to guest's roomList and refresh selectedrm listview  */
+            guest.HotelStay.AddRoom(r);
+            selectrmLv.ItemsSource = null;
+            selectrmLv.ItemsSource = guest.HotelStay.RoomList;
+
+            /* Remove selected room from avail room list and refresh */
+            availRms.Remove(r);
+            availrmLv.ItemsSource = null;
+            availrmLv.ItemsSource = availRms;
+
+            /* Uncheck checkboxes */
+            wifiCb.IsChecked = false;
+            breakfastCb.IsChecked = false;
+            bedCb.IsChecked = false;
+
+            /* UI Visibility */
+            hiddenchkInPage.Hide();
+            chkinBtn.Visibility = Visibility.Visible;
         }
 
         private void SelectrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -495,46 +488,39 @@ namespace PRG2_ASSIGNMENT
         private void RemovermBtn_Click(object sender, RoutedEventArgs e)
         {
             HotelRoom r = (HotelRoom)selectrmLv.SelectedItem;
-            if (r is null)
+            /* Set addon booleans for rooms to false */
+            if (r is DeluxeRoom dr)
             {
-                // error: no room selected
+                dr.AdditionalBed = false;
             }
-            else
+            else if (r is StandardRoom sr)
             {
-                /* Set addon booleans for rooms to false */
-                if (r is DeluxeRoom dr)
-                {
-                    dr.AdditionalBed = false;
-                }
-                else if (r is StandardRoom sr)
-                {
-                    sr.RequireBreakfast = false;
-                    sr.RequireWifi = false;
-                }
+                sr.RequireBreakfast = false;
+                sr.RequireWifi = false;
+            }
 
-                /* Remove selected room from guest's roomList and refresh */
-                guest.HotelStay.RoomList.Remove(r);
-                selectrmLv.ItemsSource = null;
-                selectrmLv.ItemsSource = guest.HotelStay.RoomList;
+            /* Remove selected room from guest's roomList and refresh */
+            guest.HotelStay.RoomList.Remove(r);
+            selectrmLv.ItemsSource = null;
+            selectrmLv.ItemsSource = guest.HotelStay.RoomList;
 
-                /* Add selected room to available room list and refresh */
-                r.IsAvail = true; // room made available
-                availRms.Add(r);
-                availRms.Sort(); // sort roomList by room number
-                availrmLv.ItemsSource = null;
-                availrmLv.ItemsSource = availRms;
+            /* Add selected room to available room list and refresh */
+            r.IsAvail = true; // room made available
+            availRms.Add(r);
+            availRms.Sort(); // sort roomList by room number
+            availrmLv.ItemsSource = null;
+            availrmLv.ItemsSource = availRms;
 
-                /* Uncheck checkboxes */
-                wifiCb.IsChecked = false;
-                breakfastCb.IsChecked = false;
-                bedCb.IsChecked = false;
+            /* Uncheck checkboxes */
+            wifiCb.IsChecked = false;
+            breakfastCb.IsChecked = false;
+            bedCb.IsChecked = false;
 
-                /* UI Visibility */
-                hiddenchkInPage.Hide();
-                if (guest.HotelStay.RoomList.Any()) //guest's roomList contains at least one room
-                {
-                    chkinBtn.Visibility = Visibility.Visible;
-                }
+            /* UI Visibility */
+            hiddenchkInPage.Hide();
+            if (guest.HotelStay.RoomList.Any()) //guest's roomList contains at least one room
+            {
+                chkinBtn.Visibility = Visibility.Visible;
             }
         }
 
