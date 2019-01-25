@@ -217,61 +217,55 @@ namespace PRG2_ASSIGNMENT
                 // error: no number of occupants entered / no adults entered
                 statusBlk.Text = "Error: There must be at least 1 adult!";
             }
+            else if (!int.TryParse(adultnoTxt.Text, out int adultNo) || !int.TryParse(childrennoTxt.Text, out int childrenNo))
+            {
+                statusBlk.Text = "Error: Non-numerical characters entered for pax!";
+                statusMsg.Show();
+            }
             else
             {
-                try // convert, if error print error
+                // search guest by name or passport number
+                foreach (Guest eg in guestList)
                 {
-                    Convert.ToDouble(adultnoTxt.Text);
-                    Convert.ToDouble(childrennoTxt.Text);
-                    // search guest by name or passport number
-                    foreach (Guest eg in guestList)
+                    if (eg.Name == name || eg.PpNumber == ppnumber)
                     {
-                        if (eg.Name == name || eg.PpNumber == ppnumber)
-                        {
-                            guest = eg;
-                            guestexist = true;
-                            break;
-                        }
-                    }
-                    if (guestexist)
-                    {
-                        if (guest.IsCheckedIn)
-                        {
-                            // error: guest still checked into hotel, need to check out to check in more rooms
-                            statusBlk.Text = "Error: Guest is already checked into hotel. Check out to check in more rooms!";
-                        }
-                        else // existing guest, not checked into hotel
-                        {
-                            /* UI Visibility */
-                            frontPage.Hide();
-                            chkRmAvailPage.Show();
-                        }
-                    }
-                    else // guest does not exist
-                    {
-                        if (name != "" && ppnumber != "")
-                        {
-                            Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest
-                            guest = ng;
-
-                            /* UI Visibility */
-                            frontPage.Hide();
-                            chkRmAvailPage.Show();
-                        }
-                        else
-                        {
-                            // error: not all fields filled in
-                            statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
-                        }
+                        guest = eg;
+                        guestexist = true;
+                        break;
                     }
                 }
-                catch
+                if (guestexist)
                 {
-                    
-                    statusBlk.Text = "Error: Please enter numeric digits for number of adults and children fields!";
-                    statusMsg.Show();
-
+                    if (guest.IsCheckedIn)
+                    {
+                        // error: guest still checked into hotel, need to check out to check in more rooms
+                    }
+                    else // existing guest, not checked into hotel
+                    {
+                        /* UI Visibility */
+                        frontPage.Hide();
+                        chkRmAvailPage.Show();
+                    }
                 }
+                else // guest does not exist
+                {
+                    if (name != "" && ppnumber != "")
+                    {
+                        Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest
+                        guest = ng;
+
+                        /* UI Visibility */
+                        frontPage.Hide();
+                        chkRmAvailPage.Show();
+                    }
+                    else
+                    {
+                        // error: not all fields filled in
+                        statusBlk.Text = "Error: New guests need to enter both name and passport number fields!";
+                        statusMsg.Show();
+                    }
+                }
+
             }
         }
 
@@ -583,11 +577,11 @@ namespace PRG2_ASSIGNMENT
                 {
                     statusBlk.Text += $"Member status: {newstatus}";
                 }
-                if(newpoints > oldpoints)
+                if (newpoints > oldpoints)
                 {
                     statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}";
                 }
-                else if(oldpoints > newpoints)
+                else if (oldpoints > newpoints)
                 {
                     statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}!";
                 }
