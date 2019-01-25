@@ -132,10 +132,10 @@ namespace PRG2_ASSIGNMENT
             chkInPage.Hide();
             frontPage.Show();
 
-            statusBlk.Visibility = Visibility.Visible; // what to do with status block
+            statusBlk.Visibility = Visibility.Collapsed; 
         }
 
-        public void printInvoice() // print invoice
+        public void PrintInvoice() // print invoice
         {
             double chargesPerDay = 0;
             double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
@@ -182,16 +182,17 @@ namespace PRG2_ASSIGNMENT
                             // Display invoice
                             if (guest.IsCheckedIn)
                             {
-                                printInvoice();
+                                PrintInvoice();
                             }
-                            else {
+                            else
+                            {
                                 invoiceDetailBlk.Text = "Guest is currently not checked in.";
                             }
 
                             /* UI visibility */
                             frontPage.Hide();
                             currentRmPage.Show();
-                            if(guest.Membership.Status == "Ordinary") // hide redeem button from ordinary members
+                            if (guest.Membership.Status == "Ordinary") // hide redeem button from ordinary members
                             {
                                 pointsTxt.Visibility = Visibility.Collapsed;
                                 redeemBtn.Visibility = Visibility.Collapsed;
@@ -204,6 +205,8 @@ namespace PRG2_ASSIGNMENT
                 if (!guestexist)
                 {
                     // error: guest does not exist
+                    guestTxt.IsReadOnly = false;
+                    ppTxt.IsReadOnly = false;
                 }
             }
         }
@@ -224,44 +227,54 @@ namespace PRG2_ASSIGNMENT
             }
             else
             {
-                // search guest by name or passport number
-                foreach (Guest eg in guestList)
+                try
                 {
-                    if (eg.Name == name || eg.PpNumber == ppnumber)
+                    Convert.ToDouble(adultnoTxt.Text);
+                    Convert.ToDouble(childrennoTxt.Text);
+                    // search guest by name or passport number
+                    foreach (Guest eg in guestList)
                     {
-                        guest = eg;
-                        guestexist = true;
-                        break;
+                        if (eg.Name == name || eg.PpNumber == ppnumber)
+                        {
+                            guest = eg;
+                            guestexist = true;
+                            break;
+                        }
                     }
-                }
-                if (guestexist)
-                {
-                    if (guest.IsCheckedIn)
+                    if (guestexist)
                     {
-                        // error: guest still checked into hotel, need to check out to check in more rooms
-                    }
-                    else // existing guest, but not checked into hotel
-                    {
-                        /* UI Visibility */
-                        frontPage.Hide();
-                        chkRmAvailPage.Show();
-                    }
-                }
-                else
-                {
-                    if (name != "" && ppnumber != "")
-                    {
-                        Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest if guest not found in database
-                        guest = ng;
-
-                        /* UI Visibility */
-                        frontPage.Hide();
-                        chkRmAvailPage.Show();
+                        if (guest.IsCheckedIn)
+                        {
+                            // error: guest still checked into hotel, need to check out to check in more rooms
+                        }
+                        else // existing guest, but not checked into hotel
+                        {
+                            /* UI Visibility */
+                            frontPage.Hide();
+                            chkRmAvailPage.Show();
+                        }
                     }
                     else
                     {
-                        // error: not all fields filled in
+                        if (name != "" && ppnumber != "")
+                        {
+                            Guest ng = new Guest(name, ppnumber, new Stay(), new Membership(), false); // create new guest if guest not found in database
+                            guest = ng;
+
+                            /* UI Visibility */
+                            frontPage.Hide();
+                            chkRmAvailPage.Show();
+                        }
+                        else
+                        {
+                            // error: not all fields filled in
+                        }
                     }
+                }
+                catch
+                {
+                    statusBlk.Text = "error!"; //Make it go away after user enters numeric adult and child no.
+
                 }
             }
         }
@@ -432,9 +445,9 @@ namespace PRG2_ASSIGNMENT
 
             guest.HotelStay.RoomList.Sort(); // sort roomList by room number
 
-            double totalno = Convert.ToDouble(adultnoTxt.Text) + Convert.ToDouble(childrennoTxt.Text)/2;
+            double totalno = Convert.ToDouble(adultnoTxt.Text) + Convert.ToDouble(childrennoTxt.Text) / 2;
             int totalcap = 0;
-            foreach(HotelRoom r in guest.HotelStay.RoomList)
+            foreach (HotelRoom r in guest.HotelStay.RoomList)
             {
                 totalcap += r.NoOfOccupants;
             }
@@ -467,7 +480,7 @@ namespace PRG2_ASSIGNMENT
         {
             chkRmAvailPage.Hide();
             frontPage.Show();
-            
+
             /* Reset values of date to null */
             checkInDateTxt.Date = null;
             checkOutDateTxt.Date = null;
@@ -479,7 +492,7 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.Show();
 
             /* Add all selected rooms back to available room list */
-            foreach(HotelRoom r in guest.HotelStay.RoomList.ToList())
+            foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
             {
                 /* Set addon booleans for rooms to false */
                 if (r is DeluxeRoom dr)
@@ -522,7 +535,7 @@ namespace PRG2_ASSIGNMENT
             {
                 int oldpoints = guest.Membership.Points;
                 string oldstatus = guest.Membership.Status;
-                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal()-redeempoints); // add points to guest           
+                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal() - redeempoints); // add points to guest           
                 guest.Membership.RedeemPoints(redeempoints); // redeem points from guest
                 redeempoints = 0; // reset redeempoints
                 int newpoints = guest.Membership.Points;
@@ -578,15 +591,15 @@ namespace PRG2_ASSIGNMENT
             }
 
             //await Task.Delay(5000);
-            
+
         }
 
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
             statusBlk.Visibility = Visibility.Visible;
-            printInvoice();
+            PrintInvoice();
             // add deducted amount to invoice
-            if(pointsTxt.Text == "")
+            if (pointsTxt.Text == "")
             {
                 // error: points field blank
             }
@@ -630,8 +643,14 @@ namespace PRG2_ASSIGNMENT
             guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
 
             // print invoice
-            printInvoice();
+            PrintInvoice();
+        }
+
+        private void HideBtn_Click(object sender, RoutedEventArgs e)
+        {
+            statusBlk.Text = "";
+            statusBlk.Visibility = Visibility.Collapsed;
+            hideBtn.Visibility = Visibility.Collapsed;
         }
     }
-
 }
