@@ -148,6 +148,7 @@ namespace PRG2_ASSIGNMENT
             if (name == "" && ppnumber == "")
             {
                 // error: name and ppnumber not entered
+                statusBlk.Text = "Error: Name or passport number must be entered!";
             }
             else
             {
@@ -193,6 +194,7 @@ namespace PRG2_ASSIGNMENT
                 if (!guestexist)
                 {
                     // error: guest does not exist
+                    statusBlk.Text = "Error: No guests found with matching name or passport number!"
                     guestTxt.IsReadOnly = false;
                     ppTxt.IsReadOnly = false;
                 }
