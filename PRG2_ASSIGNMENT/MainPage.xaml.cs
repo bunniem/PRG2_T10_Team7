@@ -301,7 +301,7 @@ namespace PRG2_ASSIGNMENT
         //=====================================================================================================================
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (guest.HotelStay.RoomList.Count == 0)
+            if (!guest.IsCheckedIn)
             {
                 invoiceDetailBlk.Text = "Guest must be checked in to a room to redeem points!";
             }
