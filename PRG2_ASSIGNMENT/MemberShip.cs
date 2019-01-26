@@ -7,8 +7,6 @@ namespace PRG2_ASSIGNMENT
         /* Attributes */
         private string status;
         private int points;
-        private bool silverStatus = false;
-        private bool goldStatus = false;
 
         /* Properties */
         public string Status
@@ -36,21 +34,15 @@ namespace PRG2_ASSIGNMENT
         {
             int earn = Convert.ToInt32(p / 10);
             Points += earn;
-            if (!goldStatus)
+            if (Status == "Ordinary" || Status == "Silver")
             {
-                if (Points >= 200)
-                {
-                    Status = "Gold";
-                    goldStatus = true;
-                    silverStatus = true;
-                }
-            }
-            if (!silverStatus)
-            {
-                if (Points >= 100)
+                if (Points >= 100 && Points < 200)
                 {
                     Status = "Silver";
-                    silverStatus = true;
+                }
+                else if (Points >= 200)
+                {
+                    Status = "Gold";
                 }
             }
         }
