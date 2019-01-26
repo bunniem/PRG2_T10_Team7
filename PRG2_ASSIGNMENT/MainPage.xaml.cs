@@ -141,6 +141,10 @@ namespace PRG2_ASSIGNMENT
             invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
         }
 
+
+        //=====================================================================================================================
+                                                            // SEARCH BUTTON //
+        //=====================================================================================================================
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
             statusMsg.Show(); // show status message
@@ -280,6 +284,11 @@ namespace PRG2_ASSIGNMENT
                 }
             }
         }
+
+
+        //=====================================================================================================================
+                                                        // REDEEM POINTS BUTTON //
+        //=====================================================================================================================
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
             statusMsg.Show(); // show status message
@@ -333,6 +342,10 @@ namespace PRG2_ASSIGNMENT
             }
         }
 
+
+        //=====================================================================================================================
+                                                        // CHECK OUT BUTTON //
+        //=====================================================================================================================
         private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
             statusMsg.Show(); // show status message
@@ -401,11 +414,11 @@ namespace PRG2_ASSIGNMENT
                 }
                 else if (oldpoints > newpoints)
                 {
-                    statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}!";
+                    statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}";
                 }
                 else
                 {
-                    statusBlk.Text += "Points have not changed";
+                    statusBlk.Text += "Points have not changed.";
                 }
                 statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
                 currentRmPage.Hide();
@@ -413,6 +426,10 @@ namespace PRG2_ASSIGNMENT
             }
         }
 
+
+        //=====================================================================================================================
+                                                        // EXTEND STAY BUTTON //
+        //=====================================================================================================================
         private void ExtendBtn_Click(object sender, RoutedEventArgs e)
         {
             // add check out date by 1 day
@@ -422,6 +439,10 @@ namespace PRG2_ASSIGNMENT
             PrintInvoice();
         }
 
+
+        //=====================================================================================================================
+                                                         // PROCEED BUTTON //
+        //=====================================================================================================================
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
             /* For Proceed Button, guests must input both name and passport number to proceed. */
@@ -439,7 +460,7 @@ namespace PRG2_ASSIGNMENT
             else if (childrennoTxt.Text == "" || adultnoTxt.Text == "")
             {
                 // error: no number of occupants entered
-                statusBlk.Text = "Error: Number of guests not entered for adult / children!\nIf there is no children, please put '0'.";
+                statusBlk.Text = "Error: Number of guests not entered for adult or children!\nIf there are no children, please enter '0'.";
             }
             else if (adultnoTxt.Text == "0")
             {
@@ -514,12 +535,16 @@ namespace PRG2_ASSIGNMENT
                     }
                     else // either name or passport number does not match any existing user
                     {
-                        statusBlk.Text = "Error: Name or Passport number is incorrect / does not match any user";
+                        statusBlk.Text = "Error: Name or Passport number is incorrect or does not match any user!";
                     }
                 }
             }
         }
 
+
+        //=====================================================================================================================
+                                // CHECK ROOMS BUTTON (SELECTING CHECK IN DATE AND CHECK OUT DATE) //
+        //=====================================================================================================================
         private void ChkrmBtn_Click(object sender, RoutedEventArgs e)
         {
             statusMsg.Show(); // show status message
@@ -535,11 +560,11 @@ namespace PRG2_ASSIGNMENT
             }
             else
             {
-                // Refresh availrm listview
+                // Refresh availrm listview to view all available rooms
                 availrmLv.ItemsSource = null;
                 availrmLv.ItemsSource = availRms;
 
-                // Refresh selectrm listview
+                // Refresh selectrm listview to view selected rooms
                 selectrmLv.ItemsSource = null;
                 selectrmLv.ItemsSource = guest.HotelStay.RoomList;
 
@@ -551,6 +576,10 @@ namespace PRG2_ASSIGNMENT
             }
         }
 
+
+        //=====================================================================================================================
+                                                 // SELECTING ROOMS IN AVAILRMLV //
+        //=====================================================================================================================
         private void AvailrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             addrmBtn.Visibility = Visibility.Visible;
@@ -560,7 +589,7 @@ namespace PRG2_ASSIGNMENT
             breakfastCb.Visibility = Visibility.Collapsed;
             bedCb.Visibility = Visibility.Collapsed;
 
-            // show checkboxes that apply for selected room
+            // show checkboxes applicable for selected room
             if (availrmLv.SelectedItem is DeluxeRoom)
             {
                 bedCb.Visibility = Visibility.Visible;
@@ -572,10 +601,14 @@ namespace PRG2_ASSIGNMENT
             }
         }
 
+
+        //=====================================================================================================================
+                                                        // ADD ROOM BUTTON //
+        //=====================================================================================================================
         private void AddrmBtn_Click(object sender, RoutedEventArgs e)
         {
             HotelRoom r = (HotelRoom)availrmLv.SelectedItem;
-            r.IsAvail = false; // room not available
+            r.IsAvail = false; // room becomes unavailable until removed from list
 
             /* set addon booleans for rooms based on checkboxes */
             if (r is DeluxeRoom dr)
@@ -617,11 +650,19 @@ namespace PRG2_ASSIGNMENT
             chkinBtn.Visibility = Visibility.Visible;
         }
 
+
+        //=====================================================================================================================
+                                                // SELECTING ROOMS IN SELECTROOMLV //
+        //=====================================================================================================================
         private void SelectrmLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             removermBtn.Visibility = Visibility.Visible;
         }
 
+
+        //=====================================================================================================================
+                                                        // REMOVE ROOM BUTTON //
+        //=====================================================================================================================
         private void RemovermBtn_Click(object sender, RoutedEventArgs e)
         {
             HotelRoom r = (HotelRoom)selectrmLv.SelectedItem;
@@ -661,10 +702,14 @@ namespace PRG2_ASSIGNMENT
             }
         }
 
+
+        //=====================================================================================================================
+                                                        // CHECK IN BUTTON //
+        //=====================================================================================================================
         private void ChkinBtn_Click(object sender, RoutedEventArgs e)
         {
             statusMsg.Show(); // show status message
-            /* Set checkindate & checkoutdate of stay */
+            // Set checkindate & checkoutdate of stay
             guest.HotelStay.CheckInDate = checkInDateTxt.Date.Value.DateTime;
             guest.HotelStay.CheckOutDate = checkOutDateTxt.Date.Value.DateTime;
 
@@ -705,13 +750,22 @@ namespace PRG2_ASSIGNMENT
             }
         }
 
+
+        //=====================================================================================================================
+                                                    // HIDE MESSAGES BUTTON //
+        //=====================================================================================================================
         private void HideBtn_Click(object sender, RoutedEventArgs e)
         {
             statusBlk.Text = "";
             statusMsg.Hide();
         }
 
+
         /* Back buttons for navigation */
+
+        //=====================================================================================================================
+                                // BACK BUTTON 1 (FROM CHECK IN/CHECK OUT DATES PAGE TO FRONT PAGE) //
+        //=====================================================================================================================
         private void BackBtn1_Click(object sender, RoutedEventArgs e)
         {
             /* Reset values of date to null */
@@ -724,6 +778,10 @@ namespace PRG2_ASSIGNMENT
             frontPage.Show();
         }
 
+
+        //=====================================================================================================================
+                        // BACK BUTTON 2 (FROM CHECK ROOMS AVAILABLE PAGE TO CHECK IN/CHECK OUT DATES PAGE) //
+        //=====================================================================================================================
         private void BackBtn2_Click(object sender, RoutedEventArgs e)
         {
             /* Add all selected rooms back to available room list */
@@ -754,6 +812,10 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.Show();
         }
 
+
+        //=====================================================================================================================
+                        // BACK BUTTON 3 (FROM VIEWING CHECK GUEST'S CHECKED IN ROOMS PAGE TO FRONT PAGE) //
+        //=====================================================================================================================
         private void BackBtn3_Click(object sender, RoutedEventArgs e)
         {
             pointsTxt.Text = ""; // reset points textbox
