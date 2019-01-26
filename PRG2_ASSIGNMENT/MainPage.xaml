@@ -43,7 +43,7 @@
         <ScrollViewer x:Name="invoiceDetailScroll" Margin="606,273,0,86">
             <TextBlock x:Name="invoiceDetailBlk" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="13.5" VerticalAlignment="Top" Width="674" Height="417" Margin="0,0,0,0"/>
         </ScrollViewer>
-        <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="12,52,0,0" TextWrapping="Wrap" FontSize="18" Text="Status update:" VerticalAlignment="Top" Height="137" Width="267"/>
+        <TextBlock x:Name="statusBlk" HorizontalAlignment="Left" Margin="12,37,0,0" TextWrapping="Wrap" FontSize="15" Text="Status update:" VerticalAlignment="Top" Height="118" Width="267"/>
         <ListView x:Name="currentrmLv" HorizontalAlignment="Left" Height="321" Margin="0,313,0,0" VerticalAlignment="Top" Width="544"/>
         <TextBlock x:Name="currentrmBlk" HorizontalAlignment="Left" Margin="0,245,0,0" TextWrapping="Wrap" FontSize="22" Text="Current rooms:" VerticalAlignment="Top" Width="215" Height="36"/>
         <TextBlock x:Name="currentrmheaderBlk" HorizontalAlignment="Left" Margin="12,291,0,0" TextWrapping="Wrap" FontSize="13.5" Text="" VerticalAlignment="Top" Width="544" Height="36"/>
@@ -51,7 +51,7 @@
         <Button x:Name="backBtn2" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="583,652,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn2_Click"/>
         <Button x:Name="backBtn3" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="583,652,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn3_Click"/>
         <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="602,245,0,0" TextWrapping="Wrap" FontSize="22" Text="Invoice:" VerticalAlignment="Top" Width="215" Height="36"/>
-        <Button x:Name="hideBtn" Content="Hide Message" HorizontalAlignment="Left" Margin="12,194,0,0" VerticalAlignment="Top" Height="35" Width="152" FontSize="16" Click="HideBtn_Click"/>
+        <Button x:Name="hideBtn" Content="Hide ^" HorizontalAlignment="Left" Margin="12,159,0,0" VerticalAlignment="Top" Height="35" Width="69" FontSize="16" Click="HideBtn_Click"/>
         <TextBlock x:Name="availrmheaderBlk" HorizontalAlignment="Left" Margin="82,242,0,0" TextWrapping="Wrap" FontSize="13.5" Text="" VerticalAlignment="Top" Width="380" Height="36"/>
         <TextBlock x:Name="selectrmheaderBlk" HorizontalAlignment="Left" Margin="735,242,-1,0" TextWrapping="Wrap" FontSize="13.5" Text="" VerticalAlignment="Top" Width="546" Height="36"/>
     </Grid>
