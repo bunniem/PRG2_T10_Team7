@@ -323,19 +323,15 @@ namespace PRG2_ASSIGNMENT
                 else if (redeempoints > guest.Membership.Points)
                 {
                     // error: points entered more than current points
-                    statusBlk.Text = $"Error: Points to redeem cannot exceed current points ({guest.Membership.Points})!";
+                    statusBlk.Text = $"Error: Points to redeem exceeds current points ({guest.Membership.Points})!";
+                }
+                else if (redeempoints > guest.HotelStay.CalculateTotal())
+                {
+                    // error: points entered more than total bill cost
+                    statusBlk.Text = $"Error: Points to redeem exceeds bill payable!\nMaximum points redeemable is {guest.HotelStay.CalculateTotal()} points!";
                 }
                 else
                 {
-                    // If redeem points entered exceeds bill payable 
-                    if (redeempoints > guest.HotelStay.CalculateTotal())
-                    {
-                        // Text below does not appear
-                        statusBlk.Text = $"Points to redeem exceeds bill payable. Points to redeem is updated to {redeempoints} points";
-                        // points entered changes to bill payable's price
-                        redeempoints = Convert.ToInt32(guest.HotelStay.CalculateTotal());
-                    }
-
                     if (guest.Membership.Status == "Silver") // silver members
                     {
                         bool hasSr = false;
@@ -354,12 +350,13 @@ namespace PRG2_ASSIGNMENT
                         {
                             if (redeempoints > stdChargesPerDay)
                             {
-                                redeempoints = Convert.ToInt32(stdChargesPerDay);
-                                statusBlk.Text = $"Silver members can only redeem points for Standard Rooms.\nMaximum points redeemable is {stdChargesPerDay * noOfNights} points!";
+                                statusBlk.Text = $"Error: Silver members can only redeem points for Standard Rooms!\nMaximum points redeemable is {stdChargesPerDay * noOfNights} points!";
+                                redeempoints = 0;
                             }
                             else
                             {
                                 invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                                statusMsg.Hide();
                             }
                         }
                         else
