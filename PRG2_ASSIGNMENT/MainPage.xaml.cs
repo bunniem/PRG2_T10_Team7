@@ -264,8 +264,6 @@ namespace PRG2_ASSIGNMENT
                     }
                 }
                 if (guestexist) // Only runs if guest exists
-                    frontPage.Hide();
-                    currentRmPage.Show();
                 {
                     // Refresh current room listview 
                     currentrmLv.ItemsSource = null;
@@ -283,9 +281,11 @@ namespace PRG2_ASSIGNMENT
                     {
                         invoiceDetailBlk.Text = "Guest is not checked in.";
                     }
-                    
+
 
                     /* UI visibility */
+                    frontPage.Hide();
+                    currentRmPage.Show();
                     if (guest.Membership.Status == "Ordinary") // Hide redeem button from ordinary members
                     {
                         pointsTxt.Visibility = Visibility.Collapsed;
