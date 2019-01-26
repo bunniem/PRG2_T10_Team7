@@ -18,7 +18,7 @@
         <TextBox x:Name="adultnoTxt" Text="1" HorizontalAlignment="Left" Margin="678,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Height="18"/>
         <TextBlock x:Name="childrennoBlk" HorizontalAlignment="Left" Margin="678,159,0,0" TextWrapping="Wrap" FontSize="22" Text="No. of Children:" VerticalAlignment="Top" Width="185" Height="36"/>
         <TextBox x:Name="childrennoTxt" Text="0" HorizontalAlignment="Left" Margin="678,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Height="18"/>
-        <Button x:Name="searchBtn" FontSize="16" Content="Search" HorizontalAlignment="Left" Margin="500,261,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="SearchBtn_Click"/>
+        <Button x:Name="searchBtn" FontSize="16" Content="Search" HorizontalAlignment="Left" Margin="510,261,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="SearchBtn_Click"/>
         <Button x:Name="proceedBtn" FontSize="16" Content="Proceed >" HorizontalAlignment="Left" Margin="678,261,0,0" VerticalAlignment="Top" Height="35" Width="120" Click="ProceedBtn_Click"/>
         <Button x:Name="extendBtn" FontSize="16" Content="Extend Stay" HorizontalAlignment="Left" Margin="993,194,0,0" VerticalAlignment="Top" Height="32" Width="127" Click="ExtendBtn_Click"/>
         <ListView x:Name="availrmLv" HorizontalAlignment="Left" Height="430" Margin="70,267,0,0" VerticalAlignment="Top" Width="380" SelectionChanged="AvailrmLv_SelectionChanged"/>
