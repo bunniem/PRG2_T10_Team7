@@ -303,7 +303,7 @@ namespace PRG2_ASSIGNMENT
         {
             if (!guest.IsCheckedIn)
             {
-                invoiceDetailBlk.Text = "Guest must be checked in to a room to redeem points!";
+                invoiceDetailBlk.Text = "Error: Guest must be checked in to a room to redeem points!";
             }
             else
             {
@@ -327,7 +327,6 @@ namespace PRG2_ASSIGNMENT
                 }
                 else
                 {
-                    redeempoints = Convert.ToInt32(pointsTxt.Text);
                     if (guest.Membership.Status == "Silver") // silver members
                     {
                         bool hasSr = false;
@@ -348,6 +347,7 @@ namespace PRG2_ASSIGNMENT
                         else
                         {
                             statusBlk.Text = "Error: Silver members can only offset their bills for standard rooms!";
+                            redeempoints = 0;
                         }
                     }
                     else // gold members
