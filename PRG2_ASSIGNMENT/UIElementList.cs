@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
 
+/* This class is used to control the visibility of UIElements in mainpage.xaml, and simplifying the */
 namespace PRG2_ASSIGNMENT
 {
     class UIElementList
