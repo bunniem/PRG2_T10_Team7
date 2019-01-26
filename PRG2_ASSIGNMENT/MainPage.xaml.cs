@@ -143,7 +143,7 @@ namespace PRG2_ASSIGNMENT
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e)
         {
-            statusMsg.Hide(); // hide status message
+            statusMsg.Show(); // show status message
             guestexist = false;
             bool namematch = false;
             bool ppmatch = false;
@@ -154,7 +154,6 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: name and ppnumber not entered
                 statusBlk.Text = "Error: To view an existing guest's checked in rooms, enter either their name or passport number!";
-                statusMsg.Show();
             }
             else
             {
@@ -185,7 +184,6 @@ namespace PRG2_ASSIGNMENT
                 {
                     // Error: No existing guest with matching Name or Passport No.
                     statusBlk.Text = "Error: No existing guest with matching Name or Passport Number!";
-                    statusMsg.Show();
 
                     // enable input for textboxes
                     guestTxt.IsReadOnly = false;
@@ -204,7 +202,6 @@ namespace PRG2_ASSIGNMENT
                     guestexist = true;
 
                     statusBlk.Text = $"Guest found via name: {name}";
-                    statusMsg.Show();
                 }
                 else if (!namematch && ppmatch)
                 {
@@ -219,7 +216,6 @@ namespace PRG2_ASSIGNMENT
                     guestexist = true;
 
                     statusBlk.Text = $"Guest found via Passport number: {ppnumber}";
-                    statusMsg.Show();
                 }
                 else
                 {
@@ -245,10 +241,13 @@ namespace PRG2_ASSIGNMENT
                                 guestexist = true;
 
                                 statusBlk.Text = $"Guest found via Passport number: {ppnumber}";
-                                statusMsg.Show();
                                 break;
                             }
                         }
+                    }
+                    else
+                    {
+                        statusMsg.Hide(); // hide status message if guest matches both name and passport number
                     }
                 }
                 if (guestexist) // Only runs if guest exists
@@ -416,6 +415,7 @@ namespace PRG2_ASSIGNMENT
 
         private void ExtendBtn_Click(object sender, RoutedEventArgs e)
         {
+            // add check out date by 1 day
             guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
 
             // print invoice
@@ -424,7 +424,9 @@ namespace PRG2_ASSIGNMENT
 
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
-            statusMsg.Hide(); // hide status message
+            /* For Proceed Button, guests must input both name and passport number to proceed. */
+
+            statusMsg.Show(); // show status message
             guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
@@ -433,24 +435,20 @@ namespace PRG2_ASSIGNMENT
             {
                 // error: no name or ppnumber entered
                 statusBlk.Text = "Error: Guests need to enter both name and passport number fields!";
-                statusMsg.Show();
             }
             else if (childrennoTxt.Text == "" || adultnoTxt.Text == "")
             {
                 // error: no number of occupants entered
                 statusBlk.Text = "Error: Number of guests not entered for adult / children!\nIf there is no children, please put '0'.";
-                statusMsg.Show();
             }
             else if (adultnoTxt.Text == "0")
             {
                 // error: no adults entered
                 statusBlk.Text = "Error: There must be at least 1 adult!";
-                statusMsg.Show();
             }
             else if (!int.TryParse(adultnoTxt.Text, out int adultNo) || !int.TryParse(childrennoTxt.Text, out int childrenNo))
             {
                 statusBlk.Text = "Error: Non-numerical characters entered for pax!";
-                statusMsg.Show();
             }
             else
             {
@@ -471,7 +469,6 @@ namespace PRG2_ASSIGNMENT
                     {
                         // error: guest still checked into hotel, need to check out to check in more rooms
                         statusBlk.Text = "Error: Guest is already checked in the hotel. Check out to check in more rooms!";
-                        statusMsg.Show();
                     }
                     else // existing guest, not checked into hotel
                     {
@@ -486,7 +483,7 @@ namespace PRG2_ASSIGNMENT
                     bool namematch = false;
                     bool ppmatch = false;
 
-                    // check if name or passport number match any existing users
+                    // check if name match any existing users
                     foreach (Guest g in guestList)
                     {
                         if (g.Name == name)
@@ -495,6 +492,7 @@ namespace PRG2_ASSIGNMENT
                         }
                     }
 
+                    // check if passport number match any existing users
                     foreach (Guest g in guestList)
                     {
                         if (g.PpNumber == ppnumber)
@@ -502,6 +500,7 @@ namespace PRG2_ASSIGNMENT
                             ppmatch = true;
                         }
                     }
+
                     if (!namematch && !ppmatch) // new guest
                     {
                         // create new guest
@@ -513,10 +512,9 @@ namespace PRG2_ASSIGNMENT
                         chkRmAvailPage.Show();
                         statusMsg.Hide();
                     }
-                    else
+                    else // either name or passport number does not match any existing user
                     {
                         statusBlk.Text = "Error: Name or Passport number is incorrect / does not match any user";
-                        statusMsg.Show();
                     }
                 }
             }
