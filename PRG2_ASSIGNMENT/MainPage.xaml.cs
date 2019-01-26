@@ -330,20 +330,16 @@ namespace PRG2_ASSIGNMENT
                     // If redeem points entered exceeds bill payable 
                     if (redeempoints > guest.HotelStay.CalculateTotal())
                     {
-                        // points entered changes to bill payable's price
-                        redeempoints = Convert.ToInt32(guest.HotelStay.CalculateTotal());
                         // Text below does not appear
                         statusBlk.Text = $"Points to redeem exceeds bill payable. Points to redeem is updated to {redeempoints} points";
-                    }
-                    else
-                    {
-                        redeempoints = Convert.ToInt32(pointsTxt.Text);
+                        // points entered changes to bill payable's price
+                        redeempoints = Convert.ToInt32(guest.HotelStay.CalculateTotal());
                     }
 
                     if (guest.Membership.Status == "Silver") // silver members
                     {
                         bool hasSr = false;
-                        double chargesPerDay = 0;
+                        double stdChargesPerDay = 0;
                         double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
                         // check for standard rooms in guest's roomList
                         foreach (HotelRoom r in guest.HotelStay.RoomList)
@@ -351,15 +347,15 @@ namespace PRG2_ASSIGNMENT
                             if (r is StandardRoom sr)
                             {
                                 hasSr = true;
-                                chargesPerDay += r.CalculateCharges();
+                                stdChargesPerDay += r.CalculateCharges();
                             }
                         }
                         if (hasSr) // has standard rooms in its roomList
                         {
-                            if (redeempoints > chargesPerDay)
+                            if (redeempoints > stdChargesPerDay)
                             {
-                                redeempoints = Convert.ToInt32(chargesPerDay);
-                                statusBlk.Text = $"Maximum points redeemable is {chargesPerDay * noOfNights} points!";
+                                redeempoints = Convert.ToInt32(stdChargesPerDay);
+                                statusBlk.Text = $"Silver members can only redeem points for Standard Rooms.\nMaximum points redeemable is {stdChargesPerDay * noOfNights} points!";
                             }
                             else
                             {
