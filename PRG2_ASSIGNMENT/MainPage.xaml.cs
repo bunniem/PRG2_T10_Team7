@@ -101,16 +101,16 @@ namespace PRG2_ASSIGNMENT
             // Check rooms available page (proceed button is clicked)
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
-            // Show current rooms page (search button is clicked)           
+            // Current rooms page (search button is clicked)           
             currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3, currentrmheaderBlk };
 
-            // Show available rooms and check in function (chkrm button is clicked)
+            // Available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2, availrmheaderBlk, selectrmheaderBlk };
 
-            // Show available rooms and check in function (hidden elements until event happens)
+            // Available rooms and check in function (hidden elements until event happens)
             hiddenchkInPage.UIElements = new List<UIElement> { wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
 
-            // Show status messages (for error or informational messages)
+            // Status messages (for error or informational messages)
             statusMsg.UIElements = new List<UIElement> { statusBlk, hideBtn };
         }
 
@@ -297,7 +297,7 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-        // REDEEM POINTS BUTTON //
+                                                        // REDEEM POINTS BUTTON //
         //=====================================================================================================================
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -376,7 +376,7 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-        // CHECK OUT BUTTON //
+                                                         // CHECK OUT BUTTON //
         //=====================================================================================================================
         private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
