@@ -62,7 +62,10 @@ namespace PRG2_ASSIGNMENT
                 Points -= p;
                 return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         public override string ToString()
