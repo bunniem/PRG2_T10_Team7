@@ -309,12 +309,12 @@ namespace PRG2_ASSIGNMENT
                 // error: points field blank
                 statusBlk.Text = "Error: Points to redeem must be entered!";
             }
-            else if (!int.TryParse(pointsTxt.Text, out int redeempoints))
+            else if (!int.TryParse(pointsTxt.Text, out redeempoints))
             {
                 // error: non numerical characters in points field
                 statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
             }
-            else if (Convert.ToInt32(pointsTxt.Text) > guest.Membership.Points)
+            else if (redeempoints > guest.Membership.Points)
             {
                 // error: points entered more than current points
                 statusBlk.Text = "Error: Points entered cannot exceed current points!";
@@ -409,7 +409,7 @@ namespace PRG2_ASSIGNMENT
                 pointsTxt.Text = "";
 
                 // display message
-                statusBlk.Text = "Check-Out successful!\n" + redeempoints.ToString();
+                statusBlk.Text = "Check-Out successful!\n";
                 if (oldstatus != newstatus)
                 {
                     statusBlk.Text += $"New Member status: {newstatus}";
