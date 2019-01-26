@@ -167,6 +167,7 @@ namespace PRG2_ASSIGNMENT
                     if (g.Name == name)
                     {
                         namematch = true;
+                        break;
                     }
                 }
 
@@ -176,6 +177,7 @@ namespace PRG2_ASSIGNMENT
                     if (g.PpNumber == ppnumber)
                     {
                         ppmatch = true;
+                        break;
                     }
                 }
 
@@ -197,6 +199,7 @@ namespace PRG2_ASSIGNMENT
                         if (eg.Name == name)
                         {
                             guest = eg;
+                            break;
                         }
                     }
                     guestexist = true;
@@ -211,6 +214,7 @@ namespace PRG2_ASSIGNMENT
                         if (eg.PpNumber == ppnumber)
                         {
                             guest = eg;
+                            break;
                         }
                     }
                     guestexist = true;
@@ -229,8 +233,12 @@ namespace PRG2_ASSIGNMENT
                             break;
                         }
                     }
-                    // name and pp number matches to two different guests
-                    if (!guestexist)
+                    
+                    if (guestexist)
+                    {
+                        statusMsg.Hide(); // hide status message if guest matches both name and passport number
+                    }
+                    else // name and pp number matches to two different guests
                     {
                         // use passport number to match existing guest
                         foreach (Guest eg in guestList)
@@ -244,10 +252,6 @@ namespace PRG2_ASSIGNMENT
                                 break;
                             }
                         }
-                    }
-                    else
-                    {
-                        statusMsg.Hide(); // hide status message if guest matches both name and passport number
                     }
                 }
                 if (guestexist) // Only runs if guest exists
@@ -489,6 +493,7 @@ namespace PRG2_ASSIGNMENT
                         if (g.Name == name)
                         {
                             namematch = true;
+                            break;
                         }
                     }
 
@@ -498,6 +503,7 @@ namespace PRG2_ASSIGNMENT
                         if (g.PpNumber == ppnumber)
                         {
                             ppmatch = true;
+                            break;
                         }
                     }
 
