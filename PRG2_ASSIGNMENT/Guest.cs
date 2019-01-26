@@ -51,7 +51,7 @@
         /* Methods */
         public override string ToString()
         {
-            return $"{name}\t{ppNumber}";
+            return $"{Name}\t{PpNumber}";
         }
     }
 }

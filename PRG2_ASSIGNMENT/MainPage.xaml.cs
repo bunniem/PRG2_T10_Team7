@@ -143,7 +143,7 @@ namespace PRG2_ASSIGNMENT
                 invoiceDetailBlk.Text += r.ToString() + "\n";
                 chargesPerDay += r.CalculateCharges();
             }
-            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
+            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days ({guest.HotelStay.ToString()})\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
         }
 
 
