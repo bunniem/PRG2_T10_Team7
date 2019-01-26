@@ -390,7 +390,7 @@ namespace PRG2_ASSIGNMENT
                 pointsTxt.Text = "";
 
                 // display message
-                statusBlk.Text = $"Check-Out successful!\n";
+                statusBlk.Text = "Check-Out successful!\n";
                 if (oldstatus != newstatus)
                 {
                     statusBlk.Text += $"New Member status: {newstatus}";
