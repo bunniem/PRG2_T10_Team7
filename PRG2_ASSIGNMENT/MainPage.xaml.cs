@@ -530,7 +530,7 @@ namespace PRG2_ASSIGNMENT
             }
             else if (checkInDateTxt.Date >= checkOutDateTxt.Date)
             {
-                // error: checkoutdate earlier or equal to than checkindate
+                // error: checkoutdate earlier than or equal to checkindate
                 statusBlk.Text = "Error: Check in date cannot be same as or later than the check out date!";
             }
             else
