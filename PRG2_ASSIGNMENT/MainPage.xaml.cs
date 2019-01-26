@@ -264,6 +264,8 @@ namespace PRG2_ASSIGNMENT
                     }
                 }
                 if (guestexist) // Only runs if guest exists
+                    frontPage.Hide();
+                    currentRmPage.Show();
                 {
                     // Refresh current room listview 
                     currentrmLv.ItemsSource = null;
@@ -281,6 +283,7 @@ namespace PRG2_ASSIGNMENT
                     {
                         invoiceDetailBlk.Text = "Guest is not checked in.";
                     }
+                    
 
                     /* UI visibility */
                     if (guest.Membership.Status == "Ordinary") // Hide redeem button from ordinary members
@@ -288,8 +291,6 @@ namespace PRG2_ASSIGNMENT
                         pointsTxt.Visibility = Visibility.Collapsed;
                         redeemBtn.Visibility = Visibility.Collapsed;
                     }
-                    frontPage.Hide();
-                    currentRmPage.Show();
                 }
             }
         }
@@ -408,7 +409,7 @@ namespace PRG2_ASSIGNMENT
                 pointsTxt.Text = "";
 
                 // display message
-                statusBlk.Text = "Check-Out successful!\n";
+                statusBlk.Text = "Check-Out successful!\n" + redeempoints.ToString();
                 if (oldstatus != newstatus)
                 {
                     statusBlk.Text += $"New Member status: {newstatus}";
