@@ -483,7 +483,6 @@ namespace PRG2_ASSIGNMENT
             guestexist = false;
             string name = guestTxt.Text;
             string ppnumber = ppTxt.Text;
-
             if (name == "" || ppnumber == "")
             {
                 // error: no name or ppnumber entered
@@ -499,7 +498,7 @@ namespace PRG2_ASSIGNMENT
                 // error: no adults entered
                 statusBlk.Text = "Error: There must be at least 1 adult!";
             }
-            else if (!int.TryParse(adultnoTxt.Text, out int adultNo) || !int.TryParse(childrennoTxt.Text, out int childrenNo))
+            else if (!int.TryParse(adultnoTxt.Text, out _) || !int.TryParse(childrennoTxt.Text, out _))
             {
                 statusBlk.Text = "Error: Non-numerical characters entered for pax!";
             }
