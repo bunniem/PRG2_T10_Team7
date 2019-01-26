@@ -102,10 +102,10 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Show current rooms page (search button is clicked)           
-            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3 };
+            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3, currentrmheaderBlk };
 
             // Show available rooms and check in function (chkrm button is clicked)
-            chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2 };
+            chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2, availrmheaderBlk, selectrmheaderBlk };
 
             // Show available rooms and check in function (hidden elements until event happens)
             hiddenchkInPage.UIElements = new List<UIElement> { wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
@@ -118,6 +118,11 @@ namespace PRG2_ASSIGNMENT
         {
             this.InitializeComponent();
             InitData(); // initialise all hotel rooms and existing guests
+
+            selectrmheaderBlk.Text = "Room Type\tNo.\tBed Config.\tRate\tWi-Fi\tBreakfast\tAdd. bed";
+            availrmheaderBlk.Text = "Room Type\tNo.\tBed Config.\tRate";
+            currentrmheaderBlk.Text = "Room Type\tNo.\tBed Config.\tRate\tWi-Fi\tBreakfast\tAdd. bed";
+
 
             /* UI Visibility */
             // show front page only
