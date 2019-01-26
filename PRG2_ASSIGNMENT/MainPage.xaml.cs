@@ -297,64 +297,71 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-                                                        // REDEEM POINTS BUTTON //
+        // REDEEM POINTS BUTTON //
         //=====================================================================================================================
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
-            statusMsg.Show(); // show status message
-            PrintInvoice();
-            // add deducted amount to invoice
-            if (pointsTxt.Text == "")
+            if (guest.HotelStay.RoomList.Count == 0)
             {
-                // error: points field blank
-                statusBlk.Text = "Error: Points to redeem must be entered!";
-            }
-            else if (!int.TryParse(pointsTxt.Text, out redeempoints))
-            {
-                // error: non numerical characters in points field
-                statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
-            }
-            else if (redeempoints > guest.Membership.Points)
-            {
-                // error: points entered more than current points
-                statusBlk.Text = "Error: Points entered cannot exceed current points!";
+                invoiceDetailBlk.Text = "Guest must be checked in to a room to redeem points!";
             }
             else
             {
-                redeempoints = Convert.ToInt32(pointsTxt.Text);
-                if (guest.Membership.Status == "Silver") // silver members
+                statusMsg.Show(); // show status message
+                PrintInvoice();
+                // add deducted amount to invoice
+                if (pointsTxt.Text == "")
                 {
-                    bool hasSr = false;
-                    // check for standard rooms in guest's roomList
-                    foreach (HotelRoom r in guest.HotelStay.RoomList)
+                    // error: points field blank
+                    statusBlk.Text = "Error: Points to redeem must be entered!";
+                }
+                else if (!int.TryParse(pointsTxt.Text, out redeempoints))
+                {
+                    // error: non numerical characters in points field
+                    statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
+                }
+                else if (redeempoints > guest.Membership.Points)
+                {
+                    // error: points entered more than current points
+                    statusBlk.Text = "Error: Points entered cannot exceed current points!";
+                }
+                else
+                {
+                    redeempoints = Convert.ToInt32(pointsTxt.Text);
+                    if (guest.Membership.Status == "Silver") // silver members
                     {
-                        if (r is StandardRoom sr)
+                        bool hasSr = false;
+                        // check for standard rooms in guest's roomList
+                        foreach (HotelRoom r in guest.HotelStay.RoomList)
                         {
-                            hasSr = true;
-                            break;
+                            if (r is StandardRoom sr)
+                            {
+                                hasSr = true;
+                                break;
+                            }
+                        }
+                        if (hasSr) // has standard rooms in its roomList
+                        {
+                            invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                            statusMsg.Hide();
+                        }
+                        else
+                        {
+                            statusBlk.Text = "Error: Silver members can only offset their bills for standard rooms!";
                         }
                     }
-                    if (hasSr) // has standard rooms in its roomList
+                    else // gold members
                     {
                         invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
                         statusMsg.Hide();
                     }
-                    else
-                    {
-                        statusBlk.Text = "Error: Silver members can only offset their bills for standard rooms!";
-                    }
-                }
-                else // gold members
-                {
-                    invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
-                    statusMsg.Hide();
                 }
             }
         }
 
 
         //=====================================================================================================================
-                                                        // CHECK OUT BUTTON //
+        // CHECK OUT BUTTON //
         //=====================================================================================================================
         private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
