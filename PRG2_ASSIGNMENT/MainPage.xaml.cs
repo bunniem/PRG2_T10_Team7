@@ -327,23 +327,44 @@ namespace PRG2_ASSIGNMENT
                 }
                 else
                 {
-                    redeempoints = Convert.ToInt32(pointsTxt.Text);
+                    // If redeem points entered exceeds bill payable 
+                    if (redeempoints > guest.HotelStay.CalculateTotal())
+                    {
+                        // points entered changes to bill payable's price
+                        redeempoints = Convert.ToInt32(guest.HotelStay.CalculateTotal());
+                        // Text below does not appear
+                        statusBlk.Text = $"Points to redeem exceeds bill payable. Points to redeem is updated to {redeempoints} points";
+                    }
+                    else
+                    {
+                        redeempoints = Convert.ToInt32(pointsTxt.Text);
+                    }
+
                     if (guest.Membership.Status == "Silver") // silver members
                     {
                         bool hasSr = false;
+                        double chargesPerDay = 0;
+                        double noOfNights = (guest.HotelStay.CheckOutDate - guest.HotelStay.CheckInDate).TotalDays;
                         // check for standard rooms in guest's roomList
                         foreach (HotelRoom r in guest.HotelStay.RoomList)
                         {
                             if (r is StandardRoom sr)
                             {
                                 hasSr = true;
-                                break;
+                                chargesPerDay += r.CalculateCharges();
                             }
                         }
                         if (hasSr) // has standard rooms in its roomList
                         {
-                            invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
-                            statusMsg.Hide();
+                            if (redeempoints > chargesPerDay)
+                            {
+                                redeempoints = Convert.ToInt32(chargesPerDay);
+                                statusBlk.Text = $"Maximum points redeemable is {chargesPerDay * noOfNights} points!";
+                            }
+                            else
+                            {
+                                invoiceDetailBlk.Text += $"\nDiscount (Converted points): ${redeempoints}\nTotal Payable: ${guest.HotelStay.CalculateTotal() - redeempoints}";
+                            }
                         }
                         else
                         {
