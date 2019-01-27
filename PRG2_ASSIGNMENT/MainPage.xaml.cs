@@ -390,17 +390,17 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-                                                        // EXTEND STAY BUTTON //
+        // EXTEND STAY BUTTON //
         //=====================================================================================================================
         private void ExtendBtn_Click(object sender, RoutedEventArgs e)
         {
             if (guest.IsCheckedIn)
             {
-            // add check out date by 1 day
-            guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
+                // add check out date by 1 day
+                guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
 
-            // print invoice
-            PrintInvoice();
+                // print invoice
+                PrintInvoice();
             }
             else
             {
@@ -410,7 +410,7 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-                                                    // PROCEED TO PAYMENT BUTTON //
+        // PROCEED TO PAYMENT BUTTON //
         //=====================================================================================================================
         private void ProceedToPay_Click(object sender, RoutedEventArgs e)
         {
