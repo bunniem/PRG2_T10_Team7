@@ -70,5 +70,6 @@
         <Button x:Name="payByCashBtn" Content="Cash" HorizontalAlignment="Left" Margin="381,279,0,0" VerticalAlignment="Top" Height="35" Width="175" FontSize="16" Click="PayByCashBtn_Click"/>
         <Button x:Name="payByCreditCardBtn" Content="Credit Card" HorizontalAlignment="Left" Margin="655,279,0,0" VerticalAlignment="Top" Height="35" Width="175" FontSize="16" Click="PayByCreditCardBtn_Click"/>
         <Button x:Name="creditcardchkoutBtn" FontSize="16" Content="Check-Out" HorizontalAlignment="Left" Margin="750,652,0,0" VerticalAlignment="Top" Height="35" Width="488" Click="CreditCardChkoutBtn_Click"/>
+        <HyperlinkButton Background="Yellow" Foreground="Red" FontWeight="Bold" Width="250" Content="BONUS FEATURE!" NavigateUri="https://www.youtube.com/watch?v=rmOkAIA1T-E" HorizontalAlignment="Left" Margin="1017,15,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>
