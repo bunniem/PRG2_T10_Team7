@@ -119,7 +119,7 @@ namespace PRG2_ASSIGNMENT
             paymentModePage.UIElements = new List<UIElement> { paymentModeBlk, payByCashBtn, payByCreditCardBtn };
 
             // Payment by credit card page (credit card button is clicked)
-            payByCreditCardPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn, backBtn4 };
+            payByCreditCardPage.UIElements = new List<UIElement> { ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn, backBtn4 };
         }
 
         public MainPage()
