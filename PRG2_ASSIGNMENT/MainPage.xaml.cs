@@ -390,6 +390,26 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
+                                                        // EXTEND STAY BUTTON //
+        //=====================================================================================================================
+        private void ExtendBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (guest.IsCheckedIn)
+            {
+            // add check out date by 1 day
+            guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
+
+            // print invoice
+            PrintInvoice();
+            }
+            else
+            {
+                invoiceDetailBlk.Text = "Error: Guest needs to be checked in to extend stay of the room(s)!";
+            }
+        }
+
+
+        //=====================================================================================================================
                                                     // PROCEED TO PAYMENT BUTTON //
         //=====================================================================================================================
         private void ProceedToPay_Click(object sender, RoutedEventArgs e)
@@ -409,20 +429,140 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-                                                        // EXTEND STAY BUTTON //
+                                                        // PAY BY CASH BUTTON //
         //=====================================================================================================================
-        private void ExtendBtn_Click(object sender, RoutedEventArgs e)
+        private void PayByCashBtn_Click(object sender, RoutedEventArgs e)
         {
-            // add check out date by 1 day
-            guest.HotelStay.CheckOutDate = guest.HotelStay.CheckOutDate.AddDays(1);
-
-            // print invoice
-            PrintInvoice();
+            // Check-Out
+            Checkout();
         }
 
 
         //=====================================================================================================================
-                                                         // PROCEED BUTTON //
+                                                    // PAY BY CREDIT CARD BUTTON //
+        //=====================================================================================================================
+        private void PayByCreditCardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // set credit card listview to guest
+            creditcardLv.ItemsSource = null;
+            creditcardLv.ItemsSource = guest.CreditcardList;
+
+            paymentModePage.Hide();
+            payByCreditCardPage.Show();
+            hiddenpayByCreditCardPage.Hide();
+        }
+
+
+        //=====================================================================================================================
+                                                    // CREDIT CARD CHECK OUT BUTTON //
+        //=====================================================================================================================
+        private void CreditCardChkoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if selected credit card has expired
+            CreditCard c = (CreditCard)creditcardLv.SelectedItem;
+            if (c.ExpDate < DateTime.Now)
+            {
+                statusBlk.Text = "Error: Credit card expiry date cannot be later than today!";
+                statusMsg.Show();
+            }
+            else
+            {
+                // Check-Out guest from hotel
+                Checkout();
+            }
+        }
+
+
+        //=====================================================================================================================
+                                    // SHOW ADD CARD BUTTON WHEN ALL CARD DETAILS FILLED IN //
+        //=====================================================================================================================
+        private void CcnumberTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ccnumberTxt.Text.Length == 16 && cccvvTxt.Text.Length == 3)
+            {
+                addcreditcardBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                addcreditcardBtn.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void CccvvTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ccnumberTxt.Text.Length == 16 && cccvvTxt.Text.Length == 3)
+            {
+                addcreditcardBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                addcreditcardBtn.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void CreditcardLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // show remove credit card button
+            removecreditcardBtn.Visibility = Visibility.Visible;
+            creditcardchkoutBtn.Visibility = Visibility.Visible;
+        }
+
+        private void AddcreditcardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            statusMsg.Show();
+
+            // set expiry date to last day of the month
+            int year = ccExpiryDateTxt.Date.Date.Year;
+            int month = ccExpiryDateTxt.Date.Date.Month;
+            DateTime d = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+
+            if (!Int64.TryParse(ccnumberTxt.Text, out _))
+            {
+                statusBlk.Text = "Error: Credit card number is invalid!";
+            }
+            else if (d < DateTime.Now)
+            {
+                statusBlk.Text = "Error: Credit card expiry date cannot be later than today!";
+            }
+            else if (!int.TryParse(cccvvTxt.Text, out _))
+            {
+                statusBlk.Text = "Error: CVV Number is invalid!";
+            }
+            else
+            {
+                // add card to guest's cardList and refresh credit card listview
+                guest.addCard(ccnumberTxt.Text, d, cccvvTxt.Text);
+                creditcardLv.ItemsSource = null;
+                creditcardLv.ItemsSource = guest.CreditcardList;
+
+                statusBlk.Text = "Credit card added";
+
+
+                ccnumberTxt.Text = "";
+                cccvvTxt.Text = "";
+                /* UI Visibility */
+                hiddenpayByCreditCardPage.Hide();
+            }
+        }
+
+        private void RemovecreditcardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CreditCard c = (CreditCard)creditcardLv.SelectedItem;
+
+            /* Remove selected credit card from guest's creditcardList and refresh */
+            guest.CreditcardList.Remove(c);
+            creditcardLv.ItemsSource = null;
+            creditcardLv.ItemsSource = guest.CreditcardList;
+            statusBlk.Text = "Credit card removed";
+
+            /* UI Visibility */
+            statusMsg.Show();
+            hiddenpayByCreditCardPage.Hide();
+        }
+
+
+        //=====================================================================================================================
+                                                        // PROCEED BUTTON //
         //=====================================================================================================================
         private void ProceedBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -743,15 +883,18 @@ namespace PRG2_ASSIGNMENT
         }
 
 
-        /* Back buttons for navigation */
+        /*-------------------------------------------------------------------------------------------------------------------*/
+        /*                                          Back buttons for navigation                                              */
+        /*-------------------------------------------------------------------------------------------------------------------*/
 
         //=====================================================================================================================
-                                // BACK BUTTON 1 (FROM CHECK IN/CHECK OUT DATES PAGE TO FRONT PAGE) //
+        // BACK BUTTON 1 (FROM CHECK IN/CHECK OUT DATES PAGE TO FRONT PAGE) //
         //=====================================================================================================================
         private void BackBtn1_Click(object sender, RoutedEventArgs e)
         {
             /* Reset values of date to null */
             checkInDateTxt.Date = null;
+
             checkOutDateTxt.Date = null;
 
             /* UI Visibility */
@@ -811,6 +954,7 @@ namespace PRG2_ASSIGNMENT
             frontPage.Show();
         }
 
+
         //=====================================================================================================================
                             // BACK BUTTON 4 (FROM PAYMENT MODE PAGE TO GUEST'S CHECKED IN ROOMS PAGE) //
         //=====================================================================================================================
@@ -819,6 +963,7 @@ namespace PRG2_ASSIGNMENT
             paymentModePage.Hide();
             currentRmPage.Show();
         }
+
 
         //=====================================================================================================================
                                // BACK BUTTON 5 (FROM PAY BY CREDIT CARD PAGE TO PAYMENT MODE PAGE) //
@@ -904,138 +1049,6 @@ namespace PRG2_ASSIGNMENT
             hiddenpayByCreditCardPage.Hide();
             frontPage.Show();
             statusMsg.Show();
-        }
-
-        //=====================================================================================================================
-                                                        // PAY BY CASH BUTTON //
-        //=====================================================================================================================
-        private void PayByCashBtn_Click(object sender, RoutedEventArgs e)
-        {
-            // Check-Out
-            Checkout();
-        }
-
-
-        //=====================================================================================================================
-                                                    // PAY BY CREDIT CARD BUTTON //
-        //=====================================================================================================================
-        private void PayByCreditCardBtn_Click(object sender, RoutedEventArgs e)
-        {
-            // set credit card listview to guest
-            creditcardLv.ItemsSource = null;
-            creditcardLv.ItemsSource = guest.CreditcardList;
-
-            paymentModePage.Hide();
-            payByCreditCardPage.Show();
-            hiddenpayByCreditCardPage.Hide();
-        }
-
-
-        //=====================================================================================================================
-                                                    // CREDIT CARD CHECK OUT BUTTON //
-        //=====================================================================================================================
-        private void CreditCardChkoutBtn_Click(object sender, RoutedEventArgs e)
-        {
-            // Check if selected credit card has expired
-            CreditCard c = (CreditCard)creditcardLv.SelectedItem;
-            if (c.ExpDate < DateTime.Now)
-            {
-                statusBlk.Text = "Error: Credit card expiry date cannot be later than today!";
-                statusMsg.Show();
-            }
-            else
-            {
-                // Check-Out guest from hotel
-                Checkout();
-            }
-        }
-
-
-        //=====================================================================================================================
-                                        // SHOW ADD CARD BUTTON WHEN ALL CARD DETAILS FILLED IN //
-        //=====================================================================================================================
-        private void CcnumberTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (ccnumberTxt.Text.Length == 16 && cccvvTxt.Text.Length == 3)
-            {
-                addcreditcardBtn.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                addcreditcardBtn.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void CccvvTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (ccnumberTxt.Text.Length == 16 && cccvvTxt.Text.Length == 3)
-            {
-                addcreditcardBtn.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                addcreditcardBtn.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void CreditcardLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // show remove credit card button
-            removecreditcardBtn.Visibility = Visibility.Visible;
-            creditcardchkoutBtn.Visibility = Visibility.Visible;
-        }
-
-        private void AddcreditcardBtn_Click(object sender, RoutedEventArgs e)
-        {
-            statusMsg.Show();
-
-            // set expiry date to last day of the month
-            int year = ccExpiryDateTxt.Date.Date.Year;
-            int month = ccExpiryDateTxt.Date.Date.Month;
-            DateTime d = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-
-            if (!Int64.TryParse(ccnumberTxt.Text, out _))
-            {
-                statusBlk.Text = "Error: Credit card number is invalid!";
-            }
-            else if (d < DateTime.Now)
-            {
-                statusBlk.Text = "Error: Credit card expiry date cannot be later than today!";
-            }
-            else if (!int.TryParse(cccvvTxt.Text, out _))
-            {
-                statusBlk.Text = "Error: CVV Number is invalid!";
-            }
-            else
-            {
-                // add card to guest's cardList and refresh credit card listview
-                guest.addCard(ccnumberTxt.Text, d, cccvvTxt.Text); 
-                creditcardLv.ItemsSource = null;
-                creditcardLv.ItemsSource = guest.CreditcardList;
-
-                statusBlk.Text = "Credit card added";
-
-
-                ccnumberTxt.Text = "";
-                cccvvTxt.Text = "";
-                /* UI Visibility */
-                hiddenpayByCreditCardPage.Hide();
-            }
-        }
-
-        private void RemovecreditcardBtn_Click(object sender, RoutedEventArgs e)
-        {
-            CreditCard c = (CreditCard)creditcardLv.SelectedItem;
-
-            /* Remove selected credit card from guest's creditcardList and refresh */
-            guest.CreditcardList.Remove(c);
-            creditcardLv.ItemsSource = null;
-            creditcardLv.ItemsSource = guest.CreditcardList;
-            statusBlk.Text = "Credit card removed";
-
-            /* UI Visibility */
-            statusMsg.Show();
-            hiddenpayByCreditCardPage.Hide();
         }
     }
 }
