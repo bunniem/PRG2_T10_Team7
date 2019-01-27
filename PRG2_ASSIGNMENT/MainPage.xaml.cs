@@ -338,11 +338,13 @@ namespace PRG2_ASSIGNMENT
                 {
                     // error: points entered more than current points
                     statusBlk.Text = $"Error: Points to redeem exceeds points available ({guest.Membership.Points})!";
+                    redeempoints = 0;
                 }
                 else if (redeempoints > guest.HotelStay.CalculateTotal())
                 {
                     // error: points entered more than total bill cost
                     statusBlk.Text = $"Error: Points to redeem exceeds bill payable!\nMaximum points redeemable is {guest.HotelStay.CalculateTotal()} points!";
+                    redeempoints = 0;
                 }
                 else
                 {
