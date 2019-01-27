@@ -54,5 +54,19 @@
         <Button x:Name="hideBtn" Content="Hide ^" HorizontalAlignment="Left" Margin="12,159,0,0" VerticalAlignment="Top" Height="35" Width="69" FontSize="16" Click="HideBtn_Click"/>
         <TextBlock x:Name="availrmheaderBlk" HorizontalAlignment="Left" Margin="82,242,0,0" TextWrapping="Wrap" FontSize="13.5" Text="" VerticalAlignment="Top" Width="380" Height="36"/>
         <TextBlock x:Name="selectrmheaderBlk" HorizontalAlignment="Left" Margin="735,242,-1,0" TextWrapping="Wrap" FontSize="13.5" Text="" VerticalAlignment="Top" Width="546" Height="36"/>
+        <TextBlock x:Name="ccnumberBlk" HorizontalAlignment="Left" Margin="386,243,0,0" TextWrapping="Wrap" FontSize="22" Text="Credit Card Number:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <TextBlock x:Name="cccvvBlk" HorizontalAlignment="Left" Margin="386,411,0,0" TextWrapping="Wrap" FontSize="22" Text="CVV Number:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <TextBox x:Name="ccnumberTxt" HorizontalAlignment="Left" Margin="386,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Height="18" Text=""/>
+        <TextBlock x:Name="ccExpiryDateBlk" HorizontalAlignment="Left" Margin="386,327,0,0" TextWrapping="Wrap" FontSize="22" Text="Expiry Date:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <CalendarDatePicker x:Name="ccExpiryDateTxt" HorizontalAlignment="Left" Margin="386,362,0,0" VerticalAlignment="Top" Width="239"/>
+        <TextBox x:Name="cccvvTxt" HorizontalAlignment="Left" Margin="386,447,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Height="18" Text=""/>
+        <ListView x:Name="creditcardLv" HorizontalAlignment="Left" Height="380" Margin="750,245,0,0" VerticalAlignment="Top" Width="480"/>
+        <TextBlock x:Name="creditcardBlk" HorizontalAlignment="Left" Margin="753,204,0,0" TextWrapping="Wrap" FontSize="22" Text="Credit cards:" VerticalAlignment="Top" Width="215" Height="36"/>
+        <Button x:Name="creditcardchkoutBtn" FontSize="16" Content="Check-Out" HorizontalAlignment="Left" Margin="750,652,0,0" VerticalAlignment="Top" Height="35" Width="488" Click="ChkoutBtn_Click"/>
+        <Button x:Name="removecreditcardBtn" FontSize="16" Content="&lt; Remove Card" HorizontalAlignment="Left" Margin="549,590,0,0" VerticalAlignment="Top" Height="35" Width="142" Click="RemovermBtn_Click"/>
+        <Button x:Name="addcreditcardBtn" FontSize="16" Content="Add Card >" HorizontalAlignment="Left" Margin="549,518,0,0" VerticalAlignment="Top" Height="35" Width="142" Click="RemovermBtn_Click"/>
+        <TextBlock x:Name="paymentModeBlk" HorizontalAlignment="Left" Margin="518,185,0,0" TextWrapping="Wrap" FontSize="26" Text="Mode of Payment" VerticalAlignment="Top" Width="215" Height="36"/>
+        <Button x:Name="payByCashBtn" Content="Cash" HorizontalAlignment="Left" Margin="381,279,0,0" VerticalAlignment="Top" Height="35" Width="175" FontSize="16" Click="PayByCashBtn_Click"/>
+        <Button x:Name="payByCreditCardBtn" Content="Credit Card" HorizontalAlignment="Left" Margin="655,279,0,0" VerticalAlignment="Top" Height="35" Width="175" FontSize="16" Click="PayByCreditCardBtn_Click"/>
     </Grid>
 </Page>

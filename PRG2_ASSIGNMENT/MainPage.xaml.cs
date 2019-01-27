@@ -21,6 +21,8 @@ namespace PRG2_ASSIGNMENT
         UIElementList chkInPage = new UIElementList();
         UIElementList hiddenchkInPage = new UIElementList();
         UIElementList statusMsg = new UIElementList();
+        UIElementList paymentModePage = new UIElementList();
+        UIElementList payByCreditCardPage = new UIElementList();
 
         /* Global guest */
         bool guestexist = false;
@@ -112,6 +114,12 @@ namespace PRG2_ASSIGNMENT
 
             // Show status messages (for error or informational messages)
             statusMsg.UIElements = new List<UIElement> { statusBlk, hideBtn };
+
+            // Show mode of payment page (check out button is clicked)
+            paymentModePage.UIElements = new List<UIElement> { paymentModeBlk, payByCashBtn, payByCreditCardBtn };
+
+            // Show payment by credit card page (credit card button is clicked)
+            payByCreditCardPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn };
         }
 
         public MainPage()
@@ -130,6 +138,8 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.Hide();
             currentRmPage.Hide();
             chkInPage.Hide();
+            paymentModePage.Hide();
+            payByCreditCardPage.Hide();
             frontPage.Show();
         }
 
@@ -297,7 +307,7 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-        // REDEEM POINTS BUTTON //
+                                                        // REDEEM POINTS BUTTON //
         //=====================================================================================================================
         private void RedeemBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -376,7 +386,7 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-        // CHECK OUT BUTTON //
+                                                        // CHECK OUT BUTTON //
         //=====================================================================================================================
         private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -430,31 +440,31 @@ namespace PRG2_ASSIGNMENT
                 ppTxt.Text = "";
                 pointsTxt.Text = "";
 
-                // display message
-                statusBlk.Text = "Check-Out successful!\n";
-                if (oldstatus != newstatus)
-                {
-                    statusBlk.Text += $"New Member status: {newstatus}";
-                }
-                else
-                {
-                    statusBlk.Text += $"Member status: {newstatus}";
-                }
-                if (newpoints > oldpoints)
-                {
-                    statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}";
-                }
-                else if (oldpoints > newpoints)
-                {
-                    statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}";
-                }
-                else
-                {
-                    statusBlk.Text += "Points have not changed.";
-                }
-                statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
+                //// display message
+                //statusBlk.Text = "Check-Out successful!\n";
+                //if (oldstatus != newstatus)
+                //{
+                //    statusBlk.Text += $"New Member status: {newstatus}";
+                //}
+                //else
+                //{
+                //    statusBlk.Text += $"Member status: {newstatus}";
+                //}
+                //if (newpoints > oldpoints)
+                //{
+                //    statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}";
+                //}
+                //else if (oldpoints > newpoints)
+                //{
+                //    statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}";
+                //}
+                //else
+                //{
+                //    statusBlk.Text += "Points have not changed.";
+                //}
+                //statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
                 currentRmPage.Hide();
-                frontPage.Show();
+                paymentModePage.Show();
             }
         }
 
@@ -860,6 +870,60 @@ namespace PRG2_ASSIGNMENT
             statusMsg.Hide();
             currentRmPage.Hide();
             frontPage.Show();
+        }
+
+
+        //=====================================================================================================================
+                                                        // PAY BY CASH BUTTON //
+        //=====================================================================================================================
+        private void PayByCashBtn_Click(object sender, RoutedEventArgs e)
+        {
+            /* Get points and status before deduction and earning points */
+            int oldpoints = guest.Membership.Points;
+            string oldstatus = guest.Membership.Status;
+            guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal() - redeempoints); // add points to guest           
+            guest.Membership.RedeemPoints(redeempoints); // redeem points from guest
+
+            /* Get points and status after deduction and earning points */
+            redeempoints = 0; // reset redeempoints
+            int newpoints = guest.Membership.Points;
+            string newstatus = guest.Membership.Status;
+
+            // display message
+            statusBlk.Text = "Check-Out successful!\n";
+            if (oldstatus != newstatus)
+            {
+                statusBlk.Text += $"New Member status: {newstatus}";
+            }
+            else
+            {
+                statusBlk.Text += $"Member status: {newstatus}";
+            }
+            if (newpoints > oldpoints)
+            {
+                statusBlk.Text += $"\nPoints earned: {newpoints - oldpoints}";
+            }
+            else if (oldpoints > newpoints)
+            {
+                statusBlk.Text += $"\nPoints deducted: {oldpoints - newpoints}";
+            }
+            else
+            {
+                statusBlk.Text += "\nPoints have not changed.";
+            }
+            statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
+            paymentModePage.Hide();
+            frontPage.Show();
+        }
+
+
+        //=====================================================================================================================
+                                                    // PAY BY CREDIT CARD BUTTON //
+        //=====================================================================================================================
+        private void PayByCreditCardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            paymentModePage.Hide();
+            payByCreditCardPage.Show();
         }
     }
 }
