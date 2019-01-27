@@ -38,12 +38,7 @@ namespace PRG2_ASSIGNMENT
             Cvv = c;
         }
 
-        /* Methods */
-        public string getExpiryDate()
-        {
-            return ExpDate.ToString("MM/y");
-        }
-        
+        /* Methods */      
         public override string ToString()
         {
             return $"{CardNum}\t{ExpDate}\t{Cvv}";

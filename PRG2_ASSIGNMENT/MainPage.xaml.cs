@@ -936,6 +936,10 @@ namespace PRG2_ASSIGNMENT
         //=====================================================================================================================
         private void CreditCardChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
+            // Check if selected credit card has expired
+            CreditCard c = (CreditCard)creditcardLv.SelectedItem;
+            if (c.Ex)
+
             // Check-Out guest from hotel
             Checkout();
         }
