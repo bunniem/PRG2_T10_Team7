@@ -50,7 +50,8 @@
         <Button x:Name="backBtn1" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="524,202,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn1_Click"/>
         <Button x:Name="backBtn2" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="538,652,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn2_Click"/>
         <Button x:Name="backBtn3" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="538,652,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn3_Click"/>
-        <Button x:Name="backBtn4" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="570,652,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn4_Click"/>
+        <Button x:Name="backBtn4" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="556,349,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn4_Click"/>
+        <Button x:Name="backBtn5" FontSize="16" Content="Back" HorizontalAlignment="Left" Margin="570,652,0,0" VerticalAlignment="Top" Height="35" Width="101" Click="BackBtn5_Click"/>
         <TextBlock x:Name="invoiceBlk" HorizontalAlignment="Left" Margin="602,245,0,0" TextWrapping="Wrap" FontSize="22" Text="Invoice:" VerticalAlignment="Top" Width="215" Height="36"/>
         <Button x:Name="hideBtn" Content="Hide ^" HorizontalAlignment="Left" Margin="12,159,0,0" VerticalAlignment="Top" Height="35" Width="69" FontSize="16" Click="HideBtn_Click"/>
         <TextBlock x:Name="availrmheaderBlk" HorizontalAlignment="Left" Margin="82,242,0,0" TextWrapping="Wrap" FontSize="13.5" Text="" VerticalAlignment="Top" Width="380" Height="36"/>

@@ -117,10 +117,10 @@ namespace PRG2_ASSIGNMENT
             statusMsg.UIElements = new List<UIElement> { statusBlk, hideBtn };
 
             // Mode of payment page (check out button is clicked)
-            paymentModePage.UIElements = new List<UIElement> { paymentModeBlk, payByCashBtn, payByCreditCardBtn };
+            paymentModePage.UIElements = new List<UIElement> { paymentModeBlk, payByCashBtn, payByCreditCardBtn, backBtn4 };
 
             // Payment by credit card page (credit card button is clicked)
-            payByCreditCardPage.UIElements = new List<UIElement> { ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn, backBtn4 };
+            payByCreditCardPage.UIElements = new List<UIElement> { ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn, backBtn5 };
 
             // Payment by credit card page (hidden elements until event happens)
             hiddenpayByCreditCardPage.UIElements = new List<UIElement> { addcreditcardBtn, removecreditcardBtn, creditcardchkoutBtn };
@@ -877,21 +877,25 @@ namespace PRG2_ASSIGNMENT
             frontPage.Show();
         }
 
-
         //=====================================================================================================================
-                            // BACK BUTTON 4 (FROM PAY BY CREDIT CARD PAGE TO PAYMENT MODE PAGE) //
+                            // BACK BUTTON 4 (FROM PAYMENT MODE PAGE TO GUEST'S CHECKED IN ROOMS PAGE) //
         //=====================================================================================================================
         private void BackBtn4_Click(object sender, RoutedEventArgs e)
+        {
+            paymentModePage.Hide();
+            currentRmPage.Show();
+        }
+
+        //=====================================================================================================================
+                               // BACK BUTTON 5 (FROM PAY BY CREDIT CARD PAGE TO PAYMENT MODE PAGE) //
+        //=====================================================================================================================
+        private void BackBtn5_Click(object sender, RoutedEventArgs e)
         {
             payByCreditCardPage.Hide();
             paymentModePage.Show();
         }
 
-
-        //=====================================================================================================================
-                                                        // PAY BY CASH BUTTON //
-        //=====================================================================================================================
-        private void PayByCashBtn_Click(object sender, RoutedEventArgs e)
+        public void Checkout()
         {
             /* Get points and status before deduction and earning points */
             int oldpoints = guest.Membership.Points;
@@ -959,9 +963,22 @@ namespace PRG2_ASSIGNMENT
                 statusBlk.Text += "Points have not changed.";
             }
             statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
+
+            /* UI Visibility */
             paymentModePage.Hide();
+            payByCreditCardPage.Hide();
+            hiddenpayByCreditCardPage.Hide();
             frontPage.Show();
             statusMsg.Show();
+        }
+
+        //=====================================================================================================================
+                                                        // PAY BY CASH BUTTON //
+        //=====================================================================================================================
+        private void PayByCashBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Check-Out
+            Checkout();
         }
 
 
@@ -985,14 +1002,13 @@ namespace PRG2_ASSIGNMENT
         //=====================================================================================================================
         private void CreditCardChkoutBtn_Click(object sender, RoutedEventArgs e)
         {
-            payByCreditCardPage.Hide();
-            frontPage.Show();
-            statusMsg.Show();
+            // Check-Out guest from hotel
+            Checkout();
         }
 
 
         //=====================================================================================================================
-        // SHOW ADD CARD BUTTON WHEN ALL CARD DETAILS FILLED IN //
+                                        // SHOW ADD CARD BUTTON WHEN ALL CARD DETAILS FILLED IN //
         //=====================================================================================================================
         private void CcnumberTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
