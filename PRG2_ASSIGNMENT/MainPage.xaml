@@ -62,7 +62,7 @@
         <TextBox x:Name="cccvvTxt" HorizontalAlignment="Left" Margin="386,447,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Height="18" Text=""/>
         <ListView x:Name="creditcardLv" HorizontalAlignment="Left" Height="380" Margin="750,245,0,0" VerticalAlignment="Top" Width="480"/>
         <TextBlock x:Name="creditcardBlk" HorizontalAlignment="Left" Margin="753,204,0,0" TextWrapping="Wrap" FontSize="22" Text="Credit cards:" VerticalAlignment="Top" Width="215" Height="36"/>
-        <Button x:Name="creditcardchkoutBtn" FontSize="16" Content="Check-Out" HorizontalAlignment="Left" Margin="750,652,0,0" VerticalAlignment="Top" Height="35" Width="488" Click="ChkoutBtn_Click"/>
+        <Button x:Name="creditcardchkoutBtn" FontSize="16" Content="Check-Out" HorizontalAlignment="Left" Margin="750,652,0,0" VerticalAlignment="Top" Height="35" Width="488" Click="CreditCardChkoutBtn_Click"/>
         <Button x:Name="removecreditcardBtn" FontSize="16" Content="&lt; Remove Card" HorizontalAlignment="Left" Margin="549,590,0,0" VerticalAlignment="Top" Height="35" Width="142" Click="RemovermBtn_Click"/>
         <Button x:Name="addcreditcardBtn" FontSize="16" Content="Add Card >" HorizontalAlignment="Left" Margin="549,518,0,0" VerticalAlignment="Top" Height="35" Width="142" Click="RemovermBtn_Click"/>
         <TextBlock x:Name="paymentModeBlk" HorizontalAlignment="Left" Margin="518,185,0,0" TextWrapping="Wrap" FontSize="26" Text="Mode of Payment" VerticalAlignment="Top" Width="215" Height="36"/>

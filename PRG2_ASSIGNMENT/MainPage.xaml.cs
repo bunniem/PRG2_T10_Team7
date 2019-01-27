@@ -926,5 +926,15 @@ namespace PRG2_ASSIGNMENT
             paymentModePage.Hide();
             payByCreditCardPage.Show();
         }
+
+
+        //=====================================================================================================================
+                                                    // CREDIT CARD CHECK OUT BUTTON //
+        //=====================================================================================================================
+        private void CreditCardChkoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            payByCreditCardPage.Hide();
+            frontPage.Show();
+        }
     }
 }
