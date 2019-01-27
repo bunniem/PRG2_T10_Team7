@@ -23,6 +23,7 @@ namespace PRG2_ASSIGNMENT
         UIElementList statusMsg = new UIElementList();
         UIElementList paymentModePage = new UIElementList();
         UIElementList payByCreditCardPage = new UIElementList();
+        UIElementList hiddenpayByCreditCardPage = new UIElementList();
 
         /* Global guest */
         bool guestexist = false;
@@ -120,6 +121,9 @@ namespace PRG2_ASSIGNMENT
 
             // Payment by credit card page (credit card button is clicked)
             payByCreditCardPage.UIElements = new List<UIElement> { ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn, backBtn4 };
+
+            // Payment by credit card page (hidden elements until event happens)
+            hiddenpayByCreditCardPage.UIElements = new List<UIElement> { addcreditcardBtn, removecreditcardBtn, creditcardchkoutBtn };
         }
 
         public MainPage()
