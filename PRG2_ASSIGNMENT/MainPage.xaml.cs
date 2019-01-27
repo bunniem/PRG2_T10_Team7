@@ -104,7 +104,7 @@ namespace PRG2_ASSIGNMENT
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
             // Current rooms page (search button is clicked)           
-            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3, currentrmheaderBlk };
+            currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, proceedToPay, backBtn3, currentrmheaderBlk };
 
             // Available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2, availrmheaderBlk, selectrmheaderBlk };
@@ -386,9 +386,9 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-                                                        // CHECK OUT BUTTON //
+                                                    // PROCEED TO PAYMENT BUTTON //
         //=====================================================================================================================
-        private void ChkoutBtn_Click(object sender, RoutedEventArgs e)
+        private void ProceedToPay_Click(object sender, RoutedEventArgs e)
         {
             statusMsg.Show(); // show status message
             if (!guest.IsCheckedIn)
