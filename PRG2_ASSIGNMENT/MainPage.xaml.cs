@@ -972,6 +972,7 @@ namespace PRG2_ASSIGNMENT
         {
             paymentModePage.Hide();
             payByCreditCardPage.Show();
+            hiddenpayByCreditCardPage.Hide();
         }
 
 
@@ -985,5 +986,69 @@ namespace PRG2_ASSIGNMENT
             statusMsg.Show();
         }
 
+
+        //=====================================================================================================================
+                                         // SHOW ADD CARD BUTTON WHEN ALL CARD DETAILS FILLED IN //
+        //=====================================================================================================================
+        //private void CcnumberTxt_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (ccnumberTxt.Text != "" && ccExpiryDateTxt.Text != "" && cccvvTxt.Text != "")
+        //    {
+        //        addcreditcardBtn.Visibility = Visibility.Visible;
+        //    }
+        //    else
+        //    {
+        //        addcreditcardBtn.Visibility = Visibility.Collapsed;
+        //    }
+        //}
+
+        //private void CcExpiryDateTxt_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (ccnumberTxt.Text != "" && ccExpiryDateTxt.Text != "" && cccvvTxt.Text != "")
+        //    {
+        //        addcreditcardBtn.Visibility = Visibility.Visible;
+        //    }
+        //    else
+        //    {
+        //        addcreditcardBtn.Visibility = Visibility.Collapsed;
+        //    }
+        //}
+
+        //private void CccvvTxt_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (ccnumberTxt.Text != "" && ccExpiryDateTxt.Text != "" && cccvvTxt.Text != "")
+        //    {
+        //        addcreditcardBtn.Visibility = Visibility.Visible;
+        //    }
+        //    else
+        //    {
+        //        addcreditcardBtn.Visibility = Visibility.Collapsed;
+        //    }
+        //}
+
+        private void CreditcardLv_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // show remove credit card button
+            removecreditcardBtn.Visibility = Visibility.Visible;
+            creditcardchkoutBtn.Visibility = Visibility.Visible;
+        }
+
+        private void AddcreditcardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(ccnumberTxt)
+        }
+
+        private void RemovecreditcardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CreditCard c = (CreditCard)creditcardLv.SelectedItem;
+
+            /* Remove selected credit card from guest's creditcardList and refresh */
+            guest.CreditcardList.Remove(c);
+            creditcardLv.ItemsSource = null;
+            creditcardLv.ItemsSource = guest.CreditcardList;
+
+            /* UI Visibility */
+            hiddenpayByCreditCardPage.Hide();
+        }
     }
 }
