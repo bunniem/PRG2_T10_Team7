@@ -575,7 +575,7 @@ namespace PRG2_ASSIGNMENT
             if (name == "" || ppnumber == "")
             {
                 // error: no name or ppnumber entered
-                statusBlk.Text = "Error: Guests need to enter both name and passport number fields!";
+                statusBlk.Text = "Error: Guests need to enter both name and passport number fields to proceed to check in!";
             }
             else if (childrennoTxt.Text == "" || adultnoTxt.Text == "")
             {
