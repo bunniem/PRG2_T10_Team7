@@ -397,48 +397,48 @@ namespace PRG2_ASSIGNMENT
             }
             else
             {
-                /* Get points and status before deduction and earning points */
-                int oldpoints = guest.Membership.Points;
-                string oldstatus = guest.Membership.Status;
-                guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal() - redeempoints); // add points to guest           
-                guest.Membership.RedeemPoints(redeempoints); // redeem points from guest
+                ///* Get points and status before deduction and earning points */
+                //int oldpoints = guest.Membership.Points;
+                //string oldstatus = guest.Membership.Status;
+                //guest.Membership.EarnPoints(guest.HotelStay.CalculateTotal() - redeempoints); // add points to guest           
+                //guest.Membership.RedeemPoints(redeempoints); // redeem points from guest
 
-                /* Get points and status after deduction and earning points */
-                redeempoints = 0; // reset redeempoints
-                int newpoints = guest.Membership.Points;
-                string newstatus = guest.Membership.Status;
+                ///* Get points and status after deduction and earning points */
+                //redeempoints = 0; // reset redeempoints
+                //int newpoints = guest.Membership.Points;
+                //string newstatus = guest.Membership.Status;
 
-                /* Add all selected rooms back to available room list */
-                foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
-                {
-                    /* Set addon booleans for rooms to false */
-                    if (r is DeluxeRoom dr)
-                    {
-                        dr.AdditionalBed = false;
-                    }
-                    else if (r is StandardRoom sr)
-                    {
-                        sr.RequireBreakfast = false;
-                        sr.RequireWifi = false;
-                    }
-                    /* Remove selected room from guest's roomList */
-                    guest.HotelStay.RoomList.Remove(r);
+                ///* Add all selected rooms back to available room list */
+                //foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
+                //{
+                //    /* Set addon booleans for rooms to false */
+                //    if (r is DeluxeRoom dr)
+                //    {
+                //        dr.AdditionalBed = false;
+                //    }
+                //    else if (r is StandardRoom sr)
+                //    {
+                //        sr.RequireBreakfast = false;
+                //        sr.RequireWifi = false;
+                //    }
+                //    /* Remove selected room from guest's roomList */
+                //    guest.HotelStay.RoomList.Remove(r);
 
-                    /* Add selected room to available room list */
-                    r.IsAvail = true; // room made available
-                    availRms.Add(r);
-                }
-                availRms.Sort(); // sort available room list
-                guest.IsCheckedIn = false; // guest not checked in
+                //    /* Add selected room to available room list */
+                //    r.IsAvail = true; // room made available
+                //    availRms.Add(r);
+                //}
+                //availRms.Sort(); // sort available room list
+                //guest.IsCheckedIn = false; // guest not checked in
 
-                // enable input for textboxes                    
-                guestTxt.IsReadOnly = false;
-                ppTxt.IsReadOnly = false;
+                //// enable input for textboxes                    
+                //guestTxt.IsReadOnly = false;
+                //ppTxt.IsReadOnly = false;
 
-                /* Reset all fields to blank */
-                guestTxt.Text = "";
-                ppTxt.Text = "";
-                pointsTxt.Text = "";
+                ///* Reset all fields to blank */
+                //guestTxt.Text = "";
+                //ppTxt.Text = "";
+                //pointsTxt.Text = "";
 
                 //// display message
                 //statusBlk.Text = "Check-Out successful!\n";
@@ -464,6 +464,7 @@ namespace PRG2_ASSIGNMENT
                 //}
                 //statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
                 currentRmPage.Hide();
+                statusMsg.Hide();
                 paymentModePage.Show();
             }
         }
@@ -889,6 +890,38 @@ namespace PRG2_ASSIGNMENT
             int newpoints = guest.Membership.Points;
             string newstatus = guest.Membership.Status;
 
+            /* Add all selected rooms back to available room list */
+            foreach (HotelRoom r in guest.HotelStay.RoomList.ToList())
+            {
+                /* Set addon booleans for rooms to false */
+                if (r is DeluxeRoom dr)
+                {
+                    dr.AdditionalBed = false;
+                }
+                else if (r is StandardRoom sr)
+                {
+                    sr.RequireBreakfast = false;
+                    sr.RequireWifi = false;
+                }
+                /* Remove selected room from guest's roomList */
+                guest.HotelStay.RoomList.Remove(r);
+
+                /* Add selected room to available room list */
+                r.IsAvail = true; // room made available
+                availRms.Add(r);
+            }
+            availRms.Sort(); // sort available room list
+            guest.IsCheckedIn = false; // guest not checked in
+
+            // enable input for textboxes                    
+            guestTxt.IsReadOnly = false;
+            ppTxt.IsReadOnly = false;
+
+            /* Reset all fields to blank */
+            guestTxt.Text = "";
+            ppTxt.Text = "";
+            pointsTxt.Text = "";
+
             // display message
             statusBlk.Text = "Check-Out successful!\n";
             if (oldstatus != newstatus)
@@ -909,11 +942,12 @@ namespace PRG2_ASSIGNMENT
             }
             else
             {
-                statusBlk.Text += "\nPoints have not changed.";
+                statusBlk.Text += "Points have not changed.";
             }
             statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
             paymentModePage.Hide();
             frontPage.Show();
+            statusMsg.Show();
         }
 
 
@@ -934,6 +968,7 @@ namespace PRG2_ASSIGNMENT
         {
             payByCreditCardPage.Hide();
             frontPage.Show();
+            statusMsg.Show();
         }
     }
 }
