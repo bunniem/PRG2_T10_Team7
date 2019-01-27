@@ -55,7 +55,7 @@ namespace PRG2_ASSIGNMENT
 
         public override string ToString()
         {
-            return $"{CheckInDate.ToString("dd/MM/yyyy")} to {CheckOutDate.ToString("dd/MM/yyyy")}";
+            return $"{CheckInDate.ToString("dd'/'MM'/'yyyy")} to {CheckOutDate.ToString("dd'/'MM'/'yyyy")}";
         }
 
     }
