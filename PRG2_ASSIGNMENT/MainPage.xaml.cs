@@ -858,7 +858,7 @@ namespace PRG2_ASSIGNMENT
 
 
         //=====================================================================================================================
-                        // BACK BUTTON 3 (FROM VIEWING CHECK GUEST'S CHECKED IN ROOMS PAGE TO FRONT PAGE) //
+                            // BACK BUTTON 3 (FROM CHECK GUEST'S CHECKED IN ROOMS PAGE TO FRONT PAGE) //
         //=====================================================================================================================
         private void BackBtn3_Click(object sender, RoutedEventArgs e)
         {
@@ -871,6 +871,16 @@ namespace PRG2_ASSIGNMENT
             statusMsg.Hide();
             currentRmPage.Hide();
             frontPage.Show();
+        }
+
+
+        //=====================================================================================================================
+                            // BACK BUTTON 4 (FROM PAY BY CREDIT CARD PAGE TO PAYMENT MODE PAGE) //
+        //=====================================================================================================================
+        private void BackBtn4_Click(object sender, RoutedEventArgs e)
+        {
+            payByCreditCardPage.Hide();
+            paymentModePage.Show();
         }
 
 
@@ -971,10 +981,5 @@ namespace PRG2_ASSIGNMENT
             statusMsg.Show();
         }
 
-        private void BackBtn4_Click(object sender, RoutedEventArgs e)
-        {
-            payByCreditCardPage.Hide();
-            paymentModePage.Show();
-        }
     }
 }
