@@ -263,7 +263,7 @@ namespace PRG2_ASSIGNMENT
                     }
                     else // name and pp number matches to two different guests
                     {
-                        // use passport number to match existing guest
+                        // use passport number (priority) to match existing guest
                         foreach (Guest eg in guestList)
                         {
                             if (eg.PpNumber == ppnumber)
@@ -317,7 +317,7 @@ namespace PRG2_ASSIGNMENT
         {
             if (!guest.IsCheckedIn)
             {
-                invoiceDetailBlk.Text = "Error: Guest must be checked in to a room to redeem points!";
+                invoiceDetailBlk.Text = "Error: Guest needs to be checked in to a room to redeem points!";
             }
             else
             {
