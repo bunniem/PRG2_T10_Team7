@@ -1069,7 +1069,7 @@ namespace PRG2_ASSIGNMENT
                 creditcardLv.ItemsSource = null;
                 creditcardLv.ItemsSource = guest.CreditcardList;
 
-                statusBlk.Text = "Credit card added!";
+                statusBlk.Text = "Credit card added";
 
 
                 ccnumberTxt.Text = "";
@@ -1087,8 +1087,10 @@ namespace PRG2_ASSIGNMENT
             guest.CreditcardList.Remove(c);
             creditcardLv.ItemsSource = null;
             creditcardLv.ItemsSource = guest.CreditcardList;
+            statusBlk.Text = "Credit card removed";
 
             /* UI Visibility */
+            statusMsg.Show();
             hiddenpayByCreditCardPage.Hide();
         }
     }
