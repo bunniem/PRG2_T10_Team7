@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreditCard.cs" />
     <Compile Include="DeluxeRoom.cs" />
     <Compile Include="Guest.cs" />
     <Compile Include="HotelRoom.cs" />

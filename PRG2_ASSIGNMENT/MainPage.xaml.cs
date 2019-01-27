@@ -103,16 +103,16 @@ namespace PRG2_ASSIGNMENT
             // Check rooms available page (proceed button is clicked)
             chkRmAvailPage.UIElements = new List<UIElement> { checkInDateTxt, checkOutDateTxt, chkinBlk, chkoutBlk, chkrmBtn, backBtn1 };
 
-            // Show current rooms page (search button is clicked)           
+            // Current rooms page (search button is clicked)           
             currentRmPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, currentrmBlk, currentrmLv, extendBtn, invoiceBlk, invoiceDetailBlk, invoiceDetailScroll, statuspointsBlk, pointsTxt, redeemBtn, chkoutBtn, backBtn3, currentrmheaderBlk };
 
-            // Show available rooms and check in function (chkrm button is clicked)
+            // Available rooms and check in function (chkrm button is clicked)
             chkInPage.UIElements = new List<UIElement> { availrmBlk, availrmLv, selectrmBlk, selectrmLv, wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn, backBtn2, availrmheaderBlk, selectrmheaderBlk };
 
-            // Show available rooms and check in function (hidden elements until event happens)
+            // Available rooms and check in function (hidden elements until event happens)
             hiddenchkInPage.UIElements = new List<UIElement> { wifiCb, breakfastCb, bedCb, addrmBtn, removermBtn, chkinBtn };
 
-            // Show status messages (for error or informational messages)
+            // Status messages (for error or informational messages)
             statusMsg.UIElements = new List<UIElement> { statusBlk, hideBtn };
 
             // Show mode of payment page (check out button is clicked)
@@ -153,7 +153,7 @@ namespace PRG2_ASSIGNMENT
                 invoiceDetailBlk.Text += r.ToString() + "\n";
                 chargesPerDay += r.CalculateCharges();
             }
-            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
+            invoiceDetailBlk.Text += $"\nCharges per day: ${chargesPerDay}\nDuration of stay: {noOfNights} days ({guest.HotelStay.ToString()})\n\nTotal charges: ${guest.HotelStay.CalculateTotal()}";
         }
 
 

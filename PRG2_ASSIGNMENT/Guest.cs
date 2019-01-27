@@ -1,4 +1,7 @@
-﻿namespace PRG2_ASSIGNMENT
+﻿using System;
+using System.Collections.Generic;
+
+namespace PRG2_ASSIGNMENT
 {
     class Guest
     {
@@ -8,6 +11,7 @@
         private Stay hotelStay;
         private Membership membership;
         private bool isCheckedIn;
+        private List<CreditCard> creditcardList = new List<CreditCard>();
 
         /* Properties */
         public string Name
@@ -35,6 +39,11 @@
             get { return isCheckedIn; }
             set { isCheckedIn = value; }
         }
+        public List<CreditCard> CreditcardList
+        {
+            get { return creditcardList; }
+            set { creditcardList = value; }
+        }
 
         /* Constructors */
         public Guest() { }
@@ -49,9 +58,14 @@
         }
 
         /* Methods */
+        public void addCard(string cn, DateTime ed, string c)
+        {
+            CreditCard cc = new CreditCard(cn, ed, c);
+            CreditcardList.Add(cc);
+        }
         public override string ToString()
         {
-            return $"{name}\t{ppNumber}";
+            return $"{Name}\t{PpNumber}";
         }
     }
 }
