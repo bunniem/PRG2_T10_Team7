@@ -860,7 +860,7 @@ namespace PRG2_ASSIGNMENT
                     guest.Membership.Points = 0;
                     guestList.Add(guest);
                 }
-                statusBlk.Text = "Check-In Successful!"; // display message when check in successful
+                statusBlk.Text = $"Check-In Successful!\nPeriod: {guest.HotelStay.ToString()}\nWe hope you enjoy the stay, {guest.Name}!"; // display message when check in successful
 
                 /* Reset all fields to blank */
                 guestTxt.Text = "";
@@ -1043,7 +1043,7 @@ namespace PRG2_ASSIGNMENT
             {
                 statusBlk.Text += "Points have not changed.";
             }
-            statusBlk.Text += $"\nThank you for your stay, {guest.Name}!";
+            statusBlk.Text += $"\nWe hoped you enjoyed your stay, {guest.Name}!";
 
             /* UI Visibility */
             paymentModePage.Hide();
