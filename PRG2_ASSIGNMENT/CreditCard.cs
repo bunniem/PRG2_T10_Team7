@@ -41,7 +41,7 @@ namespace PRG2_ASSIGNMENT
         /* Methods */      
         public override string ToString()
         {
-            return $"{CardNum}\t{ExpDate}\t{Cvv}";
+            return $"{CardNum}\t{ExpDate.ToString("MM'/'y")}\t{Cvv}";
         }
     }
 }
