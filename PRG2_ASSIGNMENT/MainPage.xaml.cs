@@ -938,10 +938,16 @@ namespace PRG2_ASSIGNMENT
         {
             // Check if selected credit card has expired
             CreditCard c = (CreditCard)creditcardLv.SelectedItem;
-            if (c.Ex)
-
-            // Check-Out guest from hotel
-            Checkout();
+            if (c.ExpDate < DateTime.Now)
+            {
+                statusBlk.Text = "Error: Credit card expiry date cannot be later than today!";
+                statusMsg.Show();
+            }
+            else
+            {
+                // Check-Out guest from hotel
+                Checkout();
+            }
         }
 
 
