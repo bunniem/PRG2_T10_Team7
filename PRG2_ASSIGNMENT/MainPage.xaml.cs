@@ -119,7 +119,7 @@ namespace PRG2_ASSIGNMENT
             paymentModePage.UIElements = new List<UIElement> { paymentModeBlk, payByCashBtn, payByCreditCardBtn };
 
             // Payment by credit card page (credit card button is clicked)
-            payByCreditCardPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn };
+            payByCreditCardPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn, BackBtn4 };
         }
 
         public MainPage()
@@ -969,6 +969,12 @@ namespace PRG2_ASSIGNMENT
             payByCreditCardPage.Hide();
             frontPage.Show();
             statusMsg.Show();
+        }
+
+        private void BackBtn4_Click(object sender, RoutedEventArgs e)
+        {
+            payByCreditCardPage.Hide();
+            paymentModePage.Show();
         }
     }
 }
