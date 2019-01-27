@@ -334,6 +334,11 @@ namespace PRG2_ASSIGNMENT
                     // error: non numerical characters in points field
                     statusBlk.Text = "Error: Non-numerical characters entered for points to redeem!";
                 }
+                else if (redeempoints <= 0)
+                {
+                    // error: negative or zero in points field
+                    statusBlk.Text = "Error: Negative number or zero entered for points to redeem!";
+                }
                 else if (redeempoints > guest.Membership.Points)
                 {
                     // error: points entered more than current points
@@ -584,14 +589,18 @@ namespace PRG2_ASSIGNMENT
                 // error: no number of occupants entered
                 statusBlk.Text = "Error: Number of guests not entered for adult or children!\nIf there are no children, please enter '0'.";
             }
-            else if (adultnoTxt.Text == "0")
+            else if (!int.TryParse(adultnoTxt.Text, out int adultNo) || !int.TryParse(childrennoTxt.Text, out int childrenNo))
+            {
+                statusBlk.Text = "Error: Non-numerical characters entered for pax!";
+            }
+            else if (adultNo == 0)
             {
                 // error: no adults entered
                 statusBlk.Text = "Error: There must be at least 1 adult!";
             }
-            else if (!int.TryParse(adultnoTxt.Text, out _) || !int.TryParse(childrennoTxt.Text, out _))
+            else if (adultNo < 0 || childrenNo < 0)
             {
-                statusBlk.Text = "Error: Non-numerical characters entered for pax!";
+                statusBlk.Text = "Error: Negative number entered for number of guests!";
             }
             else
             {
