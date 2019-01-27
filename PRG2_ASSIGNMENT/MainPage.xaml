@@ -11,7 +11,7 @@
     <Grid>
         <TextBlock x:Name="title"  FontWeight="Bold"  FontSize="40" HorizontalAlignment="Left" TextAlignment="Center" TextWrapping="Wrap" Text="Hotel Guest Management System" VerticalAlignment="Top" Height="64" Width="1270" Margin="10,0,0,0"/>
         <TextBlock x:Name="guestBlk" HorizontalAlignment="Left" Margin="386,75,0,0" TextWrapping="Wrap" FontSize="22" Text="Name of guest:" VerticalAlignment="Top" Width="215" Height="36"/>
-        <TextBox x:Name="guestTxt" HorizontalAlignment="Left" Text="Amelia" Margin="386,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Height="18"/>
+        <TextBox x:Name="guestTxt" HorizontalAlignment="Left" Margin="386,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Height="18"/>
         <TextBlock x:Name="ppBlk" HorizontalAlignment="Left" Margin="386,159,0,0" TextWrapping="Wrap" FontSize="22" Text="Passport Number:" VerticalAlignment="Top" Width="215" Height="36"/>
         <TextBox x:Name="ppTxt" HorizontalAlignment="Left" Margin="386,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Height="18" Text=""/>
         <TextBlock x:Name="adultnoBlk" HorizontalAlignment="Left" Margin="678,75,0,0" TextWrapping="Wrap" FontSize="22" Text="No. of Adults:" VerticalAlignment="Top" Width="162" Height="36"/>
