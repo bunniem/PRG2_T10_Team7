@@ -115,10 +115,10 @@ namespace PRG2_ASSIGNMENT
             // Status messages (for error or informational messages)
             statusMsg.UIElements = new List<UIElement> { statusBlk, hideBtn };
 
-            // Show mode of payment page (check out button is clicked)
+            // Mode of payment page (check out button is clicked)
             paymentModePage.UIElements = new List<UIElement> { paymentModeBlk, payByCashBtn, payByCreditCardBtn };
 
-            // Show payment by credit card page (credit card button is clicked)
+            // Payment by credit card page (credit card button is clicked)
             payByCreditCardPage.UIElements = new List<UIElement> { guestBlk, guestTxt, ppBlk, ppTxt, ccnumberBlk, ccnumberTxt, ccExpiryDateBlk, ccExpiryDateTxt, cccvvBlk, cccvvTxt, creditcardBlk, creditcardLv, creditcardchkoutBtn, addcreditcardBtn, removecreditcardBtn };
         }
 
@@ -431,14 +431,15 @@ namespace PRG2_ASSIGNMENT
                 availRms.Sort(); // sort available room list
                 guest.IsCheckedIn = false; // guest not checked in
 
-                // enable input for textboxes                    
-                guestTxt.IsReadOnly = false;
-                ppTxt.IsReadOnly = false;
+                //// enable input for textboxes                    
+                //guestTxt.IsReadOnly = false;
+                //ppTxt.IsReadOnly = false;
 
                 /* Reset all fields to blank */
                 guestTxt.Text = "";
                 ppTxt.Text = "";
                 pointsTxt.Text = "";
+                statusMsg.Hide();
 
                 //// display message
                 //statusBlk.Text = "Check-Out successful!\n";
