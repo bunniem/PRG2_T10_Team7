@@ -931,7 +931,11 @@ namespace PRG2_ASSIGNMENT
                 /* Set addon booleans for rooms to false */
                 if (r is DeluxeRoom dr)
                 {
+                    if (dr.AdditionalBed == true)
+                    {
                     dr.AdditionalBed = false;
+                    dr.NoOfOccupants -= 1;
+                    }
                 }
                 else if (r is StandardRoom sr)
                 {
