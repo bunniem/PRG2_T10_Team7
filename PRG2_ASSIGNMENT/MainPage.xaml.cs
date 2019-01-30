@@ -38,12 +38,12 @@ namespace PRG2_ASSIGNMENT
             HotelRoom s201 = new StandardRoom("201", "Twin", 110.0, true, 2);
             HotelRoom s202 = new StandardRoom("202", "Twin", 110.0, true, 2);
             HotelRoom s203 = new StandardRoom("203", "Twin", 110.0, true, 2);
-            HotelRoom d204 = new DeluxeRoom("204", "Twin", 140.0, true, 3);
-            HotelRoom d205 = new DeluxeRoom("205", "Twin", 140.0, true, 3);
+            HotelRoom d204 = new DeluxeRoom("204", "Twin", 140.0, true, 2);
+            HotelRoom d205 = new DeluxeRoom("205", "Twin", 140.0, true, 2);
             HotelRoom s301 = new StandardRoom("301", "Triple", 120.0, true, 3);
             HotelRoom s302 = new StandardRoom("302", "Triple", 120.0, true, 3);
-            HotelRoom d303 = new DeluxeRoom("303", "Triple", 210.0, true, 4);
-            HotelRoom d304 = new DeluxeRoom("304", "Triple", 210.0, true, 4);
+            HotelRoom d303 = new DeluxeRoom("303", "Triple", 210.0, true, 3);
+            HotelRoom d304 = new DeluxeRoom("304", "Triple", 210.0, true, 3);
 
             // Add rooms to hotelRoomList
             HotelRoom[] rooms = { s101, s102, s201, s202, s203, s301, s302, d204, d205, d303, d304 };
@@ -749,6 +749,7 @@ namespace PRG2_ASSIGNMENT
                 if (bedCb.IsChecked == true)
                 {
                     dr.AdditionalBed = true;
+                    dr.NoOfOccupants += 1;
                 }
             }
             else if (r is StandardRoom sr)
@@ -802,7 +803,11 @@ namespace PRG2_ASSIGNMENT
             /* Set addon booleans for rooms to false */
             if (r is DeluxeRoom dr)
             {
-                dr.AdditionalBed = false;
+                if (dr.AdditionalBed == true)
+                {
+                    dr.AdditionalBed = false;
+                    dr.NoOfOccupants -= 1;
+                }
             }
             else if (r is StandardRoom sr)
             {
